@@ -2,6 +2,7 @@ import 'package:capstone_front/controller/login_controller.dart';
 import 'package:capstone_front/screen/auth/CustomSide/spaceing_box.dart';
 import 'package:capstone_front/screen/auth/CustomSide/color_theme.dart';
 import 'package:capstone_front/screen/auth/authPages/cerfication_page.dart';
+import 'package:capstone_front/utils/img.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -34,6 +35,9 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(height: 14),
+            Image.asset(gbswLogoUrl,width: 90),
+            height30,
             'GBSW 귀가버스 관리 시스템'
             .text
             .textStyle(
@@ -43,10 +47,10 @@ class _LoginPageState extends State<LoginPage> {
             ).size(18).make(),
 
             height30,height5,
-            InputTextFieldWidget(textEditingController: loginController.emailController, hitText: '아이디',),
+            InputTextFieldWidget(textEditingController: loginController.emailController, hitText: '아이디',  blindetext: false),
 
             height15,
-            InputTextFieldWidget(textEditingController: loginController.passwordController, hitText: '패스워드',),
+            InputTextFieldWidget(textEditingController: loginController.passwordController, hitText: '패스워드',  blindetext: true),
             
             height30,height5,
             SubmitButton(
@@ -72,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ).pSymmetric(h:25)
           ],
-        )
+        ).pOnly(bottom: MediaQuery.of(context).size.width * 0.3)
       ),
     );
   }

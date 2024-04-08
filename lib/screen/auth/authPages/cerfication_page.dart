@@ -4,6 +4,7 @@ import 'package:capstone_front/screen/auth/authPages/change_pw_page.dart';
 import 'package:capstone_front/screen/auth/authPages/login_page.dart';
 import 'package:capstone_front/screen/auth/widgets/input_Field.dart';
 import 'package:capstone_front/screen/auth/widgets/submit_button.dart';
+import 'package:capstone_front/utils/img.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -36,7 +37,9 @@ class _CerficationPageState extends State<CerficationPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            //Image.asset(name),
+            const SizedBox(height: 14),
+            Image.asset(gbswLogoUrl,width: 90),
+            height30,
 
             'GBSW 귀가버스 관리 시스템'
             .text
@@ -47,9 +50,9 @@ class _CerficationPageState extends State<CerficationPage> {
             ).size(18).make(),
             
             height30,height5,
-            InputTextFieldWidget(textEditingController:  cerficationController.callNumberController, hitText:  '전화번호'),
+            InputTextFieldWidget(textEditingController:  cerficationController.callNumberController, hitText:  '전화번호', blindetext: false,),
             height15,
-            InputTextFieldWidget(textEditingController: cerficationController.cerficationNumberController, hitText: '인증번호'),
+            InputTextFieldWidget(textEditingController: cerficationController.cerficationNumberController, hitText: '인증번호', blindetext: false),
             height30,height5,
             SubmitButton(
               onPressed: () => 
@@ -59,7 +62,7 @@ class _CerficationPageState extends State<CerficationPage> {
               title: '인증하기',
             ),
           ],
-        ).pOnly(bottom:95)
+        ).pOnly(bottom: MediaQuery.of(context).size.width * 0.55)
       ),
     );
   }

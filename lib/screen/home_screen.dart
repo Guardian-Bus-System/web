@@ -1,3 +1,4 @@
+import 'package:capstone_front/screen/auth/CustomSide/color_theme.dart';
 import 'package:capstone_front/screen/auth/CustomSide/spaceing_box.dart';
 import 'package:capstone_front/screen/auth/authPages/login_page.dart';
 import 'package:capstone_front/screen/auth/widgets/drawer_widget.dart';
@@ -43,17 +44,18 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(70.0),
           child: AppBar(
+            backgroundColor: backgroundColors,
         title: '홈'.text.bold.size(20).make().pSymmetric(h:10),
-        // actions: [
-        //   TextButton(
-        //     onPressed: () async {
-        //       final SharedPreferences? prefs = await _prefs;
-        //       prefs?.clear();
-        //       Get.offAll(LoginPage());
-        //     },
-        //     child: 'logout'.text.make()
-        //   ),
-        // ],
+         actions: [
+           TextButton(
+             onPressed: () async {
+               final SharedPreferences? prefs = await _prefs;
+               prefs?.clear();
+               Get.offAll(LoginPage());
+             },
+             child: 'logout'.text.make()
+           ),
+        ],
       ),),
       endDrawer: DrawerWidget(),
       body: Center(

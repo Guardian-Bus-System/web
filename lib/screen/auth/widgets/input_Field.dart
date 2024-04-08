@@ -6,8 +6,9 @@ import 'package:flutter/services.dart';
 class InputTextFieldWidget extends StatefulWidget {
   final TextEditingController textEditingController;
   final String hitText;
+  final bool blindetext;
 
-  const InputTextFieldWidget({Key? key, required this.textEditingController, required this.hitText}) : super(key: key);
+  const InputTextFieldWidget({Key? key, required this.textEditingController, required this.hitText, required this.blindetext}) : super(key: key);
 
   @override
   _InputTextFieldWidgetState createState() => _InputTextFieldWidgetState();
@@ -34,6 +35,7 @@ class _InputTextFieldWidgetState extends State<InputTextFieldWidget> {
       widget: TextField(
         controller: widget.textEditingController,
         cursorColor: Colors.blue,
+        obscureText: widget.blindetext ? true : false,
         inputFormatters: widget.hitText == '전화번호' ?
           <TextInputFormatter>[
             FilteringTextInputFormatter.digitsOnly,

@@ -28,7 +28,7 @@ class SubmitButton extends StatelessWidget {
           title
             .text
             .size(FontSiz15)
-            .color(bacgroundAndTextColor)
+            .color(bacgroundOrTextColor)
             .make()
       ),
     );
