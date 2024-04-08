@@ -1,5 +1,5 @@
 import 'package:capstone_front/controller/cerfication_controller.dart';
-import 'package:capstone_front/screen/auth/CustomSide/spaceing_box.dart';
+import 'package:capstone_front/screen/CustomSide/spaceing_box.dart';
 import 'package:capstone_front/screen/auth/authPages/change_pw_page.dart';
 import 'package:capstone_front/screen/auth/authPages/login_page.dart';
 import 'package:capstone_front/screen/auth/widgets/input_Field.dart';

@@ -1,11 +1,12 @@
-import 'package:capstone_front/screen/auth/CustomSide/font_size.dart';
-import 'package:capstone_front/screen/auth/CustomSide/spaceing_box.dart';
+import 'package:capstone_front/screen/CustomSide/font_size.dart';
+import 'package:capstone_front/screen/CustomSide/spaceing_box.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ScrollingTextWidget extends StatefulWidget {
-  //final String moveText;
+  final String moveText;
+
+  const ScrollingTextWidget({required this.moveText });
   
   @override
   _ScrollingTextWidgetState createState() => _ScrollingTextWidgetState();
@@ -19,6 +20,7 @@ class _ScrollingTextWidgetState extends State<ScrollingTextWidget> with SingleTi
   
   @override
   void initState() {
+    
     super.initState();
     _controller = AnimationController(
       vsync: this,
@@ -26,7 +28,7 @@ class _ScrollingTextWidgetState extends State<ScrollingTextWidget> with SingleTi
     )..repeat();
     _controller.addListener(() {
       setState(() {
-        _scrollPosition = _controller.value * (_containerWidth * 2); // 텍스트가 움직이는 위치
+        _scrollPosition = _controller.value * (_containerWidth * 2.5); // 텍스트가 움직이는 위치
       });
     });
   }
@@ -52,7 +54,7 @@ class _ScrollingTextWidgetState extends State<ScrollingTextWidget> with SingleTi
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
+                  color: Colors.grey.withOpacity(0.3),
                   spreadRadius: 1,
                   blurRadius: 1,
                   offset: Offset(0, 1),
@@ -72,12 +74,10 @@ class _ScrollingTextWidgetState extends State<ScrollingTextWidget> with SingleTi
                   clipBehavior: Clip.hardEdge,
                   child: Stack(
                     children: [
-                      
                       Positioned(
                         right: _scrollPosition - (screenWidth - 90),
-                        child: '긴 텍스트를 천천히 왼쪽으로 스크롤하는 예제입니다dddddddddddddd.'.text.size(FontSiz14).make()
+                        child: widget.moveText.text.size(FontSiz14).make()
                       ),
-                      
                     ],
                   ),
                 ),

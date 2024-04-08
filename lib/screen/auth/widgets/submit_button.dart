@@ -1,5 +1,5 @@
-import 'package:capstone_front/screen/auth/CustomSide/color_theme.dart';
-import 'package:capstone_front/screen/auth/CustomSide/font_size.dart';
+import 'package:capstone_front/screen/CustomSide/color_theme.dart';
+import 'package:capstone_front/screen/CustomSide/font_size.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 

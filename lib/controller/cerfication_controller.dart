@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:capstone_front/screen/home_screen.dart';
+import 'package:capstone_front/screen/pages/home_screen.dart';
 import 'package:capstone_front/utils/api_endpoint.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

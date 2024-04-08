@@ -1,6 +1,6 @@
 import 'package:capstone_front/controller/login_controller.dart';
-import 'package:capstone_front/screen/auth/CustomSide/spaceing_box.dart';
-import 'package:capstone_front/screen/auth/CustomSide/color_theme.dart';
+import 'package:capstone_front/screen/CustomSide/spaceing_box.dart';
+import 'package:capstone_front/screen/CustomSide/color_theme.dart';
 import 'package:capstone_front/screen/auth/authPages/cerfication_page.dart';
 import 'package:capstone_front/utils/img.dart';
 import 'package:flutter/material.dart';
