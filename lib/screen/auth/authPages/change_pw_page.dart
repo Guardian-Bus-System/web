@@ -1,0 +1,70 @@
+import 'package:capstone_front/controller/change_pw_controller.dart';
+import 'package:capstone_front/screen/auth/CustomSide/font_size.dart';
+import 'package:capstone_front/screen/auth/CustomSide/spaceing_box.dart';
+import 'package:capstone_front/screen/auth/authPages/login_page.dart';
+import 'package:capstone_front/screen/auth/widgets/input_Field.dart';
+import 'package:capstone_front/screen/auth/widgets/submit_button.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:velocity_x/velocity_x.dart';
+
+class ChangePwPage extends StatefulWidget {
+  final String userName;
+  const ChangePwPage({super.key, required this.userName});
+
+  @override
+  State<ChangePwPage> createState() => _ChangePwPageState();
+}
+
+class _ChangePwPageState extends State<ChangePwPage> {
+  ChangePasswordController changePasswordController = Get.put(ChangePasswordController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(103.0),
+        child: AppBar(
+          leading: IconButton(
+            onPressed: (){
+              Get.offAll(const LoginPage());
+            },
+            icon: const Icon(Icons.arrow_back)
+          ),
+        ).pSymmetric(h: 15, v: 25),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            //Image.asset(name),
+
+            'GBSW 귀가버스 관리 시스템'
+            .text
+            .textStyle(
+              TextStyle(
+                fontWeight: FontWeight.w800
+              )
+            ).size(18).make(),
+            
+            height20,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                '${widget.userName}님 환영합니다.'.text.size(FontSiz14).make().pSymmetric(h: 25, v: 2),
+              ],
+            ),
+            InputTextFieldWidget(textEditingController:  changePasswordController.passwordController, hitText:  '변경할 패스워드 입력'),
+            height15,
+            InputTextFieldWidget(textEditingController: changePasswordController.checkPasswordController, hitText: '패스워드 확인'),
+            height30,height5,
+            SubmitButton(
+              onPressed: () => changePasswordController.changeWithPassword(),
+              title: '변경하기',
+            ),
+          ],
+        ).pOnly(bottom:95)
+      ),
+    );
+  }
+}
