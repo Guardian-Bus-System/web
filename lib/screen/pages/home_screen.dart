@@ -1,14 +1,12 @@
-import 'package:capstone_front/screen/CustomSide/color_theme.dart';
-import 'package:capstone_front/screen/CustomSide/font_size.dart';
 import 'package:capstone_front/screen/CustomSide/spaceing_box.dart';
-import 'package:capstone_front/screen/auth/authPages/login_page.dart';
+import 'package:capstone_front/screen/auth/widgets/bus/busList_container.dart';
+import 'package:capstone_front/screen/auth/widgets/bus/busUserInfo_container.dart';
+import 'package:capstone_front/screen/auth/widgets/custom_appbar.dart';
 import 'package:capstone_front/screen/auth/widgets/drawer_widget.dart';
 import 'package:capstone_front/screen/auth/widgets/formatter.dart';
 import 'package:capstone_front/screen/auth/widgets/scrolling_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -28,15 +26,12 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     date = getFormattedDateTime();
     super.initState();
-    // initState에서 토큰을 미리 확인
-    //_checkToken();
   }
 
   @override
   void dispose() {
     super.dispose();
   }
-
   // 토큰 확인 함수
   // Future<void> _checkToken() async {
   //   final SharedPreferences prefs = await _prefs;
@@ -55,16 +50,9 @@ class _HomeScreenState extends State<HomeScreen> {
     double screenWidth = MediaQuery.of(context).size.width - 50;
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(70.0),
-        child: AppBar(
-          backgroundColor: backgroundColor,
-          title: '홈'.text.bold.size(20).make().pSymmetric(h:10),
-          iconTheme: const IconThemeData(
-            size: 30,
-            color: Color.fromARGB(255, 45, 45, 45),
-          ),
-        ),
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(70.0),
+        child: CustomAppBar(),
       ),
       endDrawer:const DrawerWidget(),
       body: Center(
@@ -75,40 +63,11 @@ class _HomeScreenState extends State<HomeScreen> {
               moveText: '움직이는 공지 텍스트 입니다. 길이가 길어지면 그만큼 속도가 조절 됩니다.'
             ),
             height20,height5,
-            Container(
-              color: backgroundColor,
-              height: 173,
-              width: screenWidth,
-              child: Stack(
-                children: [
-                  //버스 이미지 필요
-                  Column(
-                    children: [
-                      Row(children: [
-                        'xxx님, 안녕하세요!'.text.size(FontSiz18).make()]),
-                      Row(children: [
-                        date.text.size(FontSiz12).color(baseColor).make()]),
-                      height20,
-                      Container(
-                        height: 106,
-                        width: screenWidth,
-                        decoration: BoxDecoration(
-                          color: baseColor,
-                          borderRadius: BorderRadius.circular(13),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.7),
-                              spreadRadius: 0,
-                              blurRadius: 7.0,
-                              offset: Offset(0, 6), // changes position of shadow
-                            ),],
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            )
+            BusUserInfoConatainer(
+              date: date, containerHeight: 173, containerWidth: screenWidth,
+            ),
+            height20,height20,
+            BusListContainer(listItemHeight: 70, listItemWidth: screenWidth)
           ],
         ).pOnly(left:10),
       )
