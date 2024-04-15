@@ -1,6 +1,6 @@
 import 'package:capstone_front/screen/CustomSide/font_size.dart';
 import 'package:capstone_front/screen/CustomSide/spaceing_box.dart';
-import 'package:capstone_front/screen/auth/widgets/bus/busListItem_widget.dart';
+import 'package:capstone_front/screen/widget/bus/busListItem_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -22,14 +22,14 @@ class _BusListContainerState extends State<BusListContainer> {
     return Column(
       children: [
         Row(children: [
-          '버스목록'.text.size(FontSiz18).make()]),
+          '버스목록'.text.size(FontSiz18).make().pOnly(left: 15)]),
         height15,
         Column(
           children: [
-            Container(
+            SizedBox(
               width: widget.listItemWidth,
-              height: 316,
-              child: ListView.builder(
+              height: widget.listItemHeight * 0.38,
+              child: ListView.builder(  
                 itemCount: 12,
                 itemBuilder: (BuildContext context, int index) {
                   return BusListItemWidget(

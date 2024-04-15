@@ -1,14 +1,15 @@
+import 'package:capstone_front/screen/CustomSide/color_theme.dart';
 import 'package:capstone_front/screen/CustomSide/spaceing_box.dart';
-import 'package:capstone_front/screen/auth/widgets/bus/busList_container.dart';
-import 'package:capstone_front/screen/auth/widgets/bus/busUserInfo_container.dart';
-import 'package:capstone_front/screen/auth/widgets/custom_appbar.dart';
-import 'package:capstone_front/screen/auth/widgets/drawer_widget.dart';
+import 'package:capstone_front/screen/widget/bus/busList_container.dart';
+import 'package:capstone_front/screen/widget/bus/busUserInfo_container.dart';
+import 'package:capstone_front/screen/widget/custom_appbar.dart';
 import 'package:capstone_front/screen/auth/widgets/formatter.dart';
 import 'package:capstone_front/screen/auth/widgets/scrolling_text.dart';
+import 'package:capstone_front/screen/pages/notification_screen.dart';
+import 'package:capstone_front/screen/widget/notification/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,12 +19,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();  
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   var tokens = 'No Token'.obs; 
   String date = '';
 
   @override
   void initState() {
+    //초기화
+    FlutterLocalNotification.init();
+
+    // 화면 
+     // 3초 후 권한 요청      
+    Future.delayed(const Duration(seconds: 3),  
+    FlutterLocalNotification.requestNotificationPermission()); 
+
     date = getFormattedDateTime();
     super.initState();
   }
@@ -50,26 +60,38 @@ class _HomeScreenState extends State<HomeScreen> {
     double screenWidth = MediaQuery.of(context).size.width - 50;
 
     return Scaffold(
-      appBar: const PreferredSize(
+      key: _scaffoldKey,
+      appBar: PreferredSize(
         preferredSize: Size.fromHeight(70.0),
-        child: CustomAppBar(),
+        child: CustomAppBar(
+          appBarTitle: '홈',
+        ),
       ),
-      endDrawer:const DrawerWidget(),
-      body: Center(
-        child: Column(
-          children: [
-            height10,
-            const ScrollingTextWidget(
-              moveText: '움직이는 공지 텍스트 입니다. 길이가 길어지면 그만큼 속도가 조절 됩니다.'
-            ),
-            height20,height5,
-            BusUserInfoConatainer(
-              date: date, containerHeight: 173, containerWidth: screenWidth,
-            ),
-            height20,height20,
-            BusListContainer(listItemHeight: 70, listItemWidth: screenWidth)
-          ],
-        ).pOnly(left:10),
+      body: Container(
+        color: backgroundColor,
+        child: Center(
+          child: Column(
+            children: [
+              height10,
+              InkWell(
+                onTap: () {
+                  Get.offAll(
+                    NotificationScreen()
+                  );
+                  FlutterLocalNotification.showNotification();
+                },
+                child: const ScrollingTextWidget(
+                  moveText: '움직이는 공지 텍스트 입니다. 길이가 길어지면 그만큼 속도가 조절 됩니다.'
+                ),
+              ),
+              height20,height5,
+              BusUserInfoConatainer(
+                date: date, containerHeight: screenHeight, containerWidth: screenWidth,
+              ),
+              BusListContainer(listItemHeight: screenHeight, listItemWidth: screenWidth)
+            ],
+          ),
+        ),
       )
     );
   }

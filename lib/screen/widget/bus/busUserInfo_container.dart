@@ -1,7 +1,7 @@
 import 'package:capstone_front/screen/CustomSide/color_theme.dart';
 import 'package:capstone_front/screen/CustomSide/font_size.dart';
 import 'package:capstone_front/screen/CustomSide/spaceing_box.dart';
-import 'package:capstone_front/screen/auth/widgets/bus/busUserInfo.dart';
+import 'package:capstone_front/screen/widget/bus/busUserInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -22,7 +22,7 @@ class _BusUserInfoConatainerState extends State<BusUserInfoConatainer> {
   Widget build(BuildContext context) {
     return Container(
       color: backgroundColor,
-      height: widget.containerHeight,
+      height: widget.containerHeight * 0.26,
       width: widget.containerWidth,
       child: Stack(
         children: [
@@ -35,7 +35,7 @@ class _BusUserInfoConatainerState extends State<BusUserInfoConatainer> {
                 widget.date.text.size(FontSiz12).color(baseColor).make()]),
               height20,
               BusUserInfo(
-                containerHeight: 106, 
+                containerHeight: (widget.containerHeight * 0.3) * 0.5, 
                 containerWidth: widget.containerWidth
               ),
             ],

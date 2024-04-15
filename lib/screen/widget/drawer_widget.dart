@@ -13,7 +13,6 @@ class DrawerWidget extends StatelessWidget {
     final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     
     return Container(
-      width: MediaQuery.of(context).size.width - 120, // drawer width 크기조절
       child: Drawer(
         backgroundColor: Colors.white,
         child: Column(
@@ -30,6 +29,14 @@ class DrawerWidget extends StatelessWidget {
             Flexible(
               child: Container(
                 color: Colors.blue,
+                child: SubmitButton(
+                  title: '공지',
+                  onPressed:() async {
+                    final SharedPreferences? prefs = await _prefs;
+                    prefs?.clear();
+                    Get.offAll(LoginPage());
+                  },
+                )
               ),
             ),
             Flexible(
