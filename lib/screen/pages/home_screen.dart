@@ -2,14 +2,19 @@ import 'package:capstone_front/screen/CustomSide/color_theme.dart';
 import 'package:capstone_front/screen/CustomSide/spaceing_box.dart';
 import 'package:capstone_front/screen/widget/bus/busList_container.dart';
 import 'package:capstone_front/screen/widget/bus/busUserInfo_container.dart';
+import 'package:capstone_front/screen/widget/customHomeAppbarWidget.dart';
 import 'package:capstone_front/screen/widget/custom_appbar.dart';
 import 'package:capstone_front/screen/auth/widgets/formatter.dart';
 import 'package:capstone_front/screen/auth/widgets/scrolling_text.dart';
 import 'package:capstone_front/screen/pages/notification_screen.dart';
+import 'package:capstone_front/screen/widget/drawer_widget.dart';
 import 'package:capstone_front/screen/widget/notification/notification.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -54,41 +59,49 @@ class _HomeScreenState extends State<HomeScreen> {
   //   }
   // }
 
-  @override
-  Widget build(BuildContext context) {
+  
+    @override
+    Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width - 50;
 
     return Scaffold(
       key: _scaffoldKey,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70.0),
-        child: CustomAppBar(
-          appBarTitle: '홈',
-        ),
-      ),
+      endDrawer: DrawerWidget(),
       body: Container(
         color: backgroundColor,
         child: Center(
           child: Column(
             children: [
-              height10,
-              InkWell(
-                onTap: () {
-                  Get.offAll(
-                    NotificationScreen()
-                  );
-                  FlutterLocalNotification.showNotification();
-                },
-                child: const ScrollingTextWidget(
-                  moveText: '움직이는 공지 텍스트 입니다. 길이가 길어지면 그만큼 속도가 조절 됩니다.'
+              CustonHomeAppbarWidget(scaffoldKey: _scaffoldKey),
+              height5,
+              Divider(),
+              height5,
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Get.to(
+                            NotificationScreen()
+                            //screenWidth: screenWidth
+                          );
+                          FlutterLocalNotification.showNotification();
+                        },
+                        child: const ScrollingTextWidget(
+                          moveText: '움직이는 공지 텍스트 입니다. 길이가 길어지면 그만큼 속도가 조절 됩니다.'
+                        ),
+                      ),
+                      height20,height5,
+                      BusUserInfoConatainer(
+                        date: date, containerHeight: screenHeight, containerWidth: screenWidth,
+                      ),
+                      BusListContainer(listItemHeight: screenHeight, listItemWidth: screenWidth)
+                    ],
+                  ),
                 ),
               ),
-              height20,height5,
-              BusUserInfoConatainer(
-                date: date, containerHeight: screenHeight, containerWidth: screenWidth,
-              ),
-              BusListContainer(listItemHeight: screenHeight, listItemWidth: screenWidth)
             ],
           ),
         ),

@@ -1,3 +1,4 @@
+import 'package:capstone_front/screen/CustomSide/color_theme.dart';
 import 'package:capstone_front/screen/pages/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -12,7 +13,6 @@ void main() {
     DeviceOrientation.portraitDown,
   ]);
 
-
   runApp(const MyApp());
 }
 
@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      theme: ThemeData( scaffoldBackgroundColor: backgroundColor),
       debugShowCheckedModeBanner: false,
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,

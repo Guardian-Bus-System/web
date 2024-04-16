@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
+import 'notificationListItem.dart'; 
 
-class NotificationListContainer extends StatefulWidget {
+class NotificationListContainer extends StatelessWidget {
   const NotificationListContainer({super.key});
 
   @override
-  State<NotificationListContainer> createState() => _NotificationListContainerState();
-}
-
-class _NotificationListContainerState extends State<NotificationListContainer> {
-  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          child: ListView(),
-        )
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: List.generate(20, (index) => NotificationListItem()),
+      ),
     );
   }
 }

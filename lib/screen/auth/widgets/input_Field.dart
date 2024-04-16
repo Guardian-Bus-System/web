@@ -59,8 +59,8 @@ class _InputTextFieldWidgetState extends State<InputTextFieldWidget> {
           fillColor: Colors.white,
           suffixIcon: widget.hitText == '전화번호' ? // 상태에 따라 아이콘 생성
             IconButton(
-                icon: Icon(Icons.send, color: _isTextFieldEmpty ? Colors.grey : Colors.blue), // 텍스트 필드가 비어있지 않으면 파란색 아이콘을 보여줍니다.
-                onPressed: () => {}
+              icon: Icon(Icons.send, color: _isTextFieldEmpty ? Colors.grey : Colors.blue), // 텍스트 필드가 비어있지 않으면 파란색 아이콘을 보여줍니다.
+              onPressed: () => {}
             )
               : null,
         ),

@@ -8,6 +8,12 @@ String getFormattedDateTime() {
   return '${formatter.format(now)} $dayOfTheWeek요일';
 }
 
+String getFormattedDateDashTime() {
+  DateTime now = DateTime.now();
+  DateFormat formatter = DateFormat('yyyy-MM-dd');
+  return '${formatter.format(now)}';
+}
+
 class PhoneInputFormatter extends TextInputFormatter {
   static const kPhoneNumberPrefix = '010-';
 

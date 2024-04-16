@@ -24,24 +24,20 @@ class _BusListContainerState extends State<BusListContainer> {
         Row(children: [
           '버스목록'.text.size(FontSiz18).make().pOnly(left: 15)]),
         height15,
-        Column(
-          children: [
-            SizedBox(
-              width: widget.listItemWidth,
-              height: widget.listItemHeight * 0.38,
-              child: ListView.builder(  
-                itemCount: 12,
-                itemBuilder: (BuildContext context, int index) {
-                  return BusListItemWidget(
-                    listItemHeight: 70,
-                    listItemWidth: widget.listItemWidth,
-                  );
-                },
-              ),
-            ),
-          ],
+        SizedBox(
+          width: widget.listItemWidth,
+          child: ListView.builder(  
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: 12,
+            itemBuilder: (BuildContext context, int index) {
+              return BusListItemWidget(
+                listItemHeight: 70,
+                listItemWidth: widget.listItemWidth,
+              );
+            },
+          ),
         ),
-        
       ],
     ).pOnly(left: 10);
   }
