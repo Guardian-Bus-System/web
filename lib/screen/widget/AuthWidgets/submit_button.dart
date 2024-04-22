@@ -12,7 +12,8 @@ class SubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return JoinContainer(widget: 
+    return JoinContainer(
+      widget: 
       ElevatedButton(
         style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(

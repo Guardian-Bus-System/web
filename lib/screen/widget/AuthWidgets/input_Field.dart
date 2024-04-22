@@ -1,5 +1,5 @@
-import 'package:capstone_front/screen/auth/widgets/formatter.dart';
-import 'package:capstone_front/screen/auth/widgets/input_container.dart';
+import 'package:capstone_front/screen/widget/AuthWidgets/formatter.dart';
+import 'package:capstone_front/screen/widget/AuthWidgets/input_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

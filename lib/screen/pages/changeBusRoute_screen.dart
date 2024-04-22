@@ -1,6 +1,7 @@
 import 'package:capstone_front/screen/CustomSide/color_theme.dart';
 import 'package:capstone_front/screen/CustomSide/font_size.dart';
 import 'package:capstone_front/screen/CustomSide/spaceing_box.dart';
+import 'package:capstone_front/screen/widget/AuthWidgets/input_Field.dart';
 import 'package:capstone_front/screen/widget/bus/busRouteChange_container.dart';
 import 'package:capstone_front/screen/widget/bus/busTakeButtonWidget.dart';
 import 'package:capstone_front/screen/widget/custom_appbar.dart';
@@ -17,6 +18,8 @@ class ChangeBusRouteScreen extends StatefulWidget {
 }
 
 class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
+  TextEditingController textEditingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,11 +56,15 @@ class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
             BusRouteChangeContainer(
               containerName: '탑승 버스 선택',
               child: Container(),
-            ),
+            ),  
             height10,
             BusRouteChangeContainer(
               containerName: '변경 사유',
-              child: Container(),
+              child: InputTextFieldWidget(
+                textEditingController: textEditingController, 
+                hitText: '변경 사유를 입력해 주세요.\n(사유가 타당하지 않을 경우 경로 변경이 불가합니다.', 
+                blindetext: false
+              ),
             ),
           ],
         ).pSymmetric(h: 25),

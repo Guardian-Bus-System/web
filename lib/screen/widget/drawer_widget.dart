@@ -1,8 +1,13 @@
+import 'package:capstone_front/screen/CustomSide/color_theme.dart';
+import 'package:capstone_front/screen/CustomSide/font_size.dart';
+import 'package:capstone_front/screen/CustomSide/spaceing_box.dart';
 import 'package:capstone_front/screen/auth/authPages/login_page.dart';
-import 'package:capstone_front/screen/auth/widgets/submit_button.dart';
+import 'package:capstone_front/screen/widget/AuthWidgets/submit_button.dart';
+import 'package:capstone_front/utils/img.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
@@ -11,49 +16,56 @@ class DrawerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     
     final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-    
+    bool isLogin = false;
+
     return Container(
+      color: bacgroundOrTextColor,
       child: Drawer(
-        backgroundColor: Colors.white,
+        backgroundColor: drawerBacgroundColor,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            DrawerHeader(
-              child: Container(
-                decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1.5)),
-                child: Row(children: [Text('DrawerHeadeasddr')]),
-              ),
-              decoration: BoxDecoration(color: Colors.grey[400]),
-              padding: const EdgeInsets.all(30), // 검은테두리 밖의 회색영역
-              margin: const EdgeInsets.all(10), // 흰색 영역
+            Image.asset(GoBusLogo,width: 95),
+            height20,height5,
+            Row(
+              children: [
+                '학생'.text.bold.color(baseColor).size(FontSiz18).make(),
+                ' 3104 김주오'.text.bold.size(FontSiz18).make()
+              ],
             ),
-            Flexible(
-              child: Container(
-                color: Colors.blue,
-                child: SubmitButton(
-                  title: '공지',
-                  onPressed:() async {
-                    final SharedPreferences? prefs = await _prefs;
-                    prefs?.clear();
-                    Get.offAll(LoginPage());
-                  },
-                )
-              ),
+            height20,height20,
+
+            InkWell(
+              onTap: () async {
+                final SharedPreferences? prefs = await _prefs;
+                prefs?.clear();
+                // ignore: dead_code
+                if(isLogin){
+                  Get.offAll(const LoginPage());
+                }else{
+                  Get.offAll(LoginPage());
+                }
+              },
+              // ignore: dead_code
+              child: (isLogin ? '로그아웃' :'로그인' ).text.bold.size(FontSiz15).make(),
             ),
-            Flexible(
-              child: Container(
-                color: Colors.green,
-                child: SubmitButton(
-                  title: '로그인',
-                  onPressed:() async {
-                    final SharedPreferences? prefs = await _prefs;
-                    prefs?.clear();
-                    Get.offAll(LoginPage());
-                  },
-                )
-              ),
+            height20,
+            InkWell(
+              onTap: () {},
+              child: '회원정보 변경'.text.bold.size(FontSiz15).make(),
+            ),
+            height20,
+            InkWell(
+              onTap: () {},
+              child: '공지사항'.text.bold.size(FontSiz15).make(),
+            ),
+            height20,
+            InkWell(
+              onTap: () {},
+              child: '호차정보'.text.bold.size(FontSiz15).make(),
             ),
           ],
-        )
+        ).pOnly(top: 69, left: 29)
       ),
     );
   }

@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../widgets/input_Field.dart';
-import '../widgets/submit_button.dart';
+import '../../widget/AuthWidgets/input_Field.dart';
+import '../../widget/AuthWidgets/submit_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

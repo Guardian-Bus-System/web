@@ -21,8 +21,8 @@ class BusRouteChangeContainer extends StatelessWidget {
           BoxShadow(
             color: Colors.grey.withOpacity(0.1),
             spreadRadius: 0,
-            blurRadius: 2.0,
-            offset: const Offset(0, 10),
+            blurRadius: 4.0,
+            offset: const Offset(2, 10),
           ),], 
       ),
       child: Column(

@@ -15,19 +15,23 @@ class BusTakeButtonWidget extends StatefulWidget {
 class _BusTakeButtonWidgetState extends State<BusTakeButtonWidget> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 80, height: 35,
-      decoration: BoxDecoration(
-        color: widget.buttonText == "탑승" ? baseColor : backgroundColor,
-        border: Border.all(width: 1, color: baseColor),
-        borderRadius: BorderRadius.circular(10) 
-      ),
-      child: TextButton(
-        onPressed: () {}, 
-        style: ButtonStyle(
-          backgroundColor: MaterialStatePropertyAll( widget.buttonText == "탑승" ? baseColor : backgroundColor)
+    return InkWell(
+      onTap: () {
+        print('asdad');
+      },
+      child: Container(
+        width: 80, height: 35,
+        decoration: BoxDecoration(
+          color: widget.buttonText == "탑승" ? baseColor : backgroundColor,
+          border: Border.all(width: 1, color: baseColor),
+          borderRadius: BorderRadius.circular(10) 
         ),
-        child: widget.buttonText.text.color(widget.buttonText != "탑승" ? baseColor : white).size(FontSiz14).make()
+        child: Center(
+          child: widget.buttonText
+                  .text
+                  .color(widget.buttonText != "탑승" ? baseColor : white)
+                  .size(FontSiz14).make()
+        )
       ),
     );
   }
