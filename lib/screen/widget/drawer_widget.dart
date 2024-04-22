@@ -1,6 +1,7 @@
 import 'package:capstone_front/screen/CustomSide/color_theme.dart';
 import 'package:capstone_front/screen/CustomSide/font_size.dart';
 import 'package:capstone_front/screen/CustomSide/spaceing_box.dart';
+import 'package:capstone_front/screen/auth/authPages/change_pw_page.dart';
 import 'package:capstone_front/screen/auth/authPages/login_page.dart';
 import 'package:capstone_front/screen/widget/AuthWidgets/submit_button.dart';
 import 'package:capstone_front/utils/img.dart';
@@ -34,39 +35,56 @@ class DrawerWidget extends StatelessWidget {
               ],
             ),
             height20,height20,
-
-            InkWell(
+            customInkWell(
               onTap: () async {
                 final SharedPreferences? prefs = await _prefs;
                 prefs?.clear();
-                // ignore: dead_code
-                if(isLogin){
+                if (isLogin) {
                   Get.offAll(const LoginPage());
-                }else{
+                } else {
                   Get.offAll(LoginPage());
                 }
               },
-              // ignore: dead_code
-              child: (isLogin ? '로그아웃' :'로그인' ).text.bold.size(FontSiz15).make(),
+              text: isLogin ? '로그아웃' : '로그인',
             ),
             height20,
-            InkWell(
-              onTap: () {},
-              child: '회원정보 변경'.text.bold.size(FontSiz15).make(),
+            customInkWell(
+              onTap: () async {
+                // 여기에 async로 실행될 동작을 추가하세요
+                Get.to(ChangePwPage(userName: '나다 이씹새꺄',));
+              },
+              text: '회원정보 변경',
             ),
             height20,
-            InkWell(
-              onTap: () {},
-              child: '공지사항'.text.bold.size(FontSiz15).make(),
+            customInkWell(
+              onTap: () async {
+                // 여기에 async로 실행될 동작을 추가하세요
+                Get.toNamed('/notification'
+                  //screenWidth: screenWidth
+                );
+              },
+              text: '공지사항',
             ),
             height20,
-            InkWell(
-              onTap: () {},
-              child: '호차정보'.text.bold.size(FontSiz15).make(),
+            customInkWell(
+              onTap: () async {
+                // 여기에 async로 실행될 동작을 추가하세요
+              },
+              text: '호차정보',
             ),
           ],
         ).pOnly(top: 69, left: 29)
       ),
     );
   }
+}
+
+Widget customInkWell({
+  required Future<void> Function() onTap,
+  required String text,
+}) {
+  return InkWell(
+    onTap: onTap,
+    child: text.text.bold.size(FontSiz15).make(),
+  );
 }

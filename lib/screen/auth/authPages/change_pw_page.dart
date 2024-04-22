@@ -2,7 +2,6 @@ import 'package:capstone_front/controller/change_pw_controller.dart';
 import 'package:capstone_front/screen/CustomSide/color_theme.dart';
 import 'package:capstone_front/screen/CustomSide/font_size.dart';
 import 'package:capstone_front/screen/CustomSide/spaceing_box.dart';
-import 'package:capstone_front/screen/auth/authPages/login_page.dart';
 import 'package:capstone_front/screen/widget/AuthWidgets/input_Field.dart';
 import 'package:capstone_front/screen/widget/AuthWidgets/submit_button.dart';
 import 'package:capstone_front/utils/img.dart';
