@@ -30,7 +30,7 @@ class _ChangePwPageState extends State<ChangePwPage> {
           backgroundColor: backgroundColor,
           leading: IconButton(
             onPressed: (){
-              Get.offAll(const LoginPage());
+              Get.offAllNamed('/login');
             },
             icon: const Icon(Icons.arrow_back)
           ),

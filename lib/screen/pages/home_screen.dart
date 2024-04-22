@@ -3,10 +3,8 @@ import 'package:capstone_front/screen/CustomSide/spaceing_box.dart';
 import 'package:capstone_front/screen/widget/bus/busList_container.dart';
 import 'package:capstone_front/screen/widget/bus/busUserInfo_container.dart';
 import 'package:capstone_front/screen/widget/customHomeAppbarWidget.dart';
-import 'package:capstone_front/screen/widget/custom_appbar.dart';
 import 'package:capstone_front/screen/auth/widgets/formatter.dart';
 import 'package:capstone_front/screen/auth/widgets/scrolling_text.dart';
-import 'package:capstone_front/screen/pages/notification_screen.dart';
 import 'package:capstone_front/screen/widget/drawer_widget.dart';
 import 'package:capstone_front/screen/widget/notification/notification.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -83,8 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       InkWell(
                         onTap: () {
-                          Get.to(
-                            NotificationScreen()
+                          Get.toNamed('/notification'
                             //screenWidth: screenWidth
                           );
                           FlutterLocalNotification.showNotification();

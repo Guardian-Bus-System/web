@@ -6,7 +6,6 @@ class CustonHomeAppbarWidget extends StatefulWidget {
 
   const CustonHomeAppbarWidget({required this.scaffoldKey, Key? key}) : super(key: key);
 
-
   @override
   State<CustonHomeAppbarWidget> createState() => _CustonHomeAppbarWidgetState();
 }

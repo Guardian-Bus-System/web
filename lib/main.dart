@@ -1,5 +1,8 @@
 import 'package:capstone_front/screen/CustomSide/color_theme.dart';
+import 'package:capstone_front/screen/auth/authPages/login_page.dart';
 import 'package:capstone_front/screen/pages/home_screen.dart';
+import 'package:capstone_front/screen/pages/notification_screen.dart';
+import 'package:capstone_front/screen/widget/notification/notificationDetailWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -22,9 +25,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      theme: ThemeData( scaffoldBackgroundColor: backgroundColor),
+      theme: ThemeData( scaffoldBackgroundColor: backgroundColor ),
       debugShowCheckedModeBanner: false,
-      localizationsDelegates: [
+      localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate
       ],
@@ -33,7 +36,15 @@ class MyApp extends StatelessWidget {
       ],
       locale: const Locale('ko'),
       title: 'Flutter Demo',
-      home: HomeScreen()
+      home: HomeScreen(),
+      initialRoute: '/',
+      getPages: [
+        GetPage(name: '/', page: () => const HomeScreen()),
+        GetPage(name: '/notification', page: () => const NotificationScreen(), transition: Transition.downToUp),
+        GetPage(name: '/notification/detail', page: () => const NotificationDetailWidget()),
+        GetPage(name: '/login', page: () => const LoginPage()),
+        GetPage(name: '/certication', page: () => const NotificationScreen()),
+      ],
     );
   }
 }
