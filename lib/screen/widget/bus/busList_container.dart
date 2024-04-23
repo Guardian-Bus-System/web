@@ -1,5 +1,5 @@
-import 'package:capstone_front/screen/CustomSide/font_size.dart';
-import 'package:capstone_front/screen/CustomSide/spaceing_box.dart';
+import 'package:capstone_front/screen/widget/CustomSide/font_size.dart';
+import 'package:capstone_front/screen/widget/CustomSide/spaceing_box.dart';
 import 'package:capstone_front/screen/widget/bus/busListItem_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

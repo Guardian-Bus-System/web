@@ -1,8 +1,8 @@
 import 'package:capstone_front/controller/cerfication_controller.dart';
-import 'package:capstone_front/screen/CustomSide/color_theme.dart';
-import 'package:capstone_front/screen/CustomSide/spaceing_box.dart';
-import 'package:capstone_front/screen/auth/authPages/change_pw_page.dart';
-import 'package:capstone_front/screen/auth/authPages/login_page.dart';
+import 'package:capstone_front/screen/widget/CustomSide/color_theme.dart';
+import 'package:capstone_front/screen/widget/CustomSide/spaceing_box.dart';
+import 'package:capstone_front/screen/auth/change_pw_page.dart';
+import 'package:capstone_front/screen/auth/login_page.dart';
 import 'package:capstone_front/screen/widget/AuthWidgets/input_Field.dart';
 import 'package:capstone_front/screen/widget/AuthWidgets/submit_button.dart';
 import 'package:capstone_front/utils/img.dart';

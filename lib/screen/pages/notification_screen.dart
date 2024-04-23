@@ -1,4 +1,4 @@
-import 'package:capstone_front/screen/CustomSide/color_theme.dart';
+import 'package:capstone_front/screen/widget/CustomSide/color_theme.dart';
 import 'package:capstone_front/screen/widget/notification/notificationContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_front/screen/widget/custom_appbar.dart';

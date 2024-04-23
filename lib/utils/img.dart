@@ -1,2 +1,2 @@
-const gbswLogoUrl = "assets/images/gbswLogo.png";
-const GoBusLogo = "assets/images/GoBus.png";
+const gbswLogoUrl = "assets/images/gbswLogo.jpeg";
+const GoBusLogo = "assets/images/GoBus.jpeg";

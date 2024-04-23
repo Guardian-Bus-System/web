@@ -1,5 +1,5 @@
-import 'package:capstone_front/screen/CustomSide/color_theme.dart';
-import 'package:capstone_front/screen/CustomSide/spaceing_box.dart';
+import 'package:capstone_front/screen/widget/CustomSide/color_theme.dart';
+import 'package:capstone_front/screen/widget/CustomSide/spaceing_box.dart';
 import 'package:capstone_front/screen/widget/bus/busList_container.dart';
 import 'package:capstone_front/screen/widget/bus/busUserInfo_container.dart';
 import 'package:capstone_front/screen/widget/customHomeAppbarWidget.dart';

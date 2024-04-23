@@ -1,5 +1,5 @@
-import 'package:capstone_front/screen/CustomSide/color_theme.dart';
-import 'package:capstone_front/screen/auth/authPages/login_page.dart';
+import 'package:capstone_front/screen/widget/CustomSide/color_theme.dart';
+import 'package:capstone_front/screen/auth/login_page.dart';
 import 'package:capstone_front/screen/pages/home_screen.dart';
 import 'package:capstone_front/screen/pages/notification_screen.dart';
 import 'package:capstone_front/screen/widget/notification/notificationDetailWidget.dart';

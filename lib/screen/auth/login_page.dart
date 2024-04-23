@@ -1,14 +1,14 @@
 import 'package:capstone_front/controller/login_controller.dart';
-import 'package:capstone_front/screen/CustomSide/spaceing_box.dart';
-import 'package:capstone_front/screen/CustomSide/color_theme.dart';
-import 'package:capstone_front/screen/auth/authPages/cerfication_page.dart';
+import 'package:capstone_front/screen/widget/CustomSide/spaceing_box.dart';
+import 'package:capstone_front/screen/widget/CustomSide/color_theme.dart';
+import 'package:capstone_front/screen/auth/cerfication_page.dart';
 import 'package:capstone_front/utils/img.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../widget/AuthWidgets/input_Field.dart';
-import '../../widget/AuthWidgets/submit_button.dart';
+import '../widget/AuthWidgets/input_Field.dart';
+import '../widget/AuthWidgets/submit_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
