@@ -7,7 +7,7 @@ import 'package:capstone_front/screen/widget/AuthWidgets/formatter.dart';
 import 'package:capstone_front/screen/widget/AuthWidgets/scrolling_text.dart';
 import 'package:capstone_front/screen/widget/drawer_widget.dart';
 import 'package:capstone_front/screen/widget/notification/notification.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';  
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -56,9 +56,8 @@ class _HomeScreenState extends State<HomeScreen> {
   //   }
   // }
 
-  
-    @override
-    Widget build(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width - 50;
 
