@@ -1,13 +1,15 @@
+import 'package:capstone_front/model/UserModel.dart';
 import 'package:capstone_front/screen/widget/CustomSide/color_theme.dart';
 import 'package:capstone_front/screen/widget/CustomSide/font_size.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class BusUserInfo extends StatefulWidget {
+  late UserData user;
   final double containerWidth;
   final double containerHeight;
 
-  const BusUserInfo({super.key, required this.containerWidth, required this.containerHeight});
+  BusUserInfo({super.key, required this.user, required this.containerWidth, required this.containerHeight});
 
   @override
   State<BusUserInfo> createState() => _BusUserInfoState();
@@ -38,7 +40,11 @@ class _BusUserInfoState extends State<BusUserInfo> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  '1212 홍길동'
+                  '${widget.user.grade
+                  }${widget.user.classNumber
+                  }${widget.user.number > 9 
+                    ? widget.user.number 
+                    : '0${widget.user.number}'} ${widget.user.name}'
                     .text.bold
                     .size(FontSiz18)
                     .color(bacgroundOrTextColor).make(),

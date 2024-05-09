@@ -1,3 +1,5 @@
+import 'package:capstone_front/model/UserModel.dart';
+import 'package:capstone_front/screen/pages/profile_screen.dart';
 import 'package:capstone_front/screen/widget/CustomSide/color_theme.dart';
 import 'package:capstone_front/screen/auth/login_page.dart';
 import 'package:capstone_front/screen/pages/home_screen.dart';
@@ -16,14 +18,25 @@ void main() {
     DeviceOrientation.portraitDown,
   ]);
 
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+
+  late Rx<UserData> userdata = 
+    UserData(
+      id: '',pw: '', loginId: '',
+      grade: 0, classNumber: 0, number: 0,  
+      name: 'undefinde', 
+      roles: [], authorities: [], 
+      timestamp: ''
+    ).obs; // userdata를 Rx 형태로 선언
+
+   MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+
     return GetMaterialApp(
       theme: ThemeData( scaffoldBackgroundColor: backgroundColor ),
       debugShowCheckedModeBanner: false,
@@ -36,7 +49,7 @@ class MyApp extends StatelessWidget {
       ],
       locale: const Locale('ko'),
       title: 'Flutter Demo',
-      home: HomeScreen(),
+      home: ProfileScreen(user: userdata),
       initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => const HomeScreen()),

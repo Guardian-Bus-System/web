@@ -1,3 +1,4 @@
+import 'package:capstone_front/model/UserModel.dart';
 import 'package:capstone_front/screen/widget/CustomSide/color_theme.dart';
 import 'package:capstone_front/screen/widget/CustomSide/font_size.dart';
 import 'package:capstone_front/screen/widget/CustomSide/spaceing_box.dart';
@@ -8,11 +9,12 @@ import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class BusUserInfoConatainer extends StatefulWidget {
+  late UserData user;
   final String date;
   final double containerWidth;
   final double containerHeight;
 
-  const BusUserInfoConatainer({super.key, required this.date, required this.containerWidth, required this.containerHeight});
+  BusUserInfoConatainer({Key? key, required this.user, required this.date, required this.containerWidth, required this.containerHeight});
 
   @override
   State<BusUserInfoConatainer> createState() => _BusUserInfoConatainerState();
@@ -25,6 +27,7 @@ class _BusUserInfoConatainerState extends State<BusUserInfoConatainer> {
     return InkWell(
       onTap: (){
         Get.to(ChangeBusRouteScreen(data: widget.date));
+        print(widget.user.loginId);
       },  
       child: Container(
         color: backgroundColor,
@@ -36,11 +39,12 @@ class _BusUserInfoConatainerState extends State<BusUserInfoConatainer> {
             Column(
               children: [
                 Row(children: [
-                  'xxx님, 안녕하세요!'.text.size(FontSiz18).make()]),
+                  '${widget.user.name}님, 안녕하세요!'.text.size(FontSiz18).make()]),
                 Row(children: [
                   widget.date.text.size(FontSiz12).color(baseColor).make()]),
                 height20,
                 BusUserInfo(
+                  user: widget.user,
                   containerHeight: (widget.containerHeight * 0.3) * 0.5, 
                   containerWidth: widget.containerWidth
                 ),

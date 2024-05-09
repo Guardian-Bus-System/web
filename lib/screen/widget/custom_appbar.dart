@@ -12,8 +12,8 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       scrolledUnderElevation: 0,
-      automaticallyImplyLeading: appBarTitle == '공지사항' ? false : true,
-      leading:appBarTitle == '공지사항' ? null : IconButton(
+      automaticallyImplyLeading: appBarTitle == '공지사항' || appBarTitle == '내 프로필' ? false : true,
+      leading:appBarTitle == '공지사항' || appBarTitle == '내 프로필' ? null : IconButton(
         icon:const Icon(Icons.arrow_back, size: 30,), onPressed: () { Get.back(); },
       ).pOnly(left: 10),
       backgroundColor: bacgroundOrTextColor,
