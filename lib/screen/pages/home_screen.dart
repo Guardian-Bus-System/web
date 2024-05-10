@@ -11,7 +11,6 @@ import 'package:capstone_front/screen/widget/notification/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../controller/user_controller.dart';
 import '../auth/login_page.dart';
 
@@ -29,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   UserController userController = UserController();
   late Rx<UserData> userdata = 
     UserData(
-      id: '',pw: '', loginId: '',
+      id: '',pw: '', loginId: 'loginId',
       grade: 1, classNumber: 1, number: 0,  
       name: '홍길동', 
       roles: [], authorities: [], 
@@ -39,34 +38,37 @@ class _HomeScreenState extends State<HomeScreen> {
   var tokens = 'No Token'.obs; 
   String date = '';
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _init();
-  // }
+  @override
+  void initState() {
+    
+    print(userdata.value.loginId);
 
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  // }
+    super.initState();
+    _init();
+  }
 
-  // Future<void> _init() async {
-  //   FlutterLocalNotification.init();
-  //   await FlutterLocalNotification.requestNotificationPermission();
-  //   date = getFormattedDateTime();
-  //   await _checkToken();
-  // }
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
-  // Future<void> _checkToken() async {
-  //   final SharedPreferences prefs = await _prefs; 
-  //   final String? token = prefs.getString('token');
-  //   if (token != null) {
-  //     tokens.value = token; 
-  //     userdata.value = await userController.getUserData();
-  //   } else {
-  //     Get.offAll(LoginPage()); 
-  //   }
-  // }
+  Future<void> _init() async {
+    FlutterLocalNotification.init();
+    await FlutterLocalNotification.requestNotificationPermission();
+    date = getFormattedDateTime();
+    await _checkToken();
+  }
+
+  Future<void> _checkToken() async {
+    final SharedPreferences prefs = await _prefs; 
+    final String? token = prefs.getString('token');
+    if (token != null) {
+      tokens.value = token; 
+      userdata.value = await userController.getUserData();
+    } else {
+      Get.offAll(LoginPage()); 
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

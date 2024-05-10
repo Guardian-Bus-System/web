@@ -22,17 +22,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
-  late Rx<UserData> userdata = 
-    UserData(
-      id: '',pw: '', loginId: '',
-      grade: 0, classNumber: 0, number: 0,  
-      name: 'undefinde', 
-      roles: [], authorities: [], 
-      timestamp: ''
-    ).obs; // userdata를 Rx 형태로 선언
-
-   MyApp({super.key});
+  
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +40,7 @@ class MyApp extends StatelessWidget {
       ],
       locale: const Locale('ko'),
       title: 'Flutter Demo',
-      home: ProfileScreen(user: userdata),
+      home: const HomeScreen(),
       initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => const HomeScreen()),

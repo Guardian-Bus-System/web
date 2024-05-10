@@ -13,3 +13,5 @@ const double FontSiz14 = 14;
 const double FontSiz13 = 13;
 // ignore: constant_identifier_names
 const double FontSiz12 = 12;
+// ignore: constant_identifier_names
+const double FontSiz11 = 11;

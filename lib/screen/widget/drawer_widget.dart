@@ -83,8 +83,7 @@ class DrawerWidget extends StatelessWidget {
             height20,
             customInkWell(
               onTap: () async {
-                // 여기에 async로 실행될 동작을 추가하세요
-                Get.to(ProfileScreen(user: user));
+                Get.offAll(ProfileScreen(user: user));
               },
               text: '프로필',
             ),

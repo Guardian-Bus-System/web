@@ -7,4 +7,5 @@ const bacgroundOrTextColor = Colors.white;
 const backgroundColor = Colors.white;
 const black = Colors.black;
 const white = Colors.white;
+const greyText = Color.fromRGBO(91, 88, 88, 1);
 //const backgroundColors = Color.fromRGBO(126, 126, 126, 1);
