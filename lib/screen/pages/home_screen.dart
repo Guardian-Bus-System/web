@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: [
                 CustonHomeAppbarWidget(scaffoldKey: _scaffoldKey),
-                height5, const Divider(), height5,
+                const Divider(), height10,
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(

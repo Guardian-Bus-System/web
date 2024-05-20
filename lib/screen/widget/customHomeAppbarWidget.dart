@@ -16,15 +16,14 @@ class _CustonHomeAppbarWidgetState extends State<CustonHomeAppbarWidget> {
     return Container(
       height: 70,
       child: Stack(
-        alignment: Alignment.center,
         children: [
           Positioned(
-            top: 35,
+            top: 15,
             left: 25,
             child: '홈'.text.bold.size(20).make()
           ),
           Positioned(
-            top: 25,
+            top: 5,
             right: 15,
             child: IconButton(
               icon: Icon(
