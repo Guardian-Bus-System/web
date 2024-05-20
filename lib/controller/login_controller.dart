@@ -41,7 +41,6 @@ class LoginController extends GetxController {
   }
 
   String? validatePassword(String password) {
-    // Add your password validation logic here
     if (password.isEmpty) {
       return 'Password is required';
     }

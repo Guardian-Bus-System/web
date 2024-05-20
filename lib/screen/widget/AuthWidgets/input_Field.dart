@@ -36,6 +36,7 @@ class _InputTextFieldWidgetState extends State<InputTextFieldWidget> {
         controller: widget.textEditingController,
         cursorColor: Colors.blue,
         obscureText: widget.blindetext ? true : false,
+        maxLines: 3,
         inputFormatters: widget.hitText == '전화번호' ?
           <TextInputFormatter>[
             FilteringTextInputFormatter.digitsOnly,
@@ -54,7 +55,10 @@ class _InputTextFieldWidgetState extends State<InputTextFieldWidget> {
               borderRadius: BorderRadius.circular(10.0),
               borderSide: const BorderSide(color: Colors.blue)),
           filled: true,
-          hintStyle: const TextStyle(color: Color.fromARGB(255, 126, 126, 126),fontSize: 15),
+          hintStyle: TextStyle(
+            color: Color.fromARGB(255, 126, 126, 126),
+            fontSize: widget.hitText.contains('변경사유') ? 13 : 15,
+          ),
           hintText: widget.hitText,
           fillColor: Colors.white,
           suffixIcon: widget.hitText == '전화번호' ? // 상태에 따라 아이콘 생성

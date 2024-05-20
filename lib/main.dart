@@ -1,4 +1,5 @@
 import 'package:capstone_front/model/UserModel.dart';
+import 'package:capstone_front/routes/mainView.dart';
 import 'package:capstone_front/screen/pages/profile_screen.dart';
 import 'package:capstone_front/screen/widget/CustomSide/color_theme.dart';
 import 'package:capstone_front/screen/auth/login_page.dart';
@@ -18,12 +19,20 @@ void main() {
     DeviceOrientation.portraitDown,
   ]);
 
-  runApp( MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   
   MyApp({super.key});
+  late Rx<UserData> userdata = 
+    UserData(
+      id: '',pw: '', loginId: 'loginId',
+      grade: 1, classNumber: 1, number: 0,  
+      name: '홍길동', 
+      roles: [], authorities: [], 
+      timestamp: ''
+    ).obs; // userdata를 Rx 형태로 선언
 
   @override
   Widget build(BuildContext context) {
@@ -40,16 +49,20 @@ class MyApp extends StatelessWidget {
       ],
       locale: const Locale('ko'),
       title: 'Flutter Demo',
-      home: const HomeScreen(),
+      home: MediaQuery.of(context).size.width < 600 //가로넓이가 600이하라면 앱을 보여주고 아니면 그냥 흰 바탕 
+        ? HomeView(user: userdata)
+        : Container(),
       initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => const HomeScreen()),
         GetPage(name: '/notification', page: () => const NotificationScreen(), transition: Transition.downToUp),
-        GetPage(name: '/notification/detail', page: () => const NotificationDetailWidget()),
+        GetPage(name: '/notification/detail', page: () => const NotificationDetailWidget()),  
         GetPage(name: '/login', page: () => const LoginPage()),
         GetPage(name: '/certication', page: () => const NotificationScreen()),
       ],
     );
   }
 }
+
+
 

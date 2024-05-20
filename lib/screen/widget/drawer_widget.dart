@@ -1,5 +1,6 @@
 import 'package:capstone_front/model/UserModel.dart';
 import 'package:capstone_front/screen/pages/profile_screen.dart';
+import 'package:capstone_front/screen/pages/rule_screen.dart';
 import 'package:capstone_front/screen/widget/CustomSide/color_theme.dart';
 import 'package:capstone_front/screen/widget/CustomSide/font_size.dart';
 import 'package:capstone_front/screen/widget/CustomSide/spaceing_box.dart';
@@ -86,6 +87,13 @@ class DrawerWidget extends StatelessWidget {
                 Get.offAll(ProfileScreen(user: user));
               },
               text: '프로필',
+            ),
+            height20,
+            customInkWell(
+              onTap: () async {
+                Get.offAll(RuleScreen());
+              },
+              text: '버스규칙',
             ),
           ],
         ).pOnly(top: 69, left: 29),

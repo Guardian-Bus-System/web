@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
     print(userdata.value.loginId);
 
     super.initState();
-    _init();
+    //_init();
   }
 
   @override
@@ -52,23 +52,23 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-  Future<void> _init() async {
-    FlutterLocalNotification.init();
-    await FlutterLocalNotification.requestNotificationPermission();
-    date = getFormattedDateTime();
-    await _checkToken();
-  }
+  // Future<void> _init() async {
+  //   FlutterLocalNotification.init();
+  //   await FlutterLocalNotification.requestNotificationPermission();
+  //   date = getFormattedDateTime();
+  //   await _checkToken();
+  // }
 
-  Future<void> _checkToken() async {
-    final SharedPreferences prefs = await _prefs; 
-    final String? token = prefs.getString('token');
-    if (token != null) {
-      tokens.value = token; 
-      userdata.value = await userController.getUserData();
-    } else {
-      Get.offAll(LoginPage()); 
-    }
-  }
+  // Future<void> _checkToken() async {
+  //   final SharedPreferences prefs = await _prefs; 
+  //   final String? token = prefs.getString('token');
+  //   if (token != null) {
+  //     tokens.value = token; 
+  //     userdata.value = await userController.getUserData();
+  //   } else {
+  //     Get.offAll(LoginPage()); 
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

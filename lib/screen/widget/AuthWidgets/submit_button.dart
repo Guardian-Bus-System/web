@@ -28,7 +28,7 @@ class SubmitButton extends StatelessWidget {
         child: 
           title
             .text
-            .size(FontSiz15)
+            .size(title == '신청하기' ? FontSiz18 :FontSiz15)
             .color(bacgroundOrTextColor)
             .make()
       ),

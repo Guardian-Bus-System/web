@@ -38,7 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-    _init();
+    //_init();
     super.initState();
   }
   Future<void> _init() async {

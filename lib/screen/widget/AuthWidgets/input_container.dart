@@ -12,10 +12,10 @@ class JoinContainer extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.7),
+            color: Colors.grey.withOpacity(0.3),
             spreadRadius: 0,
-            blurRadius: 3.0,
-            offset: Offset(0, 3), // changes position of shadow
+            blurRadius: 2.0,
+            offset: Offset(0, 2), // changes position of shadow
           ),], // 그림자 추가
         borderRadius: BorderRadius.circular(10.0), // 컨테이너의 모서리를 둥글게 만듦
       ),

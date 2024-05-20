@@ -24,7 +24,7 @@ class BusData {
   factory BusData.fromJson(Map<String, dynamic> json) {
     return BusData(
       id: json['id'] ?? 0, // 값이 없는 경우 기본값 0으로 설정
-      busNumber: json['busNumber'] ?? 1000,
+      busNumber: json['busNumber'] ?? 0,
       line: json['line'] ?? '',
       endLine: json['endLine'] ?? '',
       maxTable: json['maxTable'] ?? 0,
