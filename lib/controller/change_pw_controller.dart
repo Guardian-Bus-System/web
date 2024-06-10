@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:capstone_front/screen/auth/login_page.dart';
-import 'package:capstone_front/screen/widget/AuthWidgets/formatter.dart';
+import 'package:capstone_front/screen/user/auth/login_page.dart';
+import 'package:capstone_front/screen/user/widget/AuthWidgets/formatter.dart';
 import 'package:capstone_front/utils/api_endpoint.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

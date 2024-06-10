@@ -1,13 +1,13 @@
 import 'package:capstone_front/model/UserModel.dart';
 import 'package:capstone_front/routes/mainController.dart';
-import 'package:capstone_front/screen/pages/home_screen.dart';
-import 'package:capstone_front/screen/pages/notification_screen.dart';
-import 'package:capstone_front/screen/pages/profile_screen.dart';
-import 'package:capstone_front/screen/pages/rule_screen.dart';
+import 'package:capstone_front/screen/user/pages/home_screen.dart';
+import 'package:capstone_front/screen/user/pages/notification_screen.dart';
+import 'package:capstone_front/screen/user/pages/profile_screen.dart';
+import 'package:capstone_front/screen/user/pages/rule_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../screen/widget/CustomSide/color_theme.dart';
+import '../CustomSide/color_theme.dart';
 
 class HomeView extends StatelessWidget {
   final Rx<UserData> user;
