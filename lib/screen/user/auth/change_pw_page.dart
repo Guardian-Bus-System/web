@@ -1,4 +1,4 @@
-import 'package:capstone_front/controller/change_pw_controller.dart';
+import 'package:capstone_front/controller/userController/change_pw_controller.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
 import 'package:capstone_front/CustomSide/font_size.dart';
 import 'package:capstone_front/CustomSide/spaceing_box.dart';

@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../model/UserModel.dart';
-import '../utils/api_endpoint.dart';
+import '../../../model/UserModel.dart';
+import '../../../utils/api_endpoint.dart';
 
 class UserController extends GetxController {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();

@@ -5,7 +5,10 @@ Widget height5 = const SizedBox(height: 5);
 Widget height10 = const SizedBox(height: 10);
 Widget height15 = const SizedBox(height: 15);
 Widget height20 = const SizedBox(height: 20);
+Widget height25 = const SizedBox(height: 25);
 Widget height30 = const SizedBox(height: 30);
+Widget height40 = const SizedBox(height: 40);
+Widget height45 = const SizedBox(height: 45);
 
 Widget width5 = const SizedBox(width: 5);
 Widget width10 = const SizedBox(width: 10);

@@ -1,4 +1,4 @@
-import 'package:capstone_front/controller/busInfo_controller.dart';
+import 'package:capstone_front/controller/userController/busInfo_controller.dart';
 import 'package:capstone_front/model/BusModel.dart';
 import 'package:capstone_front/model/UserModel.dart';
 import 'package:capstone_front/screen/user/auth/change_pw_page.dart';

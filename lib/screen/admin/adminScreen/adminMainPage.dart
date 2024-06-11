@@ -41,10 +41,10 @@ class _AdminMainPageState extends State<AdminMainPage> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenSize screen = ScreenSize(context);
-    WhiteSpaceSize spaceSize = WhiteSpaceSize(context);
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
-    final sideMenuWidth = screen.width * 0.2;
+    double sideMenuWidth = screenWidth * 0.2;
 
     return Scaffold(
       body: Row(
@@ -63,7 +63,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
                   _buildMenuWidget([
                     {'text': '공지 목록', 'route': '/notice/item1'},
                     {'text': '공지 등록', 'route': '/notice/item2'},
-                  ], screen.width),
+                  ], screenWidth),
                 ],
                 height10.pOnly(top: 1),
                 _buildButton(3, '학생목록', Icons.people_alt_outlined, '', true, sideMenuWidth),
@@ -73,32 +73,87 @@ class _AdminMainPageState extends State<AdminMainPage> {
                     {'text': '학생 관리', 'route': '/students/item1'},
                     {'text': '학생 탑승 내역', 'route': '/students/item2'},
                     {'text': '학생 관리자 관리', 'route': '/students/item2'},
-                  ], screen.width),
+                  ], screenWidth),
                 ],
                 height10.pOnly(top: 1),
                 _buildButton(4, '버스목록', Icons.bus_alert_outlined, '/bus', false, sideMenuWidth),
                 height10.pOnly(top: 1),
                 _buildButton(5, '규칙목록', Icons.rule, '/rules', false, sideMenuWidth),
               ],
-            ).pOnly(top: 70, left: spaceSize.spaceW30, right: spaceSize.spaceW30),
+            ).pOnly(top: 70, left: 30, right: 30),
           ),
 
           Container(
-            width: screen.width - (sideMenuWidth * 1.3),
-            height: screen.height,
+            width: screenWidth - (sideMenuWidth * 1.33),
+            height: screenHeight,
 
-            decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 10)),
+            decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
 
             child: Column(
               children: [
+                //공지사항
                 Container(
-                  width: screen.width,
-                  height: screen.height * 0.2109,
-            decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 10)),
+                  width: screenWidth,
+                  height: screenHeight * 0.2109,
+                  decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 2)),
+                  child: Container(
+                    width: screenWidth,
+                    height: screenHeight,
+                    child: '공지사항'.text.make(),
+                  ),
+                ),
+                height40.pOnly(bottom: 2),
+                Container(
+                  width: screenWidth,
+                  height: screenHeight * 0.53,
+                  child: Row(
+                    children: [
+                      //학생 목록
+                      Container(
+                        width: screenWidth * 0.4687,
+                        decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
+                        child: Container(
+                          width: screenWidth,
+                          height: screenHeight,
+                          child: '학생 목록'.text.make(),
+                        ),
+                      ),
+                      width15.pOnly(left: 3),
+                      Container(
+                        width: screenWidth * 0.25,
+                        decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
+                        child: Column(
+                          children: [
+                            //버스 목록
+                            Container(
+                              height: screenHeight * 0.274,
+                              decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
+                              child: Container(
+                                width: screenWidth,
+                                child: '버스 목록'.text.make(),
+                              ),
+                            ),
+                            
+                            height20,
+                            //탑승규칙
+                            Container(
+                              height: screenHeight * 0.225,
+                              decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
+                              child: Container(
+                                width: screenWidth,
+                                child: '탑승규칙'.text.make()
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      
+                    ],
+                  ),
                 )
               ],
             ),
-          ).pSymmetric(v: 71, h: spaceSize.spaceW50)
+          ).pOnly(top: 71, bottom: 35,left: 50, right: 50)
         ],
       ),
     );

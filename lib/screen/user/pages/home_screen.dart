@@ -11,7 +11,7 @@ import 'package:capstone_front/screen/user/widget/notification/notification.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../controller/user_controller.dart';
+import '../../../controller/userController/user_controller.dart';
 import '../auth/login_page.dart';
 
 class HomeScreen extends StatefulWidget {

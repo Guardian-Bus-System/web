@@ -1,4 +1,4 @@
-import 'package:capstone_front/controller/cerfication_controller.dart';
+import 'package:capstone_front/controller/userController/cerfication_controller.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
 import 'package:capstone_front/CustomSide/spaceing_box.dart';
 import 'package:capstone_front/screen/user/auth/change_pw_page.dart';

@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       home: screen.width < 600 //가로넓이가 600이하라면 앱을 보여주고 아니면 그냥 흰 바탕 
         ? HomeView(user: userdata)
-        : const AdminMainPage(),
+        : AdminMainPage(),
       initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => const HomeScreen()),
