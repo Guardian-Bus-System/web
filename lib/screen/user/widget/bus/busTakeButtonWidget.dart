@@ -24,14 +24,15 @@ class _BusTakeButtonWidgetState extends State<BusTakeButtonWidget> {
         decoration: BoxDecoration(
           color: widget.buttonText == "탑승" ? baseColor : backgroundColor,
           border: Border.all(width: 1, color: baseColor),
-          borderRadius: BorderRadius.circular(10) 
+          borderRadius: BorderRadius.circular(5) 
         ),
         child: Center(
-          child: widget.buttonText
-                  .text
-                  .color(widget.buttonText != "탑승" ? baseColor : white)
-                  .size(FontSiz14).make()
-        )
+          child: widget.buttonText.text
+            .color(widget.buttonText == "탑승" ? white : baseColor)
+            .size(FontSiz14)
+            .fontWeight(widget.buttonText == "탑승" ? FontWeight.bold : FontWeight.normal) // 조건에 따라 글씨 두께 변경
+            .make()
+        ),
       ),
     );
   }

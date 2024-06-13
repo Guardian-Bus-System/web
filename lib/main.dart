@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 
 import 'CustomSide/responsive_screen_size.dart';
+import 'screen/user/pages/changeBusRoute_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,8 +56,8 @@ class MyApp extends StatelessWidget {
       locale: const Locale('ko'),
       title: 'Flutter Demo',
       home: screen.width < 600 //가로넓이가 600이하라면 앱을 보여주고 아니면 그냥 흰 바탕 
-        ? HomeView(user: userdata)
-        : AdminMainPage(),
+        ? ChangeBusRouteScreen(data: userdata)//HomeView(user: userdata)
+        : const AdminMainPage(),
       initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => const HomeScreen()),

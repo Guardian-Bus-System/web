@@ -47,114 +47,118 @@ class _AdminMainPageState extends State<AdminMainPage> {
     double sideMenuWidth = screenWidth * 0.2;
 
     return Scaffold(
-      body: Row(
-        children: [
-          Container( // Side Menu 
-            color: adminNavigationColor,
-            width: sideMenuWidth,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildButton(1, '홈', Icons.home_outlined, '/admin/home', false, sideMenuWidth),
-                height10.pOnly(top: 1),
-                _buildButton(2, '공지사항', Icons.notification_add_outlined, '', true, sideMenuWidth),
-                if (_selectedIndex == 2) ...[
-                  height20,
-                  _buildMenuWidget([
-                    {'text': '공지 목록', 'route': '/notice/item1'},
-                    {'text': '공지 등록', 'route': '/notice/item2'},
-                  ], screenWidth),
+      body: Container(
+        color: adminMainBackgroundColor,
+        child: Row(
+          children: [
+            Container( // Side Menu 
+              color: adminNavigationColor,
+              width: sideMenuWidth,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildButton(1, '홈', Icons.home_outlined, '/admin/home', false, sideMenuWidth),
+                  height10.pOnly(top: 1),
+                  _buildButton(2, '공지사항', Icons.notification_add_outlined, '', true, sideMenuWidth),
+                  if (_selectedIndex == 2) ...[
+                    height20,
+                    _buildMenuWidget([
+                      {'text': '공지 목록', 'route': '/notice/item1'},
+                      {'text': '공지 등록', 'route': '/notice/item2'},
+                    ], screenWidth),
+                  ],
+                  height10.pOnly(top: 1),
+                  _buildButton(3, '학생목록', Icons.people_alt_outlined, '', true, sideMenuWidth),
+                  if (_selectedIndex == 3) ...[
+                    height20,
+                    _buildMenuWidget([
+                      {'text': '학생 관리', 'route': '/students/item1'},
+                      {'text': '학생 탑승 내역', 'route': '/students/item2'},
+                      {'text': '학생 관리자 관리', 'route': '/students/item2'},
+                    ], screenWidth),
+                  ],
+                  height10.pOnly(top: 1),
+                  _buildButton(4, '버스목록', Icons.bus_alert_outlined, '/bus', false, sideMenuWidth),
+                  height10.pOnly(top: 1),
+                  _buildButton(5, '규칙목록', Icons.rule, '/rules', false, sideMenuWidth),
                 ],
-                height10.pOnly(top: 1),
-                _buildButton(3, '학생목록', Icons.people_alt_outlined, '', true, sideMenuWidth),
-                if (_selectedIndex == 3) ...[
-                  height20,
-                  _buildMenuWidget([
-                    {'text': '학생 관리', 'route': '/students/item1'},
-                    {'text': '학생 탑승 내역', 'route': '/students/item2'},
-                    {'text': '학생 관리자 관리', 'route': '/students/item2'},
-                  ], screenWidth),
-                ],
-                height10.pOnly(top: 1),
-                _buildButton(4, '버스목록', Icons.bus_alert_outlined, '/bus', false, sideMenuWidth),
-                height10.pOnly(top: 1),
-                _buildButton(5, '규칙목록', Icons.rule, '/rules', false, sideMenuWidth),
-              ],
-            ).pOnly(top: 70, left: 30, right: 30),
-          ),
-
-          Container(
-            width: screenWidth - (sideMenuWidth * 1.33),
-            height: screenHeight,
-
-            decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
-
-            child: Column(
-              children: [
-                //공지사항
-                Container(
-                  width: screenWidth,
-                  height: screenHeight * 0.2109,
-                  decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 2)),
-                  child: Container(
-                    width: screenWidth,
-                    height: screenHeight,
-                    child: '공지사항'.text.make(),
-                  ),
-                ),
-                height40.pOnly(bottom: 2),
-                Container(
-                  width: screenWidth,
-                  height: screenHeight * 0.53,
-                  child: Row(
-                    children: [
-                      //학생 목록
-                      Container(
-                        width: screenWidth * 0.4687,
-                        decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
-                        child: Container(
-                          width: screenWidth,
-                          height: screenHeight,
-                          child: '학생 목록'.text.make(),
-                        ),
-                      ),
-                      width15.pOnly(left: 3),
-                      Container(
-                        width: screenWidth * 0.25,
-                        decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
-                        child: Column(
-                          children: [
-                            //버스 목록
-                            Container(
-                              height: screenHeight * 0.274,
-                              decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
-                              child: Container(
-                                width: screenWidth,
-                                child: '버스 목록'.text.make(),
-                              ),
-                            ),
-                            
-                            height20,
-                            //탑승규칙
-                            Container(
-                              height: screenHeight * 0.225,
-                              decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
-                              child: Container(
-                                width: screenWidth,
-                                child: '탑승규칙'.text.make()
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      
-                    ],
-                  ),
-                )
-              ],
+              ).pOnly(top: 70, left: 30, right: 30),
             ),
-          ).pOnly(top: 71, bottom: 35,left: 50, right: 50)
-        ],
+        
+            Container(
+              width: screenWidth - (sideMenuWidth * 1.33),
+              height: screenHeight,
+              decoration: BoxDecoration(
+                color: adminMainBackgroundColor,
+                border: Border.all(color: Colors.black, width: 1)
+              ),
+        
+              child: Column(
+                children: [
+                  //공지사항
+                  Container(
+                    width: screenWidth,
+                    height: screenHeight * 0.2109,
+                    decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
+                    child: Container(
+                      width: screenWidth,
+                      height: screenHeight,
+                      child: '공지사항'.text.make(),
+                    ),
+                  ),
+                  height40.pOnly(bottom: 2),
+                  Container(
+                    width: screenWidth,
+                    height: screenHeight * 0.53,
+                    child: Row(
+                      children: [
+                        //학생 목록
+                        Container(
+                          width: screenWidth * 0.4687,
+                          decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
+                          child: Container(
+                            width: screenWidth,
+                            height: screenHeight,
+                            child: '학생 목록'.text.make(),
+                          ),
+                        ),
+                        width15.pOnly(left: 3),
+                        Container(
+                          width: screenWidth * 0.25,
+                          decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
+                          child: Column(
+                            children: [
+                              //버스 목록
+                              Container(
+                                height: screenHeight * 0.274,
+                                decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
+                                child: Container(
+                                  width: screenWidth,
+                                  child: '버스 목록'.text.make(),
+                                ),
+                              ),
+                              
+                              height20,
+                              //탑승규칙
+                              Container(
+                                height: screenHeight * 0.225,
+                                decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
+                                child: Container(
+                                  width: screenWidth,
+                                  child: '탑승규칙'.text.make()
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ).pOnly(top: 71, bottom: 35,left: 50, right: 50)
+          ],
+        ),
       ),
     );
   }

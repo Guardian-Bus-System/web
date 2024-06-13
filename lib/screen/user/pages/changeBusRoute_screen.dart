@@ -27,7 +27,7 @@ class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
-      appBar: PreferredSize(
+      appBar:const PreferredSize(
         preferredSize: Size.fromHeight(70.0),
         child: CustomAppBar(
           appBarTitle: '버스 경로 변경',
@@ -43,6 +43,7 @@ class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
             height15,
             BusRouteChangeContainer(
               containerName: '버스 탑승 여부',
+              shadowBool: true,
               child: Column(
                 children: [
                   height15,
@@ -57,10 +58,11 @@ class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
             ),
             height10,
             BusRouteChangeContainer(
-              containerName: '탑승 버스 선택',
+              containerName: '도착 지역 선택',
+              shadowBool: true,
               child: Column(
                 children: [
-                  height20,
+                  height15,
                   ListView.builder(  
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -69,24 +71,20 @@ class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
                       return ChangeBusListItemWidget();
                     },
                   ),
+                  BusRouteChangeContainer(
+                    containerName: '도착 지역 선택',
+                    shadowBool: false,
+                    child: Column(
+                      children: [
+                        height15,
+                        DropDownExample()
+                      ],
+                    ),
+                  ), 
                 ],
               ),
             ),  
-            height10,
-            BusRouteChangeContainer(
-              containerName: '변경 사유',
-              child: Column(
-                children: [
-                  height15,
-                  InputTextFieldWidget(
-                    textEditingController: textEditingController, 
-                    hitText: '변경사유를 입력해 주세요.\n(사유가 타당하지 않을 경우 경로 변경이 불가합니다.', 
-                    blindetext: false
-                  ),
-                ],
-              ),
-            ),
-            height10,
+            height30,
             SubmitButton(
               onPressed: () {
                 Get.offAll(HomeScreen());
@@ -95,6 +93,82 @@ class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
             ).pOnly(bottom: 25)
           ],
         ).pSymmetric(h: 25),
+      ),
+    );
+  }
+}
+
+class DropDownExample extends StatefulWidget {
+  @override
+  _DropDownExampleState createState() => _DropDownExampleState();
+}
+
+class _DropDownExampleState extends State<DropDownExample> {
+  // 드롭다운 버튼 항목 리스트
+  List<String> dropdownItems = ['Select an item'];
+
+  // 선택된 드롭다운 항목
+  String? selectedItem = 'Select an item';
+
+  // 버튼 클릭 시 드롭다운 항목 목록을 변경하는 함수
+  void _updateDropdownItems(List<String> items) {
+    setState(() {
+      dropdownItems = items;
+      selectedItem = items.isNotEmpty ? items[0] : null; // 첫 번째 항목을 기본 선택
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // 수평 스크롤 가능하도록 버튼 리스트를 생성
+        SizedBox(
+          height: 50, // 고정 높이 지정
+          child: ListView(
+            scrollDirection: Axis.horizontal, // 수평 스크롤
+            children: [
+              _buildTextButton('Fruits', ['Apple', 'Banana', 'Cherry']),
+              _buildTextButton('Vegetables', ['Carrot', 'Broccoli', 'Peas']),
+              _buildTextButton('Animals', ['Dog', 'Cat', 'Bird']),
+            ],
+          ),
+        ),
+        SizedBox(height: 20),
+        // 드롭다운 버튼
+        DropdownButton<String>(
+          value: selectedItem,
+          onChanged: (String? newValue) {
+            setState(() {
+              selectedItem = newValue;
+            });
+          },
+          items: dropdownItems.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
+
+  // 버튼을 생성하는 함수
+  Widget _buildTextButton(String label, List<String> items) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: TextButton(
+        onPressed: () => _updateDropdownItems(items),
+        style: TextButton.styleFrom(
+          backgroundColor: Colors.blueAccent.withOpacity(0.1),
+          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(color: Colors.blue),
+        ),
       ),
     );
   }

@@ -6,14 +6,15 @@ import 'package:velocity_x/velocity_x.dart';
 class BusRouteChangeContainer extends StatelessWidget {
   final String containerName;
   final Widget child;
+  final bool shadowBool;
 
-  const BusRouteChangeContainer({super.key, required this.child, required this.containerName});
+  const BusRouteChangeContainer({super.key, required this.child, required this.containerName, required this.shadowBool});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
+      decoration: shadowBool ? BoxDecoration(
         color: bacgroundOrTextColor,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: Colors.grey.withOpacity(0.1), width: 1),
@@ -24,7 +25,8 @@ class BusRouteChangeContainer extends StatelessWidget {
             blurRadius: 4.0,
             offset: const Offset(2, 10),
           ),], 
-      ),
+        )
+        : null,
       child: Column(
         children: [
           Row(
@@ -34,7 +36,12 @@ class BusRouteChangeContainer extends StatelessWidget {
           ),
           child
         ],
-      ).pOnly(left: 15,right: 15 , top: 10, bottom: 20)
+      ).pOnly(
+        left: shadowBool ? 15 : 0, 
+        right: shadowBool ? 15 : 0, 
+        top: shadowBool ? 10 : 0,
+        bottom: shadowBool ? 20 : 0
+      )
     );
   }
 }
