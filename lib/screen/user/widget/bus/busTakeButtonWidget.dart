@@ -24,7 +24,7 @@ class _BusTakeButtonWidgetState extends State<BusTakeButtonWidget> {
         decoration: BoxDecoration(
           color: widget.buttonText == "탑승" ? baseColor : backgroundColor,
           border: Border.all(width: 1, color: baseColor),
-          borderRadius: BorderRadius.circular(5) 
+          borderRadius: BorderRadius.circular(5)  
         ),
         child: Center(
           child: widget.buttonText.text

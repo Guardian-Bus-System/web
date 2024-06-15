@@ -38,7 +38,7 @@ class BusRouteChangeContainer extends StatelessWidget {
         ],
       ).pOnly(
         left: shadowBool ? 15 : 0, 
-        right: shadowBool ? 15 : 0, 
+        right: shadowBool ? 0 : 0, 
         top: shadowBool ? 10 : 0,
         bottom: shadowBool ? 20 : 0
       )
