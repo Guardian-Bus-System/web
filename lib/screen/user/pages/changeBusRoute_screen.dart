@@ -3,6 +3,7 @@ import 'package:capstone_front/CustomSide/font_size.dart';
 import 'package:capstone_front/CustomSide/spaceing_box.dart';
 import 'package:capstone_front/model/data.dart';
 import 'package:capstone_front/screen/user/pages/home_screen.dart';
+import 'package:capstone_front/screen/user/widget/AuthWidgets/formatter.dart';
 import 'package:capstone_front/screen/user/widget/AuthWidgets/submit_button.dart';
 import 'package:capstone_front/screen/user/widget/bus/busDropdownButton_widget.dart';
 import 'package:capstone_front/screen/user/widget/bus/busLoadCheckButtonWidget.dart';
@@ -43,7 +44,7 @@ class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
           children: [
             '버스 경로 변경'.text.bold.size(FontSiz18).make(),
             height5,
-            '금주 귀가주 (${widget.data})버스 정보'.text.size(FontSiz12).color(baseColor).make(),
+            '금주 귀가주 (${getFormattedDateTime()})버스 정보'.text.size(FontSiz12).color(baseColor).make(),
             height15,
             BusRouteChangeContainer(
               containerName: '버스 탑승 여부',

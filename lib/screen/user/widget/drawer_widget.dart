@@ -57,7 +57,7 @@ class DrawerWidget extends StatelessWidget {
                 }
                   Get.offAll(const LoginPage());
               },
-              text: user.value.name != 'undefinde' ? '로그아웃' : '로그인',
+              text: '로그인',
             ),
             height20,
             customInkWell(

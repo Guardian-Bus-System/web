@@ -14,16 +14,16 @@ class _CustonHomeAppbarWidgetState extends State<CustonHomeAppbarWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 70,
+      height: 50,
       child: Stack(
         children: [
           Positioned(
-            top: 30,
+            top: 15,
             left: 25,
             child: '홈'.text.bold.size(20).make()
           ),
           Positioned(
-            top: 20,
+            top: 7,
             right: 15,
             child: IconButton(
               icon: Icon(

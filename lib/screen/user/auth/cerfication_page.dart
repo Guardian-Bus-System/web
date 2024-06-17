@@ -25,16 +25,16 @@ class _CerficationPageState extends State<CerficationPage> {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(103.0),
+        preferredSize: const Size.fromHeight(73.0),
         child: AppBar(
           backgroundColor: backgroundColor,
           leading: IconButton(
             onPressed: (){
               Get.offAll(const LoginPage());
             },
-            icon: const Icon(Icons.arrow_back)
+            icon: const Icon(Icons.arrow_back, size: 30,)
           ),
-        ).pSymmetric(h: 15, v: 25),
+        ).pSymmetric(h: 5, v: 5),
       ),
       body: Center(
         child: SingleChildScrollView(

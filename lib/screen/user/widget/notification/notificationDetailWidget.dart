@@ -2,6 +2,7 @@ import 'package:capstone_front/CustomSide/color_theme.dart';
 import 'package:capstone_front/CustomSide/font_size.dart';
 import 'package:capstone_front/CustomSide/spaceing_box.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class NotificationDetailWidget extends StatefulWidget {
@@ -16,11 +17,17 @@ class _NotificationDetailWidgetState extends State<NotificationDetailWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(70.0),
+        preferredSize: const Size.fromHeight(73.0),
         child: AppBar(
           backgroundColor: backgroundColor,
           scrolledUnderElevation: 0,
-        ),
+          leading: IconButton(
+            onPressed: (){
+              Get.back();
+            },
+            icon: const Icon(Icons.arrow_back, size: 30)
+          ),
+        ).pSymmetric(h: 5, v: 5),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,

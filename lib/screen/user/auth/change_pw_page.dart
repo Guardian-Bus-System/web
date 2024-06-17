@@ -31,9 +31,9 @@ class _ChangePwPageState extends State<ChangePwPage> {
             onPressed: (){
               Get.offAllNamed('/login');
             },
-            icon: const Icon(Icons.arrow_back)
+            icon: const Icon(Icons.arrow_back, size: 30)
           ),
-        ).pSymmetric(h: 15, v: 25),
+        ).pSymmetric(h: 5, v: 5),
       ),
       body: Center(
         child: SingleChildScrollView(
