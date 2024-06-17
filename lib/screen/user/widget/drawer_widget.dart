@@ -34,7 +34,6 @@ class DrawerWidget extends StatelessWidget {
             InkWell(
               onTap: () {
                 Get.to(ProfileScreen(user: user));
-                
               },
               child: Row(
                 children: [
@@ -102,10 +101,7 @@ class DrawerWidget extends StatelessWidget {
   }
 }
 
-Widget customInkWell({
-  required Future<void> Function() onTap,
-  required String text,
-}) {
+Widget customInkWell({ required Future<void> Function() onTap, required String text }) {
   return InkWell(
     onTap: onTap,
     child: text.text.bold.size(FontSiz15).make(),

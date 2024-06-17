@@ -25,7 +25,7 @@ class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
   TextEditingController textEditingController = TextEditingController();
   final GlobalKey<BusDropDownButtonWidgetState> _dropDownKey = GlobalKey<BusDropDownButtonWidgetState>();
 
-  int? _selectedButtonIndex; // 현재 선택된 버튼의 인덱스
+  var _selectedButtonIndex = 0.obs; // 현재 선택된 버튼의 인덱스
 
   @override
   Widget build(BuildContext context) {
@@ -68,27 +68,26 @@ class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
               child: Column(
                 children: [
                   height15,
-                  // categories 항목을 추가
-                  Row(
-                    children: [
-                      Column(
-                        children: categories.asMap().entries.map((entry) {
-                          int index = entry.key;
-                          var category = entry.value;
-                          return BusLoadCheckButtonWidget(
-                            title: category['name'] as String,
-                            items: category['items'] as List<String>,
-                            dropDownKey: _dropDownKey,
-                            isSelected: _selectedButtonIndex == index, // 버튼이 선택되었는지 여부
-                            onTap: () {
-                              setState(() {
-                                _selectedButtonIndex = index; // 현재 선택된 버튼 인덱스를 업데이트
-                              });
-                            },
-                          ).pOnly(bottom: 10); // 버튼 간의 간격을 추가
-                        }).toList(),
-                      ),
-                    ],
+                  Obx(() => 
+                    Row(
+                      children: [
+                        Column(
+                          children: categories.asMap().entries.map((entry) {
+                            int index = entry.key;
+                            var category = entry.value;
+                            return BusLoadCheckButtonWidget(
+                              title: category['name'] as String,
+                              items: category['items'] as List<String>,
+                              dropDownKey: _dropDownKey,
+                              isSelected: _selectedButtonIndex.value == index, // 버튼이 선택되었는지 여부
+                              onTap: () {
+                                _selectedButtonIndex.value = index; // 현재 선택된 버튼 인덱스를 업데이트
+                              },
+                            ).pOnly(bottom: 10); // 버튼 간의 간격을 추가
+                          }).toList(),
+                        ),
+                      ],
+                    ),
                   ),
                   height15,
                   BusRouteChangeContainer(

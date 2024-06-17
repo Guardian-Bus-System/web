@@ -1,3 +1,4 @@
+import 'package:capstone_front/CustomSide/responsive_screen_size.dart';
 import 'package:capstone_front/model/UserModel.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
 import 'package:capstone_front/CustomSide/spaceing_box.dart';
@@ -72,8 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width - 50;
+    ScreenSize screen = ScreenSize(context);
 
     return Obx(
       () => Scaffold(
@@ -104,12 +104,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         BusUserInfoConatainer(
                           user: userdata.value,
                           date: date,
-                          containerHeight: screenHeight,
-                          containerWidth: screenWidth,
+                          containerHeight: screen.height,
+                          containerWidth: screen.width,
                         ),
                         BusListContainer(
-                          listItemHeight: screenHeight,
-                          listItemWidth: screenWidth,
+                          listItemHeight: screen.height,
+                          listItemWidth: screen.width,
                         ),
                       ],
                     ),

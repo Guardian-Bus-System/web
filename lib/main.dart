@@ -54,9 +54,9 @@ class MyApp extends StatelessWidget {
         Locale('ko', 'KR')
       ],
       locale: const Locale('ko'),
-      title: 'Flutter Demo',
+      title: 'GBSW-GOBUS',
       home: screen.width < 600 //가로넓이가 600이하라면 앱을 보여주고 아니면 그냥 흰 바탕 
-        ? ChangeBusRouteScreen(data: userdata)//HomeView(user: userdata)
+        ? HomeView(user: userdata)//ChangeBusRouteScreen(data: userdata)
         : const AdminMainPage(),
       initialRoute: '/',
       getPages: [

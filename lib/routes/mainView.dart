@@ -1,5 +1,6 @@
 import 'package:capstone_front/model/UserModel.dart';
 import 'package:capstone_front/routes/mainController.dart';
+import 'package:capstone_front/screen/user/pages/changeBusRoute_screen.dart';
 import 'package:capstone_front/screen/user/pages/home_screen.dart';
 import 'package:capstone_front/screen/user/pages/notification_screen.dart';
 import 'package:capstone_front/screen/user/pages/profile_screen.dart';
@@ -21,7 +22,7 @@ class HomeView extends StatelessWidget {
         controller: controller.tabController,
         children: <Widget>[
           NotificationScreen(),
-          HomeScreen(),
+          ChangeBusRouteScreen(data:user),
           HomeScreen(),
           ProfileScreen(user: user),
           RuleScreen(),
