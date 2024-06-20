@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 import 'CustomSide/responsive_screen_size.dart';
 import 'screen/user/pages/changeBusRoute_screen.dart';
@@ -22,7 +23,7 @@ void main() {
     DeviceOrientation.portraitUp, 
     DeviceOrientation.portraitDown,
   ]);
-
+  setPathUrlStrategy();
   runApp(MyApp());
 }
 

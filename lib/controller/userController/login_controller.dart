@@ -29,7 +29,7 @@ class LoginController extends GetxController {
         prefs.setString('token', accessToken);
         emailController.clear();
         passwordController.clear();
-        Get.offAll(HomeScreen());
+        Get.to(HomeScreen());
       } else {
         var errorMessage = jsonDecode(response.body)['message'] ?? "Unknown Error Occurred";
         throw errorMessage;

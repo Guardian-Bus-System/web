@@ -26,59 +26,64 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(70.0),
-          child:AppBar(backgroundColor: backgroundColor,),
-      ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 14),
-              Image.asset(gbswLogoUrl,width: 90),
-              height30,
-              'GBSW 귀가버스 관리 시스템'
-              .text
-              .textStyle(
-                const TextStyle(
-                  fontWeight: FontWeight.w800
-                )
-              ).size(18).make(),
-          
-              height30,height5,
-              InputTextFieldWidget(textEditingController: loginController.emailController, hitText: '아이디',  blindetext: false),
-          
-              height15,
-              InputTextFieldWidget(textEditingController: loginController.passwordController, hitText: '패스워드',  blindetext: true),
-              
-              height30,height5,
-              SubmitButton(
-                onPressed: () => loginController.loginWithEmail(),
-                title: '로그인',
-              ),
-              height30,height5,
-              Row(
-                children: [
-                  '패스워드를 잊으셨나요?'.text.size(12).make(),
-                  TextButton(
-                    onPressed: () {
-                      Get.to(CerficationPage());
-                    }, 
-                    child: '패스워드 찾기'.text.size(12).textStyle(
-                      const TextStyle(
-                        color: baseColor,
-                        decoration: TextDecoration.underline,
-                        decorationColor: baseColor
-                      )
-                    ).make()
+    return PopScope(
+      onPopInvoked: (didPop) {
+        Get.back();
+      },
+      child: Scaffold(
+        appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(70.0),
+            child:AppBar(backgroundColor: backgroundColor,),
+        ),
+        body: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 14),
+                Image.asset(gbswLogoUrl,width: 90),
+                height30,
+                'GBSW 귀가버스 관리 시스템'
+                .text
+                .textStyle(
+                  const TextStyle(
+                    fontWeight: FontWeight.w800
                   )
-                ],
-              ).pSymmetric(h:25)
-            ],
-          ).pOnly(bottom: MediaQuery.of(context).size.width * 0.3),
-        )
+                ).size(18).make(),
+            
+                height30,height5,
+                InputTextFieldWidget(textEditingController: loginController.emailController, hitText: '아이디',  blindetext: false),
+            
+                height15,
+                InputTextFieldWidget(textEditingController: loginController.passwordController, hitText: '패스워드',  blindetext: true),
+                
+                height30,height5,
+                SubmitButton(
+                  onPressed: () => loginController.loginWithEmail(),
+                  title: '로그인',
+                ),
+                height30,height5,
+                Row(
+                  children: [
+                    '패스워드를 잊으셨나요?'.text.size(12).make(),
+                    TextButton(
+                      onPressed: () {
+                        Get.to(CerficationPage());
+                      }, 
+                      child: '패스워드 찾기'.text.size(12).textStyle(
+                        const TextStyle(
+                          color: baseColor,
+                          decoration: TextDecoration.underline,
+                          decorationColor: baseColor
+                        )
+                      ).make()
+                    )
+                  ],
+                ).pSymmetric(h:25)
+              ],
+            ).pOnly(bottom: MediaQuery.of(context).size.width * 0.3),
+          )
+        ),
       ),
     );
   }
