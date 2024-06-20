@@ -53,6 +53,8 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
+  //URL 처리 플러그인 찾기
+
   // Future<void> _init() async {
   //   FlutterLocalNotification.init();
   //   await FlutterLocalNotification.requestNotificationPermission();

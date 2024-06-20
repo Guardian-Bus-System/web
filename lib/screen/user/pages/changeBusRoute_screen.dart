@@ -54,9 +54,15 @@ class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
                   height15,
                   Row(
                     children: [
-                      BusTakeButtonWidget(buttonText: '탑승',),
+                      InkWell(
+                        onTap: () {},
+                        child: BusTakeButtonWidget(buttonText: '탑승',)
+                      ),
                       width20,
-                      BusTakeButtonWidget(buttonText: '미탑승',),
+                      InkWell(
+                        onTap: () {},
+                        child: BusTakeButtonWidget(buttonText: '미탑승',)
+                      ),
                     ],
                   ),
                 ],
