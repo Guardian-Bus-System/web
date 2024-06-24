@@ -4,7 +4,6 @@ import 'package:capstone_front/CustomSide/color_theme.dart';
 import 'package:capstone_front/screen/user/widget/bus/busUserInfo.dart';
 import 'package:capstone_front/utils/img.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
