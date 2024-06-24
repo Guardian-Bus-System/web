@@ -105,7 +105,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         height5,
                         BusUserInfoContainer(
                           user: userdata.value,
-                          date: date,
                           containerHeight: screen.height,
                           containerWidth: screen.width - 50,
                         ),

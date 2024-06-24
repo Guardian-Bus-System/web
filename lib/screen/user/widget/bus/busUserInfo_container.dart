@@ -1,6 +1,7 @@
 import 'package:capstone_front/CustomSide/font_size.dart';
 import 'package:capstone_front/model/UserModel.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
+import 'package:capstone_front/screen/user/widget/AuthWidgets/formatter.dart';
 import 'package:capstone_front/screen/user/widget/bus/busUserInfo.dart';
 import 'package:capstone_front/utils/img.dart';
 import 'package:flutter/material.dart';
@@ -9,14 +10,12 @@ import 'package:velocity_x/velocity_x.dart';
 
 class BusUserInfoContainer extends StatelessWidget {
   final UserData user;
-  final String date;
   final double containerWidth;
   final double containerHeight;
 
   const BusUserInfoContainer({
     Key? key,
     required this.user,
-    required this.date,
     required this.containerWidth,
     required this.containerHeight,
   }) : super(key: key);
@@ -25,7 +24,7 @@ class BusUserInfoContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed('/changeBusRoute', arguments: date);
+        Get.toNamed('/changeBusRoute', arguments: getFormattedDateTime());
         print(user.name);
       },
       child: Container(
@@ -43,7 +42,7 @@ class BusUserInfoContainer extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    date.text.size(FontSiz12).color(baseColor).make(),
+                    getFormattedDateTime().text.size(FontSiz12).color(baseColor).make(),
                   ],
                 ),
                 const SizedBox(height: 20),

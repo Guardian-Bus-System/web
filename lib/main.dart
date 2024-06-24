@@ -1,7 +1,7 @@
 import 'package:capstone_front/model/UserModel.dart';
+import 'package:capstone_front/model/data.dart';
 import 'package:capstone_front/routes/mainView.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminMainPage.dart';
-import 'package:capstone_front/screen/user/pages/profile_screen.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
 import 'package:capstone_front/screen/user/auth/login_page.dart';
 import 'package:capstone_front/screen/user/pages/home_screen.dart';
@@ -29,15 +29,7 @@ void main() {
 class MyApp extends StatelessWidget {
   
   MyApp({super.key});
-  late Rx<UserData> userdata = 
-    UserData(
-      id: '',pw: '', loginId: 'loginId',
-      gradeClass: "0학년 0반", number: 0,phoneNumber: '010-////-////',  
-      name: '홍길동', 
-      roles: [], authorities: [], 
-      timestamp: ''
-    ).obs; // userdata를 Rx 형태로 선언
-
+  Rx<UserData> userData = userdata;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +48,7 @@ class MyApp extends StatelessWidget {
       locale: const Locale('ko'),
       title: 'GBSW-GOBUS',
       home: screen.width < 600 //가로넓이가 600이하라면 앱을 보여주고 아니면 그냥 흰 바탕 
-        ? HomeView(user: userdata)//ChangeBusRouteScreen(data: userdata)
+        ? HomeView(user: userData)//ChangeBusRouteScreen(data: userdata)
         : const AdminMainPage(),
       initialRoute: '/',
       getPages: [
