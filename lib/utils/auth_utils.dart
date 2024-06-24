@@ -5,8 +5,9 @@ import 'package:capstone_front/screen/user/auth/login_page.dart';
 Future<bool> checkTokens() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   
-  final String? token = prefs.getString('token');
-  if (token != null) {
+  final String? accessToken = prefs.getString('token');
+  final String? refreshToken = prefs.getString('token');
+  if (accessToken != null) {
     return true;
   } else {
 

@@ -7,6 +7,7 @@ class ApiEndPoints {
 class _AuthEndPoints{
   final String registerEmail = "register";
   final String loginEmail = "auth/login";
+  final String refreashToken = "auth/refreash";
   final String joinUser = "users/me";
   final String busInfo = "buses/";
 }
