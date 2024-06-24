@@ -40,8 +40,7 @@ class _BusUserInfoState extends State<BusUserInfo> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  '${widget.user.grade
-                  }${widget.user.classNumber
+                  '${widget.user.gradeClass
                   }${widget.user.number > 9 
                     ? widget.user.number 
                     : '0${widget.user.number}'} ${widget.user.name}'

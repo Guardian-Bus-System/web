@@ -34,7 +34,7 @@ class HomeView extends StatelessWidget {
 }
 
 class Bottom extends StatelessWidget {
-  const Bottom({Key? key}) : super(key: key);
+  const Bottom({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class Bottom extends StatelessWidget {
             labelColor: baseColor,
             unselectedLabelColor: Color.fromRGBO(175, 175, 175, 1),
             indicatorColor: Colors.transparent, // 선택된 탭의 배경을 표시하지 않음
-            tabs: <Widget>[
+            tabs: const <Widget>[
               Tab(
                 icon: Icon(Icons.map, size: 25),
                 child: Text('공지', style: TextStyle(fontSize: 11.7)),

@@ -27,8 +27,11 @@ class UserController extends GetxController {
       http.Response response = await http.get(url, headers: headers);
       print(response.statusCode);
       if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-        var userData = UserData.fromJson(data);
+        
+        var data = jsonDecode(utf8.decode(response.bodyBytes));
+
+        print(data['data']);
+        var userData = UserData.fromJson(data['data']);
         return userData;
       } else {
         var errorMessage = jsonDecode(response.body)['message'] ?? "Unknown Error Occurred";

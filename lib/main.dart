@@ -34,11 +34,12 @@ class MyApp extends StatelessWidget {
   late Rx<UserData> userdata = 
     UserData(
       id: '',pw: '', loginId: 'loginId',
-      grade: 1, classNumber: 1, number: 0,  
+      gradeClass: "0학년 0반", number: 0,phoneNumber: '010-////-////',  
       name: '홍길동', 
       roles: [], authorities: [], 
       timestamp: ''
     ).obs; // userdata를 Rx 형태로 선언
+
 
   @override
   Widget build(BuildContext context) {

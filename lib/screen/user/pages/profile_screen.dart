@@ -54,7 +54,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       BusData busData = await busInfoController.getBusData();
       print(busData.busNumber);
     } else {
-      Get.offAll(LoginPage()); 
+      Get.to(LoginPage()); 
     }
   }
 
@@ -121,8 +121,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     '학번'.text.color(greyText).make(),
                     width40,
-                    '${widget.user.value.grade}학년 ${
-                      widget.user.value.classNumber}반 ${
+                    '${widget.user.value.gradeClass}${
                         widget.user.value.number}번'
                         .text.bold.make()
                   ],
@@ -157,8 +156,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     '버스 경로'.text.color(greyText).make(),
                     width40,
-                    '${widget.user.value.grade}학년 ${
-                      widget.user.value.classNumber}반 ${
+                    '${widget.user.value.gradeClass}${
                         widget.user.value.number}번'
                         .text.bold.make()
                   ],

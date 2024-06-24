@@ -38,8 +38,7 @@ class DrawerWidget extends StatelessWidget {
               child: Row(
                 children: [
                   '학생'.text.bold.color(baseColor).size(FontSiz18).make(),
-                  ' ${user.value.grade
-                  }${user.value.classNumber
+                  ' ${user.value.gradeClass
                   }${user.value.number > 9 
                     ? user.value.number 
                     : '0${user.value.number}'

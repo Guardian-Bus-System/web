@@ -27,14 +27,15 @@ class _HomeScreenState extends State<HomeScreen> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   UserController userController = UserController();
-  late Rx<UserData> userdata = 
+   late Rx<UserData> userdata = 
     UserData(
       id: '',pw: '', loginId: 'loginId',
-      grade: 1, classNumber: 1, number: 0,  
+      gradeClass: "0학년 0반", number: 0,phoneNumber: '010-////-////',  
       name: '홍길동', 
       roles: [], authorities: [], 
       timestamp: ''
     ).obs; // userdata를 Rx 형태로 선언
+
 
   var tokens = 'No Token'.obs; 
   String date = '';
@@ -45,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
     print(userdata.value.loginId);
 
     super.initState();
-    //_init();
+    _init();
   }
 
   @override
@@ -55,23 +56,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //URL 처리 플러그인 찾기
 
-  // Future<void> _init() async {
-  //   FlutterLocalNotification.init();
-  //   await FlutterLocalNotification.requestNotificationPermission();
-  //   date = getFormattedDateTime();
-  //   await _checkToken();
-  // }
+  Future<void> _init() async {
+    FlutterLocalNotification.init();
+    await FlutterLocalNotification.requestNotificationPermission();
+    await _checkToken();
+  }
 
-  // Future<void> _checkToken() async {
-  //   final SharedPreferences prefs = await _prefs; 
-  //   final String? token = prefs.getString('token');
-  //   if (token != null) {
-  //     tokens.value = token; 
-  //     userdata.value = await userController.getUserData();
-  //   } else {
-  //     Get.offAll(LoginPage()); 
-  //   }
-  // }
+  Future<void> _checkToken() async {
+    final SharedPreferences prefs = await _prefs; 
+    final String? token = prefs.getString('token');
+    if (token != null) {
+      tokens.value = token;
+      userdata.value = await userController.getUserData();
+    } else {
+      Get.to(LoginPage()); 
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         height20,
                         height5,
-                        BusUserInfoConatainer(
+                        BusUserInfoContainer(
                           user: userdata.value,
                           date: date,
                           containerHeight: screen.height,

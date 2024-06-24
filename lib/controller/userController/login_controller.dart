@@ -23,12 +23,17 @@ class LoginController extends GetxController {
       http.Response response = await http.post(url, body: jsonEncode(body), headers: headers);
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        print(data['data']['accessToken']);
+        //토큰 처리
         var accessToken = data['data']['accessToken']; // Accessing the accessToken value
+        var refreshToken = data['data']['refreshToken'];
         final prefs = await SharedPreferences.getInstance();
         prefs.setString('token', accessToken);
+        prefs.setString('refreshToken', refreshToken);
+        
+        //컨트롤러 초기화
         emailController.clear();
         passwordController.clear();
+        
         Get.to(HomeScreen());
       } else {
         var errorMessage = jsonDecode(response.body)['message'] ?? "Unknown Error Occurred";

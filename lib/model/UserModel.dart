@@ -3,8 +3,8 @@ class UserData {
   final String loginId;
   final String pw;
   final String name;
-  final int grade;
-  final int classNumber;
+  final String phoneNumber;
+  final String gradeClass;
   final int number;
   final List<Role> roles;
   final List<Authority> authorities;
@@ -15,8 +15,8 @@ class UserData {
     required this.loginId,
     required this.pw,
     required this.name,
-    required this.grade,
-    required this.classNumber,
+    required this.phoneNumber,
+    required this.gradeClass,
     required this.number,
     required this.roles,
     required this.authorities,
@@ -25,16 +25,20 @@ class UserData {
 
   factory UserData.fromJson(Map<String, dynamic> json) {
     return UserData(
-      id: json['data']['id'],
-      loginId: json['data']['loginId'],
-      pw: json['data']['pw'],
-      name: json['data']['name'],
-      grade: json['data']['grade'],
-      classNumber: json['data']['classNumber'],
-      number: json['data']['number'],
-      roles: List<Role>.from(json['data']['roles'].map((role) => Role.fromJson(role))),
-      authorities: List<Authority>.from(json['data']['authorities'].map((authority) => Authority.fromJson(authority))),
-      timestamp: json['timestamp'],
+      id: json['id'] ?? '',
+      loginId: json['loginId'] ?? '',
+      pw: json['pw'] ?? '',
+      name: json['name'] ?? '',
+      phoneNumber: json['phoneNumber'] ?? '',
+      gradeClass: json['gradeClass'] ?? '',
+      number: json['number'] ?? 0, // nullable일 경우 기본값 0 설정
+      roles: (json['roles'] as List<dynamic>?)
+              ?.map((role) => Role.fromJson(role))
+              .toList() ?? [], // 빈 리스트로 초기화
+      authorities: (json['authorities'] as List<dynamic>?)
+              ?.map((authority) => Authority.fromJson(authority))
+              .toList() ?? [], // 빈 리스트로 초기화
+      timestamp: json['timestamp'] ?? '',
     );
   }
 }
@@ -50,8 +54,8 @@ class Role {
 
   factory Role.fromJson(Map<String, dynamic> json) {
     return Role(
-      name: json['name'],
-      description: json['description'],
+      name: json['name'] ?? '',
+      description: json['description'] ?? '',
     );
   }
 }
@@ -65,7 +69,7 @@ class Authority {
 
   factory Authority.fromJson(Map<String, dynamic> json) {
     return Authority(
-      authority: json['authority'],
+      authority: json['authority'] ?? '',
     );
   }
 }
