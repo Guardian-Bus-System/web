@@ -13,12 +13,12 @@ import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'CustomSide/responsive_screen_size.dart';
-
+  
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp, 
+    DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
   setPathUrlStrategy();

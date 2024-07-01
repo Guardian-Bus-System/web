@@ -22,7 +22,7 @@ class BusInfoController extends GetxController{
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token'
         };
-        var url = Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.busInfo);
+        var url = Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.busInformation);
 
         http.Response response = await http.get(url, headers: headers);
         if (response.statusCode == 200) {

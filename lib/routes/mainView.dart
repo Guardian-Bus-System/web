@@ -10,65 +10,82 @@ import 'package:get/get.dart';
 
 import '../CustomSide/color_theme.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   final Rx<UserData> user;
 
   const HomeView({super.key, required this.user});
 
   @override
+  _HomeViewState createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 5, vsync: this, initialIndex: 2);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: TabBarView(
-        controller: controller.tabController,
+        controller: _tabController,
         children: <Widget>[
           NotificationScreen(),
-          ChangeBusRouteScreen(data:user),
+          ChangeBusRouteScreen(data: widget.user),
           HomeScreen(),
-          ProfileScreen(user: user),
+          ProfileScreen(user: widget.user),
           RuleScreen(),
         ],
       ),
-      bottomNavigationBar: Bottom(),
+      bottomNavigationBar: Bottom(tabController: _tabController),
     );
   }
 }
 
 class Bottom extends StatelessWidget {
-  const Bottom({super.key});
+  final TabController tabController;
+
+  const Bottom({super.key, required this.tabController});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      child: Stack(
-        children: [
-          TabBar(
-            controller: controller.tabController,
-            labelColor: baseColor,
-            unselectedLabelColor: Color.fromRGBO(175, 175, 175, 1),
-            indicatorColor: Colors.transparent, // 선택된 탭의 배경을 표시하지 않음
-            tabs: const <Widget>[
-              Tab(
-                icon: Icon(Icons.map, size: 25),
-                child: Text('공지', style: TextStyle(fontSize: 11.7)),
-              ),
-              Tab(
-                icon: Icon(Icons.location_on, size: 25),
-                child: Text('버스경로', style: TextStyle(fontSize: 11.7)),
-              ),
-              Tab(
-                icon: Icon(Icons.home, size: 25),
-                child: Text('홈', style: TextStyle(fontSize: 11.7)),
-              ),
-              Tab(
-                icon: Icon(Icons.forum, size: 25),
-                child: Text('프로필', style: TextStyle(fontSize: 11.7)),
-              ),
-              Tab(
-                icon: Icon(Icons.account_circle, size: 25),
-                child: Text('규칙', style: TextStyle(fontSize: 11.7)),
-              ),
-            ],
+      child: TabBar(
+        controller: tabController,
+        labelColor: baseColor,
+        unselectedLabelColor: Color.fromRGBO(175, 175, 175, 1),
+        indicatorColor: Colors.transparent, // 선택된 탭의 배경을 표시하지 않음
+        tabs: const <Widget>[
+          Tab(
+            icon: Icon(Icons.map, size: 25),
+            child: Text('공지', style: TextStyle(fontSize: 11.7)),
+          ),
+          Tab(
+            icon: Icon(Icons.location_on, size: 25),
+            child: Text('버스경로', style: TextStyle(fontSize: 11.7)),
+          ),
+          Tab(
+            icon: Icon(Icons.home, size: 25),
+            child: Text('홈', style: TextStyle(fontSize: 11.7)),
+          ),
+          Tab(
+            icon: Icon(Icons.forum, size: 25),
+            child: Text('프로필', style: TextStyle(fontSize: 11.7)),
+          ),
+          Tab(
+            icon: Icon(Icons.account_circle, size: 25),
+            child: Text('규칙', style: TextStyle(fontSize: 11.7)),
           ),
         ],
       ),

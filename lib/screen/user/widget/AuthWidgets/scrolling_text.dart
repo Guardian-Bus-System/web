@@ -85,8 +85,7 @@ class _ScrollingTextWidgetState extends State<ScrollingTextWidget> with SingleTi
             ).pSymmetric(h: 12),
           ),
           Positioned(
-            right: 0, // 컨테이너의 우측 가장자리로부터 10픽셀 떨어뜨림
-            top: 0, // 컨테이너의 상단 가장자리로부터 10픽셀 떨어뜨림
+            right: 0, top: 0,
             child: Container(
               width: 9,
               height: 9,

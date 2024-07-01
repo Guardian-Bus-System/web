@@ -26,7 +26,7 @@ class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
   TextEditingController textEditingController = TextEditingController();
   final GlobalKey<BusDropDownButtonWidgetState> _dropDownKey = GlobalKey<BusDropDownButtonWidgetState>();
 
-  var _selectedButtonIndex = 0.obs; // 현재 선택된 버튼의 인덱스
+  RxInt _selectedButtonIndex = 0.obs; // 현재 선택된 버튼의 인덱스
 
   @override
   Widget build(BuildContext context) {
