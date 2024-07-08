@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class BusUserInfoContainer extends StatelessWidget {
-  final UserData user;
+  final Rx<User> user;
   final double containerWidth;
   final double containerHeight;
 
@@ -24,8 +24,7 @@ class BusUserInfoContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed('/changeBusRoute', arguments: getFormattedDateTime());
-        print(user.name);
+        Get.toNamed('/');
       },
       child: Container(
         color: backgroundColor,
@@ -37,7 +36,7 @@ class BusUserInfoContainer extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    '${user.name}님, 안녕하세요!'.text.size(FontSiz18).make(),
+                    '${user.value.name}님, 안녕하세요!'.text.size(FontSiz18).make(),
                   ],
                 ),
                 Row(

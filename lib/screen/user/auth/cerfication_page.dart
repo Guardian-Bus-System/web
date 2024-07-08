@@ -60,7 +60,7 @@ class _CerficationPageState extends State<CerficationPage> {
               SubmitButton(
                 onPressed: () => 
                   //cerficationController.cerficationWidthNumber()
-                  Get.to(const ChangePwPage(userName: 'userName'))
+                  Get.to(const ChangePwPage())
                 ,
                 title: '인증하기',
               ),

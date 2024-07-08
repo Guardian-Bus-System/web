@@ -1,4 +1,5 @@
 import 'package:capstone_front/CustomSide/color_theme.dart';
+import 'package:capstone_front/routes/mainView.dart';
 import 'package:capstone_front/screen/user/pages/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,7 @@ class CustomAppBar extends StatelessWidget {
       scrolledUnderElevation: 0,
       automaticallyImplyLeading: appBarTitle == '공지사항' || appBarTitle == '내 프로필'  ? false : true,
       leading:appBarTitle == '공지사항' ? null : IconButton(
-        icon:const Icon(Icons.arrow_back, size: 30,), onPressed: () { Get.to(HomeScreen()); },
+        icon:const Icon(Icons.arrow_back, size: 30,), onPressed: () { Get.toNamed('/'); },
       ).pOnly(left: 10),
       backgroundColor: bacgroundOrTextColor,
       title: appBarTitle.text.bold.size(20).make().pSymmetric(h:10),

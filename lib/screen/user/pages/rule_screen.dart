@@ -3,7 +3,6 @@ import 'package:capstone_front/CustomSide/font_size.dart';
 import 'package:capstone_front/CustomSide/spaceing_box.dart';
 import 'package:capstone_front/controller/userController/rules_controller.dart';
 import 'package:capstone_front/model/RulesModel.dart';
-import 'package:capstone_front/screen/user/auth/login_page.dart';
 import 'package:capstone_front/screen/user/widget/custom_appbar.dart';
 import 'package:capstone_front/screen/user/widget/ruleRow_widget.dart';
 import 'package:capstone_front/utils/auth_utils.dart';
@@ -25,8 +24,8 @@ class _RuleScreenState extends State<RuleScreen> {
 
   @override
   void initState() {
-     _getRules();
     super.initState();
+    _getRules();
   }
 
   @override
@@ -38,8 +37,6 @@ class _RuleScreenState extends State<RuleScreen> {
     if (await checkTokens()) {
       RuleResponse ruleResponse = await rulesController.getRules();
       rules.value = ruleResponse.data;
-    }else{
-      Get.to(LoginPage());
     }
   }
 
@@ -54,9 +51,8 @@ class _RuleScreenState extends State<RuleScreen> {
       ),
       body: Obx(() {
         if (rules.isEmpty) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator(color: baseColor,));
         }
-
         return Column(
           children: [
             height20,

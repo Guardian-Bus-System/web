@@ -1,4 +1,4 @@
-// NotificationListContainer.dart
+import 'package:capstone_front/CustomSide/color_theme.dart';
 import 'package:capstone_front/controller/userController/notices_controller.dart';
 import 'package:capstone_front/model/NoticesModel.dart';
 import 'package:capstone_front/utils/auth_utils.dart';
@@ -14,9 +14,9 @@ class NotificationListContainer extends StatefulWidget {
 }
 
 class _NotificationListContainerState extends State<NotificationListContainer> {
-  NoticeController noticeController = NoticeController();
+  final NoticeController noticeController = Get.put(NoticeController());
 
-  late RxList<Notice> notices = <Notice>[].obs;
+  final RxList<Notice> notices = <Notice>[].obs;
 
   @override
   void initState() {
@@ -27,20 +27,21 @@ class _NotificationListContainerState extends State<NotificationListContainer> {
   Future<void> _getNotices() async {
     if (await checkTokens()) {
       NoticeResponse noticeResponse = await noticeController.getNotices();
-      notices.value = noticeResponse.data;
+      notices.value = noticeResponse.data.content;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if(notices.isEmpty){
-        return Center(child: CircularProgressIndicator(),);
+      if (notices.isEmpty) {
+        return const Center(child: CircularProgressIndicator(color: baseColor,));
       }
+
       return ListView.builder(
         itemCount: notices.length,
         itemBuilder: (context, index) {
-          return NotificationListItem(notice: notices[index]);
+          return NotificationListItem(notice: notices[index], id: notices[index].id,);
         },
       );
     });

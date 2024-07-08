@@ -1,122 +1,174 @@
-// NoticeModel.dart
+import 'dart:convert';
+
 class Notice {
   final int id;
-  final String title;
-  final String createAt;
-  final String? updateAt; // nullable
-  final bool viewsCk;
-  final User user;
+  final String? content;
+  final DateTime createAt;
+  final DateTime updateAt;
+  final bool views;
+  final List<ViewsUser> viewsUser;
 
   Notice({
     required this.id,
-    required this.title,
+    this.content,
     required this.createAt,
-    this.updateAt,
-    required this.viewsCk,
-    required this.user,
+    required this.updateAt,
+    required this.views,
+    required this.viewsUser,
   });
 
   factory Notice.fromJson(Map<String, dynamic> json) {
-    return Notice(
-      id: json['id'],
-      title: json['title'],
-      createAt: json['createAt'],
-      updateAt: json['updateAt'],
-      viewsCk: json['viewsCk'],
-      user: User.fromJson(json['user']),
+    try {
+      return Notice(
+        id: json['id'] ?? 0,
+        content: json['content'] as String?,
+        createAt: json['createAt'] != null ? DateTime.parse(json['createAt']) : DateTime.now(),
+        updateAt: json['updateAt'] != null ? DateTime.parse(json['updateAt']) : DateTime.now(),
+        views: json['views'] ?? false,
+        viewsUser: (json['viewsUser'] as List<dynamic>?)
+                ?.map((e) => ViewsUser.fromJson(e as Map<String, dynamic>))
+                .toList() ??
+            [],
+      );
+    } catch (e) {
+      print('Failed to parse Notice: $e');
+      throw e; // 예외를 다시 던져서 호출자에서 처리할 수 있도록 함
+    }
+  }
+}
+
+class ViewsUser {
+  final int id;
+  final String views;
+
+  ViewsUser({
+    required this.id,
+    required this.views,
+  });
+
+  factory ViewsUser.fromJson(Map<String, dynamic> json) {
+    return ViewsUser(
+      id: json['id'] ?? 0,
+      views: json['views'] as String? ?? '',
     );
   }
 }
 
-class User {
-  final String id;
-  final String loginId;
-  final String name;
-  final String phoneNumber;
-  final String gradeClass;
+class NoticeData {
+  final int totalPages;
+  final int totalElements;
+  final bool first;
+  final bool last;
+  final int numberOfElements;
+  final int size;
+  final List<Notice> content;
   final int number;
-  final bool usingCk;
-  final bool? boardingCk; // nullable
-  final List<Role> roles;
-  final List<Authority> authorities;
+  final Sort sort;
+  final Pageable pageable;
+  final bool empty;
 
-  User({
-    required this.id,
-    required this.loginId,
-    required this.name,
-    required this.phoneNumber,
-    required this.gradeClass,
+  NoticeData({
+    required this.totalPages,
+    required this.totalElements,
+    required this.first,
+    required this.last,
+    required this.numberOfElements,
+    required this.size,
+    required this.content,
     required this.number,
-    required this.usingCk,
-    this.boardingCk,
-    required this.roles,
-    required this.authorities,
+    required this.sort,
+    required this.pageable,
+    required this.empty,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      id: json['id'],
-      loginId: json['loginId'],
-      name: json['name'],
-      phoneNumber: json['phoneNumber'],
-      gradeClass: json['gradeClass'],
-      number: json['number'],
-      usingCk: json['usingCk'],
-      boardingCk: json['boardingCk'],
-      roles: (json['roles'] as List).map((role) => Role.fromJson(role)).toList(),
-      authorities: (json['authorities'] as List).map((auth) => Authority.fromJson(auth)).toList(),
+  factory NoticeData.fromJson(Map<String, dynamic> json) {
+    return NoticeData(
+      totalPages: json['totalPages'] ?? 0,
+      totalElements: json['totalElements'] ?? 0,
+      first: json['first'] ?? false,
+      last: json['last'] ?? false,
+      numberOfElements: json['numberOfElements'] ?? 0,
+      size: json['size'] ?? 0,
+      content: (json['content'] as List<dynamic>?)
+              ?.map((e) => Notice.fromJson(e))
+              .toList() ??
+          [],
+      number: json['number'] ?? 0,
+      sort: Sort.fromJson(json['sort'] ?? {}),
+      pageable: Pageable.fromJson(json['pageable'] ?? {}),
+      empty: json['empty'] ?? false,
     );
   }
 }
 
-class Role {
-  final String id;
-  final String title;
+class Sort {
+  final bool empty;
+  final bool sorted;
+  final bool unsorted;
 
-  Role({
-    required this.id,
-    required this.title,
+  Sort({
+    required this.empty,
+    required this.sorted,
+    required this.unsorted,
   });
 
-  factory Role.fromJson(Map<String, dynamic> json) {
-    return Role(
-      id: json['id'],
-      title: json['title'],
+  factory Sort.fromJson(Map<String, dynamic> json) {
+    return Sort(
+      empty: json['empty'] ?? false,
+      sorted: json['sorted'] ?? false,
+      unsorted: json['unsorted'] ?? false,
     );
   }
 }
 
-class Authority {
-  final String authority;
+class Pageable {
+  final int offset;
+  final Sort sort;
+  final int pageNumber;
+  final int pageSize;
+  final bool paged;
+  final bool unpaged;
 
-  Authority({
-    required this.authority,
+  Pageable({
+    required this.offset,
+    required this.sort,
+    required this.pageNumber,
+    required this.pageSize,
+    required this.paged,
+    required this.unpaged,
   });
 
-  factory Authority.fromJson(Map<String, dynamic> json) {
-    return Authority(
-      authority: json['authority'],
+  factory Pageable.fromJson(Map<String, dynamic> json) {
+    return Pageable(
+      offset: json['offset'] ?? 0,
+      sort: Sort.fromJson(json['sort'] ?? {}),
+      pageNumber: json['pageNumber'] ?? 0,
+      pageSize: json['pageSize'] ?? 0,
+      paged: json['paged'] ?? false,
+      unpaged: json['unpaged'] ?? false,
     );
   }
 }
 
-// NoticesModel.dart
 class NoticeResponse {
   final int status;
   final String message;
-  final List<Notice> data;
+  final NoticeData data;
+  final DateTime timestamp;
 
   NoticeResponse({
     required this.status,
     required this.message,
     required this.data,
+    required this.timestamp,
   });
 
   factory NoticeResponse.fromJson(Map<String, dynamic> json) {
     return NoticeResponse(
-      status: json['status'],
-      message: json['message'],
-      data: (json['data'] as List).map((notice) => Notice.fromJson(notice)).toList(),
+      status: json['status'] ?? 0,
+      message: json['message'] ?? '',
+      data: NoticeData.fromJson(json['data'] ?? {}),
+      timestamp: json['timestamp'] != null ? DateTime.parse(json['timestamp']) : DateTime.now(),
     );
   }
 }

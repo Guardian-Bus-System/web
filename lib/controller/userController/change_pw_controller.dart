@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:capstone_front/controller/userController/user_controller.dart';
 import 'package:capstone_front/screen/user/auth/login_page.dart';
 import 'package:capstone_front/screen/user/widget/AuthWidgets/formatter.dart';
 import 'package:capstone_front/utils/api_endpoint.dart';
@@ -11,14 +12,15 @@ import 'package:velocity_x/velocity_x.dart';
 
 class ChangePasswordController extends GetxController {
   TextEditingController passwordController = TextEditingController();
-  TextEditingController checkPasswordController = TextEditingController();
-
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  TextEditingController changePasswordController = TextEditingController();
+  TextEditingController checkChangePasswordController = TextEditingController();
+  UserController userController = UserController();
 
   Future<void> changeWithPassword() async {
     if(Validate.validatePassword(passwordController.text) == null){ // 패스워드 유효성 검사
-
-      if(Validate.validatePasswordConfirm(passwordController.text, checkPasswordController.text) == null){ // 패스워드 확인
+      var user = await userController.getUserData();
+      
+      if(Validate.validatePasswordConfirm(changePasswordController.text, checkChangePasswordController.text) == null){ // 패스워드 확인
         print('not Same');
       }
       else{// 서버 전송
@@ -26,7 +28,10 @@ class ChangePasswordController extends GetxController {
           var headers = {'Content-Type': 'application/json'};
           var url = Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.registerEmail);
           Map body = {
-            'password' : passwordController.text,
+            "pw": passwordController.text,
+            "changePw": changePasswordController.text,
+            "gradeClass": "${user.data.gradeClass}",
+            "number": user.data.number
           };
 
           http.Response response = await http.post(url, body: jsonEncode(body), headers: headers);
@@ -35,16 +40,14 @@ class ChangePasswordController extends GetxController {
             var data = jsonDecode(response.body.toString());
             print(data['token']);
             print('account created successfuly');
-            final SharedPreferences? prefs = await _prefs;
 
-            await prefs?.setString('token', data['token']);
             passwordController.clear();
-            Get.offAll(LoginPage());
+            Get.to(LoginPage());
             
           }
           else{
             print("200 아님");
-            //throw jsonDecode(response.body)['Message'] ?? "Unknown Error Occured";
+            throw jsonDecode(response.body)['Message'] ?? "Unknown Error Occured";
           }
 
         }catch(e){

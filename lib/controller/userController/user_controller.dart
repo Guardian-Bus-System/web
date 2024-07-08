@@ -1,42 +1,43 @@
 import 'dart:convert';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get/get.dart';
 import '../../../model/UserModel.dart';
 import '../../../utils/api_endpoint.dart';
 
 class UserController extends GetxController {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-  Future<UserData> getUserData() async {
+  Future<UserResponse> getUserData() async {
     try {
       final SharedPreferences prefs = await _prefs;
-      final String? token = prefs.getString('token');
+      final String? token = prefs.getString('token'); 
       
       var headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token'
       };
-      var url = Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.userInformation);
+      var url = Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.userInformation + ApiEndPoints.authEndPoints.userMe);
 
       http.Response response = await http.get(url, headers: headers);
-      print(response.statusCode);
       if (response.statusCode == 200) {
-        
         var data = jsonDecode(utf8.decode(response.bodyBytes));
 
-        print(data['data']);
-        var userData = UserData.fromJson(data['data']);
-        return userData;
+        // 여기서 `data`가 Map인지 확인합니다.
+        if (data is Map<String, dynamic>) {
+          var userData = UserResponse.fromJson(data);
+          return userData;
+        } else {
+          throw TypeError(); // 올바른 타입이 아닐 경우 에러.
+        }
       } else {
         var errorMessage = jsonDecode(response.body)['message'] ?? "Unknown Error Occurred";
         throw errorMessage;
       }
     } catch (e) {
-      print('Error: $e'); // 더 자세한 에러 메시지 출력
+      print('Error: $e');
       Get.snackbar('Error', e.toString());
-      rethrow; // Rethrow the error to handle it in the calling code
+      rethrow;
     }
   }
 }
-

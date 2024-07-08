@@ -1,21 +1,41 @@
+import 'package:capstone_front/controller/userController/busInfo_controller.dart';
+import 'package:capstone_front/model/ReservationModel.dart';
 import 'package:capstone_front/model/UserModel.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
 import 'package:capstone_front/CustomSide/font_size.dart';
+import 'package:capstone_front/screen/user/widget/loadingAction.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class BusUserInfo extends StatefulWidget {
-  late UserData user;
+  final Rx<User> user;
   final double containerWidth;
   final double containerHeight;
 
-  BusUserInfo({super.key, required this.user, required this.containerWidth, required this.containerHeight});
+  const BusUserInfo({super.key, required this.user, required this.containerWidth, required this.containerHeight});
 
   @override
   State<BusUserInfo> createState() => _BusUserInfoState();
 }
 
 class _BusUserInfoState extends State<BusUserInfo> {
+  UserBusInfoController userBusInfoController = UserBusInfoController();
+  late RxList<ReservationData> busInfo = <ReservationData>[].obs;
+
+  @override
+  void initState() {
+    super.initState();
+    _getData();
+  }
+
+  Future<void> _getData() async {
+    ReservationResponse reservationData = await userBusInfoController.getUserBusInfo();
+    if (reservationData.data != null) {
+      busInfo.value = [reservationData.data!];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,51 +50,50 @@ class _BusUserInfoState extends State<BusUserInfo> {
             spreadRadius: 0,
             blurRadius: 7.0,
             offset: Offset(0, 6),
-          ),],
+          ),
+        ],
       ),
-      child: Row(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      child: Obx(() {
+        if (busInfo.isEmpty) {
+          // 데이터가 비어있을 때 보여줄 위젯
+          return Center(child: '버스 정보가 없습니다.'.text.color(bacgroundOrTextColor).make());
+        } else {
+          // 데이터가 있을 때
+          return Row(
             children: [
-              Row(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  '${widget.user.gradeClass
-                  }${widget.user.number > 9 
-                    ? widget.user.number 
-                    : '0${widget.user.number}'} ${widget.user.name}'
-                    .text.bold
-                    .size(FontSiz18)
-                    .color(bacgroundOrTextColor).make(),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  '1'.text
-                    .color(bacgroundOrTextColor)
-                    .size(FontSiz12 * 4)
-                    .make(),
-
-                  '호차'.text
-                    .size(FontSiz18)
-                    .color(bacgroundOrTextColor)
-                    .make().pOnly(top:15),
-                  
-                  Column(
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      '대구북부정류장 - 동대구역'.text.size(FontSiz15).color(bacgroundOrTextColor).make(),
-                      '동대구역 하차'.text.size(FontSiz13).color(bacgroundOrTextColor).make(),
+                      '${widget.user.value.gradeClass
+                      }${widget.user.value.number > 9 
+                        ? widget.user.value.number
+                        : '0${widget.user.value.number}'} ${widget.user.value.name}'
+                      .text.bold.size(FontSiz18).color(bacgroundOrTextColor).make(),
                     ],
-                  ).pOnly(left: 55)
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      '${busInfo[0].busInfo.busNumber}'.text.color(bacgroundOrTextColor).size(FontSiz12 * 4).make(),
+                      '호차'.text.size(FontSiz18).color(bacgroundOrTextColor).make().pOnly(top:15),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          '${busInfo[0].busInfo.busName} - ${busInfo[0].busInfo.towns.map((town) => town.townName).join(' - ')}'.text.size(FontSiz15).color(bacgroundOrTextColor).make(),
+                          busInfo[0].endCity.text.size(FontSiz13).color(bacgroundOrTextColor).make(),
+                        ],
+                      ).pOnly(left: 55)
+                    ],
+                  ),
                 ],
-              ),
+              )
             ],
-          )
-        ],
-      ).pOnly(left: 15, right: 15, top: 10),
+          ).pOnly(left: 15, right: 15, top: 10);
+        }
+      }),
     );
   }
 }

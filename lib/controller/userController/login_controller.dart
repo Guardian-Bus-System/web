@@ -41,7 +41,7 @@ class LoginController extends GetxController {
           emailController.clear();
           passwordController.clear();
           
-          Get.to(HomeScreen());
+          Get.toNamed('/');
         } else {
           var errorMessage = jsonDecode(response.body)['message'] ?? "Unknown Error Occurred";
           throw errorMessage;

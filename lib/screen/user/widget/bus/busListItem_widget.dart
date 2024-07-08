@@ -1,22 +1,26 @@
 import 'package:capstone_front/CustomSide/color_theme.dart';
 import 'package:capstone_front/CustomSide/font_size.dart';
+import 'package:capstone_front/model/BusModel.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class BusListItemWidget extends StatefulWidget {
+  final UserBus userBusInfo;
   final double listItemHeight;
   final double listItemWidth;
 
-  const BusListItemWidget({super.key, required this.listItemHeight, required this.listItemWidth});
+  const BusListItemWidget({super.key, required this.listItemHeight, required this.listItemWidth, required this.userBusInfo});
 
   @override
   State<BusListItemWidget> createState() => _BusListItemWidgetState();
 }
 
 class _BusListItemWidgetState extends State<BusListItemWidget> {
+  
+  
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: widget.listItemHeight, width: widget.listItemWidth,
       child: Row(
         children: <Widget>[
@@ -49,9 +53,11 @@ class _BusListItemWidgetState extends State<BusListItemWidget> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    '1호차'.text.size(FontSiz15).make(),
-                    '대구북부정류장-동대구역'.text.size(FontSiz14).make(),
-                    '29석'.text.size(FontSiz15).make(),
+                    '${widget.userBusInfo.busNumber}호차'.text.size(FontSiz15).make(),
+                    '${widget.userBusInfo.titleCityName} - ${
+                      widget.userBusInfo.towns.map((town) => town.townName).join(' - ')
+                    }'.text.size(FontSiz14).make(),
+                    '${widget.userBusInfo.maxTable}석'.text.size(FontSiz15).make(),
                   ],
                 ),
               ).pOnly(left: 5)

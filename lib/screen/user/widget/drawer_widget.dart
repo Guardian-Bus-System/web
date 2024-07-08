@@ -13,7 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class DrawerWidget extends StatelessWidget {
-  final Rx<UserData> user;
+  final Rx<User> user;
 
   const DrawerWidget({super.key, required this.user});
 
@@ -33,7 +33,7 @@ class DrawerWidget extends StatelessWidget {
             height5,
             InkWell(
               onTap: () {
-                Get.to(ProfileScreen(user: user));
+                Get.to(ProfileScreen());
               },
               child: Row(
                 children: [
@@ -56,12 +56,12 @@ class DrawerWidget extends StatelessWidget {
                 }
                   Get.offAll(const LoginPage());
               },
-              text: '로그인',
+              text: user.value.name != 'undefinde' ? '로그아웃' : '로그인',
             ),
             height20,
             customInkWell(
               onTap: () async {
-                Get.to(ChangePwPage(userName: user.value.name));
+                Get.toNamed('/ChangePwPage');
               },
               text: '회원정보 변경',
             ),
@@ -75,21 +75,22 @@ class DrawerWidget extends StatelessWidget {
             height20,
             customInkWell(
               onTap: () async {
-                // 여기에 async로 실행될 동작을 추가하세요
+                
+                Get.to(ProfileScreen());
               },
               text: '호차정보',
             ),
             height20,
             customInkWell(
               onTap: () async {
-                Get.offAll(ProfileScreen(user: user));
+                Get.to(ProfileScreen());
               },
               text: '프로필',
             ),
             height20,
             customInkWell(
               onTap: () async {
-                Get.offAll(RuleScreen());
+                Get.to(RuleScreen());
               },
               text: '버스규칙',
             ),

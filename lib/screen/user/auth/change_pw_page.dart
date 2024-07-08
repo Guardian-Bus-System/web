@@ -10,15 +10,14 @@ import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ChangePwPage extends StatefulWidget {
-  final String userName;
-  const ChangePwPage({super.key, required this.userName});
+  const ChangePwPage({super.key});
 
   @override
   State<ChangePwPage> createState() => _ChangePwPageState();
 }
 
 class _ChangePwPageState extends State<ChangePwPage> {
-  ChangePasswordController changePasswordController = Get.put(ChangePasswordController());
+  ChangePasswordController changePasswordController = ChangePasswordController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,7 @@ class _ChangePwPageState extends State<ChangePwPage> {
           backgroundColor: backgroundColor,
           leading: IconButton(
             onPressed: (){
-              Get.offAllNamed('/login');
+              Get.toNamed('/login');
             },
             icon: const Icon(Icons.arrow_back, size: 30)
           ),
@@ -43,24 +42,21 @@ class _ChangePwPageState extends State<ChangePwPage> {
               height15,
               Image.asset(gbswLogoUrl,width: 90),
               height30,
-              'GBSW 귀가버스 관리 시스템'
-              .text
-              .textStyle(
-                TextStyle(
-                  fontWeight: FontWeight.w800
-                )
-              ).size(18).make(),
+              'GBSW 귀가버스 관리 시스템'.text
+              .textStyle(TextStyle(fontWeight: FontWeight.w800)).size(18).make(),
               
               height20,
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  '${widget.userName}님 환영합니다.'.text.size(FontSiz14).make().pSymmetric(h: 25, v: 2),
+                  '${'widget.userName'}님 환영합니다.'.text.size(FontSiz14).make().pSymmetric(h: 25, v: 2),
                 ],
               ),
-              InputTextFieldWidget(textEditingController:  changePasswordController.passwordController, hitText:  '변경할 패스워드 입력', blindetext: true),
+              InputTextFieldWidget(textEditingController:  changePasswordController.passwordController, hitText:  '기존 패스워드 입력', blindetext: true),
               height15,
-              InputTextFieldWidget(textEditingController: changePasswordController.checkPasswordController, hitText: '패스워드 확인',  blindetext: true),
+              InputTextFieldWidget(textEditingController: changePasswordController.changePasswordController, hitText: '변경할 패스워드 입력',  blindetext: true),
+              height15,
+              InputTextFieldWidget(textEditingController: changePasswordController.checkChangePasswordController, hitText: '패스워드 확인',  blindetext: true),
               height30,height5,
               SubmitButton(
                 onPressed: () => changePasswordController.changeWithPassword(),

@@ -14,14 +14,12 @@ class RulesController extends GetxController {
       
       if (response.statusCode == 200) {
         var data = jsonDecode(utf8.decode(response.bodyBytes));
-        
-        // Check if the data is as expected
-        print('API Response: $data');
 
         var rulesData = RuleResponse.fromJson(data);
 
         return rulesData;
       } else {
+        Get.snackbar('오류', '가져오려던 목록이 없습니다.');
         throw Exception('Failed to load notices. Status code: ${response.statusCode}');
       }
     } catch (e) {

@@ -1,3 +1,4 @@
+import 'package:capstone_front/model/BusModel.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
@@ -5,16 +6,14 @@ import 'package:capstone_front/CustomSide/font_size.dart';
 import 'package:capstone_front/screen/user/widget/bus/busDropdownButton_widget.dart';
 
 class BusLoadCheckButtonWidget extends StatelessWidget {
-  final String title;
-  final List<String> items;
+  final UserBus busCity; // BusCity 객체를 사용
   final GlobalKey<BusDropDownButtonWidgetState> dropDownKey;
   final bool isSelected; // 버튼이 선택되었는지 여부
   final VoidCallback onTap; // 버튼이 클릭될 때 호출되는 콜백
 
   const BusLoadCheckButtonWidget({
     Key? key,
-    required this.title,
-    required this.items,
+    required this.busCity, // BusCity 객체
     required this.dropDownKey,
     required this.isSelected,
     required this.onTap,
@@ -29,14 +28,13 @@ class BusLoadCheckButtonWidget extends StatelessWidget {
         // 드롭다운 상태 업데이트
         final state = dropDownKey.currentState;
         if (state != null) {
-          state.updateDropdownItems(items);
-          print('Category: $title, Items: $items');
+          state.updateDropdownItems(busCity); // BusCity의 이름을 사용
         } else {
-          print('DropDownExample state is null');
+          print('DropDownButtonWidget state is null');
         }
       },
       child: Container(
-        width: 80,
+        width: MediaQuery.of(context).size.width - 75,
         height: 35,
         decoration: BoxDecoration(
           color: isSelected ? baseColor : backgroundColor,
@@ -44,7 +42,10 @@ class BusLoadCheckButtonWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
         ),
         child: Center(
-          child: title.text
+          child: '${busCity.busNumber}호차 ${
+                  busCity.busName}-${
+                  busCity.towns.map((town) => town.townName).join(' - ')} - ${
+                  busCity.maxTable}석'.text // BusCity의 이름을 표시
               .color(isSelected ? Colors.white : baseColor)
               .size(FontSiz14)
               .fontWeight(isSelected ? FontWeight.bold : FontWeight.normal) // 조건에 따라 글씨 두께 변경

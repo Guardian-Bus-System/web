@@ -1,10 +1,8 @@
-import 'package:capstone_front/model/UserModel.dart';
-import 'package:capstone_front/model/data.dart';
 import 'package:capstone_front/routes/mainView.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminMainPage.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
 import 'package:capstone_front/screen/user/auth/login_page.dart';
-import 'package:capstone_front/screen/user/pages/home_screen.dart';
+import 'package:capstone_front/screen/user/pages/changeBusRoute_screen.dart';
 import 'package:capstone_front/screen/user/pages/notification_screen.dart';
 import 'package:capstone_front/screen/user/widget/notification/notificationDetailWidget.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +11,7 @@ import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'CustomSide/responsive_screen_size.dart';
-  
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -21,6 +19,7 @@ void main() {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  
   setPathUrlStrategy();
   runApp(MyApp());
 }
@@ -29,14 +28,13 @@ void main() {
 class MyApp extends StatelessWidget {
   
   MyApp({super.key});
-  Rx<UserData> userData = userdata;
 
   @override
   Widget build(BuildContext context) {
     ScreenSize screen = ScreenSize(context);
 
     return GetMaterialApp(
-      theme: ThemeData( scaffoldBackgroundColor: backgroundColor ),
+      theme: ThemeData( scaffoldBackgroundColor: backgroundColor),
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
@@ -48,13 +46,14 @@ class MyApp extends StatelessWidget {
       locale: const Locale('ko'),
       title: 'GBSW-GOBUS',
       home: screen.width < 600 //가로넓이가 600이하라면 앱을 보여주고 아니면 그냥 흰 바탕 
-        ? HomeView(user: userData)//ChangeBusRouteScreen(data: userdata)
+        ? MainView()//ChangeBusRouteScreen(data: userdata)
         : const AdminMainPage(),
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/', page: () => const HomeScreen()),
+        GetPage(name: '/', page: () => MainView()),
         GetPage(name: '/notification', page: () => const NotificationScreen(), transition: Transition.downToUp),
-        GetPage(name: '/notification/detail', page: () => const NotificationDetailWidget()),  
+        GetPage(name: '/changePushRoute', page: () => const ChangeBusRouteScreen()),
+        GetPage(name: '/notification/detail',page: () => NotificationDetailWidget(noticeText: '임시공지입니다.', dateTime: 'yyyy-mm--dd',)),  
         GetPage(name: '/login', page: () => const LoginPage()),
         GetPage(name: '/certication', page: () => const NotificationScreen()),
       ],

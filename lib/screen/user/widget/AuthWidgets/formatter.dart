@@ -1,6 +1,17 @@
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
+String formatDateTime(String inputTime) {
+  try {
+    DateTime dateTime = DateTime.parse(inputTime);
+    String formattedTime = DateFormat('yyyy년 MM월 dd일 hh시 mm분 ss초').format(dateTime);
+    return formattedTime;
+  } catch (e) {
+    print('Error parsing DateTime: $e');
+    return 'Invalid Date';
+  }
+}
+
 String getFormattedDateTime() {
   DateTime now = DateTime.now();
   DateFormat formatter = DateFormat('yyyy년 MM월 dd일');
@@ -82,4 +93,19 @@ class Validate {
       return null; //null을 반환하면 정상
     }
   }
+}
+
+String getNextFridayDateFormatted() {
+  DateTime now = DateTime.now();
+
+  // 현재 날짜를 기준으로 다음 금요일을 찾음
+  DateTime nextFriday = now;
+  while (nextFriday.weekday != DateTime.friday) {
+    nextFriday = nextFriday.add(Duration(days: 1));
+  }
+
+  // 날짜 포맷 설정
+  String formattedDate = DateFormat('M월 d일').format(nextFriday);
+
+  return formattedDate;
 }

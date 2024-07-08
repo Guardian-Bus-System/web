@@ -1,12 +1,15 @@
 import 'package:capstone_front/CustomSide/responsive_screen_size.dart';
+import 'package:capstone_front/CustomSide/spaceing_box.dart';
+import 'package:capstone_front/controller/userController/notices_controller.dart';
+import 'package:capstone_front/model/NoticesModel.dart';
 import 'package:capstone_front/model/UserModel.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
-import 'package:capstone_front/CustomSide/spaceing_box.dart';
+import 'package:capstone_front/model/data.dart';
 import 'package:capstone_front/screen/user/auth/login_page.dart';
 import 'package:capstone_front/screen/user/widget/bus/busList_container.dart';
 import 'package:capstone_front/screen/user/widget/bus/busUserInfo_container.dart';
-import 'package:capstone_front/screen/user/widget/customHomeAppbarWidget.dart';
 import 'package:capstone_front/screen/user/widget/AuthWidgets/scrolling_text.dart';
+import 'package:capstone_front/screen/user/widget/customHomeAppbarWidget.dart';
 import 'package:capstone_front/screen/user/widget/drawer_widget.dart';
 import 'package:capstone_front/screen/user/widget/notification/notification.dart';
 import 'package:capstone_front/utils/auth_utils.dart';
@@ -22,14 +25,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();  
+  final UserController userController = Get.put(UserController());
+  final NoticeController noticeController = Get.put(NoticeController());
 
-  UserController userController = UserController();
-   late Rx<UserData> userdata = 
-    UserData(
-      id: '',pw: '', loginId: 'loginId', name: '홍길동', gradeClass: "0학년 0반", number: 0,phoneNumber: '010-////-////',  
-      roles: [], authorities: [], timestamp: ''
-    ).obs; // userdata를 Rx 형태로 선언
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
+  final RxList<Notice> notices = <Notice>[].obs;
+  late Rx<User> userdata = USERDATA;
 
   @override
   void initState() {
@@ -50,7 +52,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _getData() async {
     if (await checkTokens()) {
-      userdata.value = await userController.getUserData();
+      try {
+        UserResponse userResponse = await userController.getUserData();
+        userdata.value = userResponse.data;
+
+        NoticeResponse noticeResponse = await noticeController.getNotices();
+        notices.value = noticeResponse.data.content;
+      } catch (e) {
+        print('Error fetching data: $e');
+        Get.snackbar('Error', '데이터를 가져오는 중 오류가 발생했습니다.');
+      }
     } else {
       Get.to(LoginPage());
     }
@@ -60,8 +71,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     ScreenSize screen = ScreenSize(context);
 
-    return Obx(
-      () => Scaffold(
+    return Obx(() {
+      if (userdata.value.id.isEmpty) {
+        return const Center(child: CircularProgressIndicator(color: baseColor));
+      }
+
+      return Scaffold(
         key: _scaffoldKey,
         endDrawer: DrawerWidget(user: userdata),
         body: Container(
@@ -70,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: [
                 CustonHomeAppbarWidget(scaffoldKey: _scaffoldKey),
-                const Divider(), height10,
+                const Divider(),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
@@ -80,17 +95,23 @@ class _HomeScreenState extends State<HomeScreen> {
                             Get.toNamed('/notification');
                             FlutterLocalNotification.showNotification();
                           },
-                          child: const ScrollingTextWidget(
-                            moveText: '움직이는 공지 텍스트 입니다. 길이가 길어지면 그만큼 속도가 조절 됩니다.'
-                          ),
+                          child: Obx(() {
+                            String noticeText = '새로운 공지가 있습니다';
+                            if (notices.isNotEmpty) {
+                              noticeText = '새로운 공지가 있습니다 - ${notices[0].content}';
+                            }
+                            return ScrollingTextWidget(moveText: noticeText);
+                          }),
                         ),
                         height25,
                         BusUserInfoContainer(
-                          containerWidth: screen.width - 50, containerHeight: screen.height,
-                          user: userdata.value,
+                          containerWidth: screen.width - 50,
+                          containerHeight: screen.height,
+                          user: userdata,
                         ),
                         BusListContainer(
-                          listItemWidth: screen.width - 50, listItemHeight: screen.height,
+                          listItemWidth: screen.width - 50,
+                          listItemHeight: screen.height,
                         ),
                       ],
                     ),
@@ -100,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

@@ -1,18 +1,22 @@
-import 'package:capstone_front/CustomSide/color_theme.dart';
-import 'package:capstone_front/CustomSide/font_size.dart';
 import 'package:capstone_front/CustomSide/spaceing_box.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:capstone_front/CustomSide/color_theme.dart';
+import 'package:capstone_front/CustomSide/font_size.dart';
+// ignore: library_prefixes
+import 'package:capstone_front/routes/mainView.dart' as mainView;
 import 'package:velocity_x/velocity_x.dart';
 
-class NotificationDetailWidget extends StatefulWidget {
-  const NotificationDetailWidget({super.key});
+class NotificationDetailWidget extends StatelessWidget {
+  final String noticeText;
+  final String dateTime;
 
-  @override
-  State<NotificationDetailWidget> createState() => _NotificationDetailWidgetState();
-}
+  const NotificationDetailWidget({
+    Key? key,
+    required this.noticeText,
+    required this.dateTime,
+  }) : super(key: key);
 
-class _NotificationDetailWidgetState extends State<NotificationDetailWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,29 +26,35 @@ class _NotificationDetailWidgetState extends State<NotificationDetailWidget> {
           backgroundColor: backgroundColor,
           scrolledUnderElevation: 0,
           leading: IconButton(
-            onPressed: (){
-              Get.back();
+            onPressed: () {
+              Get.toNamed('/');
+              mainView.MainViewTabController tabController = Get.find();
+              tabController.goToTabItem(mainView.TabItem.notice);
             },
-            icon: const Icon(Icons.arrow_back, size: 30)
+            icon: const Icon(Icons.arrow_back, size: 30),
           ),
         ).pSymmetric(h: 5, v: 5),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        color: backgroundColor,
+        color: backgroundColor, // color_theme.dart에서 가져온 변수
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              height15,
-              '오늘 3호차 10분 가량 지연될 예정'.text.bold.size(FontSiz16).make().pOnly(bottom: 2),
+              height20,
+              Text(
+                noticeText,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: FontSiz15),
+              ).paddingOnly(bottom: 2),
               height5,
-              '2024-04-29'.text.size(FontSiz12).make(),
-              height30,
-              '오늘 3호차 10분 가량 지연될 예정입니다 학생들은 잠시 기다려 주세요.'.text.size(FontSiz13).make().pOnly(bottom: 2),
+              Text(
+                dateTime,
+                style: TextStyle(fontSize: FontSiz12),
+              ),
             ],
-          ).pOnly(top:20, bottom: 21, left: 25, right: 25),
+          ).paddingSymmetric(vertical: 20, horizontal: 25),
         ),
       ),
     );
