@@ -1,6 +1,7 @@
 import 'package:capstone_front/CustomSide/font_size.dart';
 import 'package:capstone_front/model/UserModel.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
+import 'package:capstone_front/routes/mainView.dart' as mainView;
 import 'package:capstone_front/screen/user/widget/AuthWidgets/formatter.dart';
 import 'package:capstone_front/screen/user/widget/bus/busUserInfo.dart';
 import 'package:capstone_front/utils/img.dart';
@@ -18,13 +19,15 @@ class BusUserInfoContainer extends StatelessWidget {
     required this.user,
     required this.containerWidth,
     required this.containerHeight,
-  }) : super(key: key);
+  }) : super(key: key); 
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         Get.toNamed('/');
+        mainView.MainViewTabController tabController = Get.find();
+        tabController.goToTabItem(mainView.TabItem.profile);
       },
       child: Container(
         color: backgroundColor,

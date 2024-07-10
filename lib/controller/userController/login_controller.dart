@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:capstone_front/controller/userController/token_controller.dart';
-import 'package:capstone_front/screen/user/pages/home_screen.dart';
 import 'package:capstone_front/utils/api_endpoint.dart';
 import 'package:capstone_front/utils/auth_utils.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +12,7 @@ class LoginController extends GetxController {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
+  
   Future<void> loginWithEmail() async {
     if ( await checkTokens() ) {
       tokenController.getTokens();
@@ -32,8 +31,8 @@ class LoginController extends GetxController {
           var data = jsonDecode(response.body);
           //토큰 처리
           var accessToken = data['data']['accessToken']; // Accessing the accessToken value
-          var refreshToken = data['data']['refreshToken'];
-          final prefs = await SharedPreferences.getInstance();
+          var refreshToken = data['data']['refreshToken']; 
+          final prefs = await SharedPreferences.getInstance(); 
           prefs.setString('token', accessToken);
           prefs.setString('refreshToken', refreshToken);
           
@@ -41,7 +40,7 @@ class LoginController extends GetxController {
           emailController.clear();
           passwordController.clear();
           
-          Get.toNamed('/');
+          Get.offAllNamed('/');
         } else {
           var errorMessage = jsonDecode(response.body)['message'] ?? "Unknown Error Occurred";
           throw errorMessage;

@@ -35,7 +35,7 @@ class ProfileRowTopWidget extends StatelessWidget {
                   Get.to(const ChangePwPage());
                 }
               },
-              child: rightTitle.text.color(rightTitleColor).size(FontSiz11).make(),
+              child:rightTitle.text.color(rightTitleColor).size(FontSiz11).make(),
             )
           ],
         ),
@@ -59,7 +59,13 @@ class ProfileRowSideWidget extends StatelessWidget {
           children: [
             title.text.color(greyText).make(),
             width40,
-            content.text.bold.make(),
+            SizedBox(
+              width: MediaQuery.of(context).size.width - 150,
+              child: content.text.bold
+              .softWrap(true)
+              .overflow(TextOverflow.visible) // or TextOverflow.ellipsis for ...
+              .maxLines(2).make(),
+            ),
           ],
         ),height15,
       ],

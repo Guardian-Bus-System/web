@@ -8,63 +8,52 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import 'package:velocity_x/velocity_x.dart';
 
 class ChangePasswordController extends GetxController {
-  TextEditingController passwordController = TextEditingController();
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   TextEditingController changePasswordController = TextEditingController();
   TextEditingController checkChangePasswordController = TextEditingController();
   UserController userController = UserController();
 
   Future<void> changeWithPassword() async {
-    if(Validate.validatePassword(passwordController.text) == null){ // 패스워드 유효성 검사
-      var user = await userController.getUserData();
+    if(Validate.validatePasswordConfirm(changePasswordController.text, checkChangePasswordController.text) != null){ // 패스워드 확인  
+      Get.snackbar('패스워드 오류', '패스워드가 일치하기 않습니다.');
       
-      if(Validate.validatePasswordConfirm(changePasswordController.text, checkChangePasswordController.text) == null){ // 패스워드 확인
-        print('not Same');
+    } else {// 서버 전송
+      final SharedPreferences prefs = await _prefs;
+      final String? token = prefs.getString('token'); 
+      
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
+      };
+      
+      var url = Uri.parse(
+        ApiEndPoints.baseUrl + 
+        ApiEndPoints.authEndPoints.userInformation + 
+        ApiEndPoints.authEndPoints.userMe + 
+        ApiEndPoints.authEndPoints.pwUpdate
+      );
+      Map body = {
+        "newPassword": changePasswordController.text,
+      };
+
+      http.Response response = await http.put(url, body: jsonEncode(body), headers: headers);
+
+      if(response.statusCode == 200){
+        var data = jsonDecode(utf8.decode(response.bodyBytes));
+        Get.snackbar('변경완료', '${data['data']}\n 로그인 화면으로 이동합니다.');
+        prefs?.clear();
+        await Future.delayed(const Duration(seconds: 3));
+        changePasswordController.clear();
+        checkChangePasswordController.clear();
+        Get.delete<UserController>();
+        Get.to(const LoginPage());
       }
-      else{// 서버 전송
-        try{
-          var headers = {'Content-Type': 'application/json'};
-          var url = Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.registerEmail);
-          Map body = {
-            "pw": passwordController.text,
-            "changePw": changePasswordController.text,
-            "gradeClass": "${user.data.gradeClass}",
-            "number": user.data.number
-          };
-
-          http.Response response = await http.post(url, body: jsonEncode(body), headers: headers);
-
-          if(response.statusCode == 200){
-            var data = jsonDecode(response.body.toString());
-            print(data['token']);
-            print('account created successfuly');
-
-            passwordController.clear();
-            Get.to(LoginPage());
-            
-          }
-          else{
-            print("200 아님");
-            throw jsonDecode(response.body)['Message'] ?? "Unknown Error Occured";
-          }
-
-        }catch(e){
-          Get.back();
-          showDialog(
-            context: Get.context!,
-            builder: (context) {
-              return SimpleDialog(
-                title: 'Error'.text.make(),
-                children: [e.toString().text.make()],
-              ).p(20);
-            }
-          );
-        }
+      else{
+        print("200 아님");
+        throw jsonDecode(response.body)['Message'] ?? "Unknown Error Occured";
       }
-    }else{
-      print('다시 입력');
     }
   }
 }

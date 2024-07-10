@@ -23,8 +23,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  UserController userController = UserController();
-  UserBusInfoController userBusInfoController = UserBusInfoController();
+  UserController userController = Get.put(UserController());
+  UserBusInfoController userBusInfoController = Get.put(UserBusInfoController());
 
   Rx<User> userdata = USERDATA;
   late RxList<ReservationData> busInfo = <ReservationData>[].obs;
@@ -48,6 +48,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   @override
+  void dispose() {
+    Get.delete<UserController>();
+    Get.delete<UserBusInfoController>();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const PreferredSize(
@@ -59,9 +66,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ],
         ),
       ),
-      body: LoadingActionWidget(
-        item: busInfo,
-        child: SingleChildScrollView(
+      body: Obx(() {
+        if (busInfo.isEmpty) {
+          return const LoadingProgressIndecatorWidget();
+        }
+        return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -106,7 +115,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   )
                 ],
               ).pSymmetric(h: 25),
-              SizedBox(height: 17),
+              const SizedBox(height: 17),
               const Divider(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,7 +134,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     ProfileRowSideWidget(
                       title: '버스 경로', 
-                      content: '${busInfo[0].busInfo.busName} - ${busInfo[0].busInfo.towns.map((town) => town.townName).join(' - ')}'
+                      content: '${busInfo[0].busInfo.busName} - ${
+                                busInfo[0].busInfo.towns.map((town) => town.townName).join(' - ')}'
                     ),
                     ProfileRowSideWidget(
                       title: '하차 역', 
@@ -137,8 +147,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ).pSymmetric(h: 25),
             ],
           ),
-        )
-      )
+        );
+      })
     );
   }
 }

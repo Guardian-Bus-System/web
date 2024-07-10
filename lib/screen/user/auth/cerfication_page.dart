@@ -20,17 +20,19 @@ class CerficationPage extends StatefulWidget {
 class _CerficationPageState extends State<CerficationPage> {
   CerficationController cerficationController = Get.put(CerficationController());
 
+  RxBool isSend = false.obs;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(73.0),
+        preferredSize: const Size.fromHeight(70.0),
         child: AppBar(
           backgroundColor: backgroundColor,
           leading: IconButton(
             onPressed: (){
-              Get.offAll(const LoginPage());
+              Get.back();
             },
             icon: const Icon(Icons.arrow_back, size: 30,)
           ),
@@ -43,7 +45,7 @@ class _CerficationPageState extends State<CerficationPage> {
             children: [
               height15,
               Image.asset(gbswLogoUrl,width: 90),
-              height20,height5,
+              height20, height5,
               'GBSW 귀가버스 관리 시스템'
               .text
               .textStyle(
@@ -53,17 +55,29 @@ class _CerficationPageState extends State<CerficationPage> {
               ).size(18).make(),
               
               height20,
-              InputTextFieldWidget(textEditingController:  cerficationController.callNumberController, hitText:  '전화번호', blindetext: false,),
-              height15,
-              InputTextFieldWidget(textEditingController: cerficationController.cerficationNumberController, hitText: '인증번호', blindetext: false),
-              height20,height5,
-              SubmitButton(
-                onPressed: () => 
-                  //cerficationController.cerficationWidthNumber()
-                  Get.to(const ChangePwPage())
-                ,
-                title: '인증하기',
+              InputTextFieldWidget(
+                textEditingController: cerficationController.cerficationNumberController, 
+                hitText: '인증번호', 
+                blindetext: true
               ),
+              height25,
+              Obx(() => SubmitButton(
+                onPressed: () async {
+                  if (!isSend.value) {
+                    bool success = await cerficationController.cerficationWidthCallNumber();
+                    if (success) {
+                      isSend.value = true;
+                    }
+                  } else {
+                    bool success = await cerficationController.cerficationWidthSendNumber();
+                    if (success) {
+                      isSend.value = false;
+                      // 인증 완료 후 추가 동작을 여기에 추가할 수 있습니다.
+                    }
+                  }
+                },
+                title: isSend.value ? '인증하기' : '인증번호받기',
+              ))
             ],
           ).pOnly(bottom: MediaQuery.of(context).size.width * 0.55),
         )

@@ -1,6 +1,7 @@
 import 'package:capstone_front/routes/mainView.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminMainPage.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
+import 'package:capstone_front/screen/user/auth/cerfication_page.dart';
 import 'package:capstone_front/screen/user/auth/login_page.dart';
 import 'package:capstone_front/screen/user/pages/changeBusRoute_screen.dart';
 import 'package:capstone_front/screen/user/pages/notification_screen.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
     ScreenSize screen = ScreenSize(context);
 
     return GetMaterialApp(
-      theme: ThemeData( scaffoldBackgroundColor: backgroundColor),
+      theme: ThemeData(scaffoldBackgroundColor: backgroundColor),
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/changePushRoute', page: () => const ChangeBusRouteScreen()),
         GetPage(name: '/notification/detail',page: () => NotificationDetailWidget(noticeText: '임시공지입니다.', dateTime: 'yyyy-mm--dd',)),  
         GetPage(name: '/login', page: () => const LoginPage()),
-        GetPage(name: '/certication', page: () => const NotificationScreen()),
+        GetPage(name: '/cerfication', page: () => const CerficationPage()),
       ],
     );
   }

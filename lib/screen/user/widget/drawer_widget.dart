@@ -50,6 +50,7 @@ class DrawerWidget extends StatelessWidget {
             height20,
             customInkWell(
               onTap: () async {
+                Get.snackbar('로그아웃', '로그아웃 되었습니다.');
                 final SharedPreferences? prefs = await _prefs;
                 if (user.value.name != 'undefinde') {
                   prefs?.clear();
@@ -61,9 +62,9 @@ class DrawerWidget extends StatelessWidget {
             height20,
             customInkWell(
               onTap: () async {
-                Get.toNamed('/ChangePwPage');
+                Get.toNamed('/cerfication');
               },
-              text: '회원정보 변경',
+              text: '비밀번호 변경',
             ),
             height20,
             customInkWell(
@@ -90,7 +91,7 @@ class DrawerWidget extends StatelessWidget {
             height20,
             customInkWell(
               onTap: () async {
-                Get.to(RuleScreen());
+                Get.to(const RuleScreen());
               },
               text: '버스규칙',
             ),

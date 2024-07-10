@@ -27,14 +27,16 @@ class ChangeBusRouteScreen extends StatefulWidget {
 
 class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
   final GlobalKey<BusDropDownButtonWidgetState> _dropDownKey = GlobalKey<BusDropDownButtonWidgetState>();
-  UserBusInfoController userBusInfoController = UserBusInfoController();
-  UserBusListController userBusListController = UserBusListController();
-  BusCityController busCityController = BusCityController();
+  UserBusInfoController userBusInfoController = Get.put(UserBusInfoController());
+  UserBusListController userBusListController = Get.put(UserBusListController());
+  BusCityController busCityController = Get.put(BusCityController());
 
   late RxList<UserBus> userBusList = <UserBus>[].obs;
 
   final RxInt _selectedButtonIndex = 0.obs; // 현재 선택된 버튼의 인덱스
   final RxInt _selectedBusIndex = (-1).obs; // 현재 선택된 버스 인덱스 (탑승 버튼을 클릭한 경우만 의미)
+
+  late RxList<ReservationData> busInfo = <ReservationData>[].obs;
 
   @override
   void initState() {
@@ -47,6 +49,9 @@ class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
       UserBusListResponse userBusResponse = await userBusListController.getUserBusListInfo();
       userBusList.value = userBusResponse.data;
       ReservationResponse reservationData = await userBusInfoController.getUserBusInfo();
+      if (reservationData.data != null) {
+        busInfo.value = [reservationData.data!];
+      }
       if(reservationData.data!.onCk){
         _selectedBusIndex.value = -1;
         _selectedButtonIndex.value = 0;
@@ -56,6 +61,9 @@ class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
 
   @override
   void dispose() {
+    Get.delete<UserBusListController>();
+    Get.delete<UserBusInfoController>();
+    Get.delete<BusCityController>();
     super.dispose();
   }
 
@@ -75,7 +83,15 @@ class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
           children: [
             '버스 경로 변경'.text.bold.size(FontSiz18).make(),
             height5,
-            '금주 귀가주 (${getNextFridayDateFormatted()})버스 정보'.text.size(FontSiz12).color(baseColor).make(),
+            '금주 귀가주 (${getNextFridayDateFormatted()})버스 정보'.text.size(FontSiz13).color(baseColor).make(),
+            height15,
+            Obx(() {
+              if (busInfo.isEmpty) {
+                return '현재 탑승정보가 없습니다.'.text.size(FontSiz11).color(baseColor).make();
+              } else {
+                return '이전 탑승정보 : ${busInfo[0].busInfo.busNumber}호차 ${busInfo[0].busInfo.busName} - ${busInfo[0].endCity}'.text.size(FontSiz11).color(baseColor).make();
+              }
+            }),
             height15,
             BusRouteChangeContainer(
               containerName: '버스 탑승 여부',

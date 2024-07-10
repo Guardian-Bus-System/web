@@ -4,6 +4,7 @@ import 'package:capstone_front/CustomSide/spaceing_box.dart';
 import 'package:capstone_front/controller/userController/rules_controller.dart';
 import 'package:capstone_front/model/RulesModel.dart';
 import 'package:capstone_front/screen/user/widget/custom_appbar.dart';
+import 'package:capstone_front/screen/user/widget/loadingAction.dart';
 import 'package:capstone_front/screen/user/widget/ruleRow_widget.dart';
 import 'package:capstone_front/utils/auth_utils.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class RuleScreen extends StatefulWidget {
 }
 
 class _RuleScreenState extends State<RuleScreen> {
-  RulesController rulesController = RulesController();
+  RulesController rulesController = Get.put(RulesController());
 
   late RxList<Rule> rules = <Rule>[].obs;
 
@@ -28,16 +29,17 @@ class _RuleScreenState extends State<RuleScreen> {
     _getRules();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   Future<void> _getRules() async {
     if (await checkTokens()) {
       RuleResponse ruleResponse = await rulesController.getRules();
       rules.value = ruleResponse.data;
     }
+  }
+  
+  @override
+  void dispose() {
+    Get.delete<RulesController>();
+    super.dispose();
   }
 
   @override
@@ -51,7 +53,7 @@ class _RuleScreenState extends State<RuleScreen> {
       ),
       body: Obx(() {
         if (rules.isEmpty) {
-          return const Center(child: CircularProgressIndicator(color: baseColor,));
+          return const LoadingProgressIndecatorWidget();
         }
         return Column(
           children: [

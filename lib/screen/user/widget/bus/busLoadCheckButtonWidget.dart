@@ -42,12 +42,9 @@ class BusLoadCheckButtonWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
         ),
         child: Center(
-          child: '${busCity.busNumber}호차 ${
-                  busCity.busName}-${
-                  busCity.towns.map((town) => town.townName).join(' - ')} - ${
-                  busCity.maxTable}석'.text // BusCity의 이름을 표시
-              .color(isSelected ? Colors.white : baseColor)
-              .size(FontSiz14)
+          child: '${busCity.busNumber}호차 ${busCity.busName} - ${busCity.maxTable}석'
+              .text // BusCity의 이름을 표시
+              .color(isSelected ? Colors.white : baseColor).size(FontSiz14)
               .fontWeight(isSelected ? FontWeight.bold : FontWeight.normal) // 조건에 따라 글씨 두께 변경
               .make(),
         ),

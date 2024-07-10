@@ -5,12 +5,12 @@ import 'package:capstone_front/model/NoticesModel.dart';
 import 'package:capstone_front/model/UserModel.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
 import 'package:capstone_front/model/data.dart';
-import 'package:capstone_front/screen/user/auth/login_page.dart';
 import 'package:capstone_front/screen/user/widget/bus/busList_container.dart';
 import 'package:capstone_front/screen/user/widget/bus/busUserInfo_container.dart';
 import 'package:capstone_front/screen/user/widget/AuthWidgets/scrolling_text.dart';
 import 'package:capstone_front/screen/user/widget/customHomeAppbarWidget.dart';
 import 'package:capstone_front/screen/user/widget/drawer_widget.dart';
+import 'package:capstone_front/screen/user/widget/loadingAction.dart';
 import 'package:capstone_front/screen/user/widget/notification/notification.dart';
 import 'package:capstone_front/utils/auth_utils.dart';
 import 'package:flutter/material.dart';
@@ -39,11 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
     _init();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   Future<void> _init() async {
     FlutterLocalNotification.init();
     await FlutterLocalNotification.requestNotificationPermission();
@@ -52,19 +47,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _getData() async {
     if (await checkTokens()) {
-      try {
-        UserResponse userResponse = await userController.getUserData();
-        userdata.value = userResponse.data;
+      UserResponse userResponse = await userController.getUserData();
+      userdata.value = userResponse.data;
 
-        NoticeResponse noticeResponse = await noticeController.getNotices();
-        notices.value = noticeResponse.data.content;
-      } catch (e) {
-        print('Error fetching data: $e');
-        Get.snackbar('Error', '데이터를 가져오는 중 오류가 발생했습니다.');
-      }
-    } else {
-      Get.to(LoginPage());
+      NoticeResponse noticeResponse = await noticeController.getNotices();
+      notices.value = noticeResponse.data.content;
     }
+  }
+  
+  @override
+  void dispose() {
+    Get.delete<UserController>();
+    Get.delete<NoticeController>();
+    super.dispose();
   }
 
   @override
@@ -73,9 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Obx(() {
       if (userdata.value.id.isEmpty) {
-        return const Center(child: CircularProgressIndicator(color: baseColor));
+        return const LoadingProgressIndecatorWidget();
       }
-
       return Scaffold(
         key: _scaffoldKey,
         endDrawer: DrawerWidget(user: userdata),

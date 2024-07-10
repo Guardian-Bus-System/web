@@ -1,6 +1,7 @@
 import 'package:capstone_front/CustomSide/color_theme.dart';
 import 'package:capstone_front/controller/userController/notices_controller.dart';
 import 'package:capstone_front/model/NoticesModel.dart';
+import 'package:capstone_front/screen/user/widget/loadingAction.dart';
 import 'package:capstone_front/utils/auth_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -32,10 +33,16 @@ class _NotificationListContainerState extends State<NotificationListContainer> {
   }
 
   @override
+  void dispose() {
+    Get.delete<NoticeController>();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Obx(() {
       if (notices.isEmpty) {
-        return const Center(child: CircularProgressIndicator(color: baseColor,));
+        return const LoadingProgressIndecatorWidget();
       }
 
       return ListView.builder(
