@@ -99,7 +99,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     leftTitle: '내 정보', 
                     rightTitle: '비밀번호 변경', 
                     rightTitleColor: baseColor, 
-                    toNamedRoute: '/ChangePwPage'
+                    toNamedRoute: '/cerfication'
                   ),
                   ProfileRowSideWidget(
                     title: '호차', 

@@ -1,9 +1,10 @@
 class ApiEndPoints {
-  static const String  baseUrl = "http://172.28.5.72:8097";
+  static const String  baseUrl = "http://localhost:8097";
+  static const String adminBaseUrl = "http://localhost:8097/admin";
   // ignore: library_private_types_in_public_api
-  //기숙사 172.16.1.142
-  //학교 172.28.5.72
+  
   static _AuthEndPoints authEndPoints = _AuthEndPoints();
+  static _AuthAdminEndPotins authAdminEndPoints = _AuthAdminEndPotins();
 }
 
 class _AuthEndPoints{
@@ -22,4 +23,8 @@ class _AuthEndPoints{
   final String citysApi = "/cities";
   final String notices = "/notices";
   final String rules = "/rules";
+}
+
+class _AuthAdminEndPotins{
+  final String userListInfo = " ";
 }

@@ -89,7 +89,7 @@ class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
               if (busInfo.isEmpty) {
                 return '현재 탑승정보가 없습니다.'.text.size(FontSiz11).color(baseColor).make();
               } else {
-                return '이전 탑승정보 : ${busInfo[0].busInfo.busNumber}호차 ${busInfo[0].busInfo.busName} - ${busInfo[0].endCity}'.text.size(FontSiz11).color(baseColor).make();
+                return '기존 탑승정보 : ${busInfo[0].busInfo.busNumber}호차 ${busInfo[0].busInfo.busName} - ${busInfo[0].endCity}'.text.size(FontSiz11).color(baseColor).make();
               }
             }),
             height15,

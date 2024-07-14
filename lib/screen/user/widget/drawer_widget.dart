@@ -1,4 +1,5 @@
 import 'package:capstone_front/model/UserModel.dart';
+import 'package:capstone_front/screen/user/auth/cerfication_page.dart';
 import 'package:capstone_front/screen/user/pages/profile_screen.dart';
 import 'package:capstone_front/screen/user/pages/rule_screen.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
@@ -62,7 +63,7 @@ class DrawerWidget extends StatelessWidget {
             height20,
             customInkWell(
               onTap: () async {
-                Get.toNamed('/cerfication');
+                Get.to(const CerficationPage());
               },
               text: '비밀번호 변경',
             ),

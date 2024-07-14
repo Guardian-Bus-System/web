@@ -32,7 +32,7 @@ class ProfileRowTopWidget extends StatelessWidget {
                   mainView.MainViewTabController tabController = Get.find();
                   tabController.goToTabItem(mainView.TabItem.busRoute);
                 } else {
-                  Get.to(const ChangePwPage());
+                  Get.toNamed(toNamedRoute);
                 }
               },
               child:rightTitle.text.color(rightTitleColor).size(FontSiz11).make(),
