@@ -36,4 +36,32 @@ class UserBusListController extends GetxController {
       }
     }
   }
+
+  Future<UserBusListResponse> getAdminUserBusListInfo() async {
+    final SharedPreferences prefs = await _prefs;
+    final String? token = prefs.getString('token');
+
+    if (token == null) {
+      throw 'Token is null';
+    } else {
+      try {
+        var url = Uri.parse( ApiEndPoints.adminBaseUrl + ApiEndPoints.authEndPoints.userBusApi );
+
+        http.Response response = await http.get(url);
+        if (response.statusCode == 200) {
+          
+        var data = jsonDecode(utf8.decode(response.bodyBytes));
+        var userBusData = UserBusListResponse.fromJson(data);
+          return userBusData;
+        } else {
+          var errorMessage = jsonDecode(response.body)['message'] ?? "Unknown Error Occurred";
+          throw errorMessage;
+        }
+      } catch (e) {
+        print('Error: $e');
+        Get.snackbar('Error', e.toString());
+        rethrow;
+      }
+    }
+  }
 }
