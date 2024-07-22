@@ -31,11 +31,6 @@ class _AdminBusAndRulesState extends State<AdminBusAndRules> {
     //_getData();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   Future<void> _getData() async {
     if (await checkTokens()) {
       UserBusListResponse userBusResponse = await userBusInfoController.getAdminUserBusListInfo();
@@ -44,6 +39,13 @@ class _AdminBusAndRulesState extends State<AdminBusAndRules> {
       RuleResponse ruleResponse = await rulesController.getRules();
       rules.value = ruleResponse.data;
     }
+  }
+  
+  @override
+  void dispose() {
+    Get.delete<UserBusListController>();
+    Get.delete<RulesController>();
+    super.dispose();
   }
   
   @override

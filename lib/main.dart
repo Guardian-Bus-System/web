@@ -5,14 +5,12 @@ import 'package:capstone_front/screen/user/auth/cerfication_page.dart';
 import 'package:capstone_front/screen/user/auth/login_page.dart';
 import 'package:capstone_front/screen/user/pages/changeBusRoute_screen.dart';
 import 'package:capstone_front/screen/user/pages/notification_screen.dart';
-import 'package:capstone_front/screen/user/widget/loadingAction.dart';
 import 'package:capstone_front/screen/user/widget/notification/notificationDetailWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import 'package:url_strategy/url_strategy.dart';
-import 'package:velocity_x/velocity_x.dart';
 import 'CustomSide/responsive_screen_size.dart';
 
 void main() {
