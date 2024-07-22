@@ -1,7 +1,6 @@
 import 'package:capstone_front/CustomSide/responsive_screen_size.dart';
 import 'package:capstone_front/screen/admin/widget/header_widget.dart';
 import 'package:capstone_front/screen/admin/widget/student_busItem_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 

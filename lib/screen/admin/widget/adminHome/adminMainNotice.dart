@@ -44,25 +44,25 @@ class _AdminMainNoticesState extends State<AdminMainNotices> {
   Widget build(BuildContext context) {
     ScreenSize screen = ScreenSize(context);
 
-    return Obx(() {
-      if (notices.isEmpty) {
-        return const LoadingProgressIndecatorWidget();
-      }
-
-      return Container(
+    return Container(
+      width: screen.width,
+      height: screen.height * 0.2109,
+      decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)), color: Colors.white),
+      child: Container(
         width: screen.width,
-        height: screen.height * 0.2109,
-        decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)), color: Colors.white),
-        child: Container(
-          width: screen.width,
-          height: screen.height,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              HeaderWidget(title: '공지사항', onPressed: () {},),
-              
-              Expanded(
-                child: ListView(
+        height: screen.height,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            HeaderWidget(title: '공지사항', onPressed: () {},),
+            
+            Expanded(
+              child: Obx(() {
+                if (notices.isEmpty) {
+                  return const LoadingProgressIndecatorWidget();
+                }
+
+                return ListView(
                   children: List<int>.generate(2, (index) => index)
                     .map((index) => 
                       Stack(
@@ -80,13 +80,12 @@ class _AdminMainNoticesState extends State<AdminMainNotices> {
                       )
                     )
                     .toList(),
-                ),
-              )
-              
-            ],
-          ).pSymmetric(h:20, v:20),
-        )
-      );
-    });
+                );
+              })
+            )
+          ],
+        ).pSymmetric(h:20, v:20),
+      )
+    );
   }
 }

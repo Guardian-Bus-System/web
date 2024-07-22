@@ -1,7 +1,7 @@
 // admin_main_page.dart
-import 'package:capstone_front/screen/admin/adminScreen/adminBusAndRules.dart';
-import 'package:capstone_front/screen/admin/adminScreen/adminMainNotice.dart';
-import 'package:capstone_front/screen/admin/adminScreen/adminMainStudent.dart';
+import 'package:capstone_front/screen/admin/widget/adminHome/adminBusAndRules.dart';
+import 'package:capstone_front/screen/admin/widget/adminHome/adminMainNotice.dart';
+import 'package:capstone_front/screen/admin/widget/adminHome/adminMainStudent.dart';
 import 'package:capstone_front/screen/admin/widget/adminMenuButtonWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -175,7 +175,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
                   )
                 ],
               ),
-            ).pOnly(top: 71, bottom: 0,left: 50, right: 50)
+            ).pOnly(top: 71, bottom: 0, left: 50, right: 50)
           ],
         ),
       ),

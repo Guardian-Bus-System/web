@@ -1,6 +1,6 @@
 import 'package:capstone_front/CustomSide/responsive_screen_size.dart';
 import 'package:capstone_front/CustomSide/spaceing_box.dart';
-import 'package:capstone_front/screen/admin/adminScreen/adminMainStudent.dart';
+import 'package:capstone_front/screen/admin/widget/adminHome/adminMainStudent.dart';
 import 'package:capstone_front/screen/admin/widget/header_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
