@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+final MainController controller = Get.put(MainController());
+
+// ignore: deprecated_member_use
 class MainController extends GetxController with SingleGetTickerProviderMixin {
   late TabController tabController;
 
@@ -14,29 +17,5 @@ class MainController extends GetxController with SingleGetTickerProviderMixin {
   void onClose() {
     tabController.dispose();
     super.onClose();
-  }
-}
-
-final MainController controller = Get.put(MainController());
-
-class CustomIndicator extends Decoration {
-  @override
-  BoxPainter createBoxPainter([VoidCallback? onChanged]) {
-    return _CustomIndicatorPainter(this);
-  }
-}
-
-class _CustomIndicatorPainter extends BoxPainter {
-  final CustomIndicator decoration;
-
-  _CustomIndicatorPainter(this.decoration);
-
-  @override
-  void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-    final Rect rect = offset & configuration.size!;
-    final Paint paint = Paint();
-    paint.color = Colors.orange; // 선택 표시의 색상을 설정하세요.
-    canvas.drawRRect(
-        RRect.fromRectAndRadius(rect, Radius.circular(2.0)), paint);
   }
 }

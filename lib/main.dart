@@ -50,14 +50,15 @@ class MyApp extends StatelessWidget {
       title: 'GBSW-GOBUS',
       home: screen.width < 600 //가로넓이가 600이하라면 앱을 보여주고 아니면 그냥 흰 바탕 
         ? MainView()//ChangeBusRouteScreen(data: userdata)
-        : Center(
-            child: Column(
-              children: [
-                '관리자는 준비중 입니다.'.text.color(Colors.black).size(30).make(),
-                LoadingProgressIndecatorWidget(),
-              ],
-            ),
-          ),
+        : AdminMainPage(),
+        // Center(
+        //     child: Column(
+        //       children: [
+        //         '관리자는 준비중 입니다.'.text.color(Colors.black).size(30).make(),
+        //         LoadingProgressIndecatorWidget(),
+        //       ],
+        //     ),
+        //   ),
           
         //
       initialRoute: '/',
