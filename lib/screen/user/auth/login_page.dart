@@ -1,14 +1,12 @@
 import 'package:capstone_front/controller/userController/login_controller.dart';
 import 'package:capstone_front/CustomSide/spaceing_box.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
-import 'package:capstone_front/screen/user/auth/cerfication_page.dart';
+import 'package:capstone_front/screen/user/widget/AuthWidgets/input_Field.dart';
+import 'package:capstone_front/screen/user/widget/AuthWidgets/submit_button.dart';
 import 'package:capstone_front/utils/img.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
-
-import '../widget/AuthWidgets/input_Field.dart';
-import '../widget/AuthWidgets/submit_button.dart';
 
 class LoginPage extends StatefulWidget {
   final String? mode;  // 추가된 부분

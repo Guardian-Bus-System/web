@@ -1,7 +1,6 @@
 import 'package:capstone_front/CustomSide/color_theme.dart';
 import 'package:capstone_front/CustomSide/font_size.dart';
 import 'package:capstone_front/CustomSide/spaceing_box.dart';
-import 'package:capstone_front/screen/user/auth/change_pw_page.dart';
 import 'package:flutter/material.dart';
 // ignore: library_prefixes
 import 'package:capstone_front/routes/mainView.dart' as mainView;

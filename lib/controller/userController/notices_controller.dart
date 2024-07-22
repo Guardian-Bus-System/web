@@ -40,6 +40,36 @@ class NoticeController extends GetxController {
     }
   }
 
+  Future<NoticeResponse> getAdminNotices() async {
+    final SharedPreferences prefs = await _prefs;
+    final String? token = prefs.getString('token');
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
+
+    var url = Uri.parse(ApiEndPoints.adminBaseUrl + ApiEndPoints.authEndPoints.notices);
+
+    http.Response response = await http.get(url, headers: headers); 
+
+    try {      
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(utf8.decode(response.bodyBytes));
+        var notices = NoticeResponse.fromJson(data);
+        return notices;
+      } else {
+        var errorMessage = jsonDecode(response.body)['message'] ?? "Unknown Error Occurred";
+        throw errorMessage;
+      }
+    } catch (e) {
+      print('Error: $e'); // 에러 메시지 출력
+      Get.snackbar('Error 그냥', e.toString());
+      rethrow; // 에러를 다시 던져서 호출 코드에서 처리할 수 있게 함
+    }
+  }
+
   Future<void> checkNoticeDetails(int id) async {
     final SharedPreferences prefs = await _prefs;
     final String? token = prefs.getString('token');

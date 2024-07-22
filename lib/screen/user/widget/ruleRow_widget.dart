@@ -1,9 +1,8 @@
 import 'package:capstone_front/CustomSide/font_size.dart';
+import 'package:capstone_front/CustomSide/spaceing_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:velocity_x/velocity_x.dart';
-
-import '../../../CustomSide/spaceing_box.dart';
 
 class RuleRowWidget extends StatelessWidget {
   final int number;

@@ -1,10 +1,9 @@
 // admin_main_page.dart
+import 'package:capstone_front/screen/admin/adminScreen/adminBusAndRules.dart';
+import 'package:capstone_front/screen/admin/adminScreen/adminMainNotice.dart';
+import 'package:capstone_front/screen/admin/adminScreen/adminMainStudent.dart';
 import 'package:capstone_front/screen/admin/widget/adminMenuButtonWidget.dart';
-import 'package:capstone_front/screen/admin/widget/header_widget.dart';
-import 'package:capstone_front/screen/admin/widget/student_busItem_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:capstone_front/CustomSide/responsive_screen_size.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
@@ -32,23 +31,18 @@ class _AdminMainPageState extends State<AdminMainPage> {
     setState(() {
       _selectedSubMenu = item['text'];
     });
-    //Navigator.pushNamed(context, item['route']);
   }
 
   void _onButtonTap(int index, String route) {
     setState(() {
       _selectedIndex = index;
     });
-    //Navigator.pushNamed(context, route);
   }
 
   @override
   Widget build(BuildContext context) {
     ScreenSize screen = ScreenSize(context);
-    double screenWidth = screen.width;
-    double screenHeight = screen.height;
-
-    double sideMenuWidth = screenWidth * 0.2;
+    double sideMenuWidth = screen.width * 0.2;
 
     return Scaffold(
       body: Container(
@@ -87,7 +81,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
                         {'text': '공지 목록', 'route': '/notice/item1'},
                         {'text': '공지 등록', 'route': '/notice/item2'},
                       ],
-                      screenWidth: screenWidth,
+                      screenWidth: screen.width,
                       onMenuItemTap: _onMenuItemTap,
                       selectedSubMenu: _selectedSubMenu,
                     ),
@@ -110,7 +104,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
                         {'text': '학생 탑승 내역', 'route': '/students/item2'},
                         {'text': '학생 관리자 관리', 'route': '/students/item2'},
                       ],
-                      screenWidth: screenWidth,
+                      screenWidth: screen.width,
                       onMenuItemTap: _onMenuItemTap,
                       selectedSubMenu: _selectedSubMenu,
                     ),
@@ -132,7 +126,7 @@ class _AdminMainPageState extends State<AdminMainPage> {
                         {'text': '버스 목록 관리', 'route': ''},
                         {'text': '행선지 관리', 'route': ''},
                       ],
-                      screenWidth: screenWidth,
+                      screenWidth: screen.width,
                       onMenuItemTap: _onMenuItemTap,
                       selectedSubMenu: _selectedSubMenu,
                     ),
@@ -153,8 +147,8 @@ class _AdminMainPageState extends State<AdminMainPage> {
             ),
             // Rest of your main content goes here...
             Container(
-              width: screenWidth - (sideMenuWidth * 1.33),
-              height: screenHeight,
+              width: screen.width - (sideMenuWidth * 1.33),
+              height: screen.width,
               decoration: const BoxDecoration(
                 color: adminMainBackgroundColor,
               ),
@@ -162,116 +156,20 @@ class _AdminMainPageState extends State<AdminMainPage> {
               child: Column(
                 children: [
                   //공지사항
-                  Container(
-                    width: screenWidth,
-                    height: screenHeight * 0.2109,
-                    decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)), color: Colors.white),
-                    child: Container(
-                      width: screenWidth,
-                      height: screenHeight,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          HeaderWidget(title: '공지사항', onPressed: () {},),
-                          
-                          Expanded(
-                            child: ListView(
-                              children: List<int>.generate(2, (index) => index)
-                                .map((index) => 'list item $index'.text.xl2.make())   
-                                .toList(),
-                            ),
-                          )
-                          
-                        ],
-                      ).pSymmetric(h:20, v:20),
-                    ),
-                  ),
-                  height40.pOnly(bottom: 2),
+                  AdminMainNotices(),
+                  height25.pOnly(bottom: 2),
+
                   SizedBox(
-                    width: screenWidth,
-                    height: screenHeight * 0.60,
+                    width: screen.width,
+                    height: screen.height * 0.60,
                     child: Row(
                       children: [
                         //학생 목록
-                        Container(
-                          width: screenWidth * 0.4687,
-                          decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)), color: Colors.white),
-                          child: Theme(
-                            data: ThemeData(
-                              scrollbarTheme: ScrollbarThemeData(
-                                thumbColor: MaterialStateProperty.all<Color>(Colors.white),
-                              ),
-                            ),
-                            child: SingleChildScrollView(
-                              physics: NeverScrollableScrollPhysics(),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  HeaderWidget(title: '학생 목록', onPressed: () {}),
-                                    //버그 잡아줘잉 
-                                    // 해결 썩섹스 ^^
-                                  SizedBox(
-                                    width: screenWidth * 0.63,
-                                    height: screenHeight * 0.6705,
-                                    child: ListView(// 공주 여기세로 스크롤 해야 함묭?
-                                      // 아니용
-                                      scrollDirection: Axis.horizontal,
-                                      children: List<int>.generate(5, (busNum) => busNum)
-                                        .map((busNum) => StudentBusItemWidget(busNumber: busNum)).toList(),
-                                    ),
-                                  )
-                                ],
-                              ).pOnly(top:20, left:20, right: 20),
-                            ),
-                          ),
-                        ),
-                        width15.pOnly(left: 3),
+                        AdminMainStudent(),
 
-                        SizedBox(
-                          width: screenWidth * 0.25,
-                          child: Column(
-                            children: [
-                              //버스 목록
-                              Container(
-                                height: screenHeight * 0.286,
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
-                                child: 
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    HeaderWidget(title: '버스 목록', onPressed: () {}),
-                                    Expanded(
-                                      child: ListView(
-                                        children: List<int>.generate(5, (index) => index)
-                                          .map((index) => '${index+1}bus information '.text.xl.make().pOnly(top: 4, bottom: 1))
-                                          .toList(),
-                                      ),
-                                    )
-                                  ],
-                                ).pOnly(top: 20, left: 20, right: 20)
-                              ),
-                              height20,
-                              //탑승규칙
-                              Container(
-                                height: screenHeight * 0.286,
-                                width: screenWidth,
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
-                                child: Column(
-                                  children: [
-                                    HeaderWidget(title: '탑승규칙', onPressed: () {}),
-                                    Expanded(
-                                      child: ListView(
-                                        children: List<int>.generate(4, (index) => index)
-                                        .map((index) => '${index+1}. item informaion.'.text.xl.make().pOnly(top: 4, bottom: 1))
-                                        .toList(),
-                                      )
-                                    )
-                                  ],
-                                ).pOnly(top: 20, left: 20, right: 20),
-                              ),
-                            ],
-                          ),
-                        ),
+                        width15.pOnly(left: 3),
+                        //버스 목록 & 규칙 목록
+                        AdminBusAndRules()
                       ],
                     ),
                   )

@@ -7,13 +7,13 @@ import 'package:capstone_front/screen/user/widget/AuthWidgets/formatter.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
 import 'package:capstone_front/CustomSide/font_size.dart';
 import 'package:capstone_front/CustomSide/spaceing_box.dart';
+import 'package:capstone_front/screen/user/widget/custom_appbar.dart';
 import 'package:capstone_front/screen/user/widget/loadingAction.dart';
 import 'package:capstone_front/screen/user/widget/profileRow_Widget.dart';
 import 'package:capstone_front/utils/auth_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
-import '../widget/custom_appbar.dart';
 
 class ProfileScreen extends StatefulWidget {
   ProfileScreen({Key? key});

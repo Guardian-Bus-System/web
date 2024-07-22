@@ -1,6 +1,7 @@
 import 'package:capstone_front/CustomSide/responsive_screen_size.dart';
 import 'package:capstone_front/CustomSide/spaceing_box.dart';
 import 'package:capstone_front/controller/userController/notices_controller.dart';
+import 'package:capstone_front/controller/userController/user_controller.dart';
 import 'package:capstone_front/model/NoticesModel.dart';
 import 'package:capstone_front/model/UserModel.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
@@ -15,7 +16,6 @@ import 'package:capstone_front/screen/user/widget/notification/notification.dart
 import 'package:capstone_front/utils/auth_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../controller/userController/user_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
