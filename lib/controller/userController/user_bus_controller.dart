@@ -36,6 +36,7 @@ class UserBusListController extends GetxController {
       }
     }
   }
+<<<<<<< HEAD
 
   Future<UserBusListResponse> getAdminUserBusListInfo() async {
     final SharedPreferences prefs = await _prefs;
@@ -64,4 +65,6 @@ class UserBusListController extends GetxController {
       }
     }
   }
+=======
+>>>>>>> 896976be7360d68254617b082fdb27152952e764
 }

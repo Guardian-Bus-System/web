@@ -4,7 +4,10 @@ import 'package:capstone_front/CustomSide/font_size.dart';
 import 'package:capstone_front/CustomSide/spaceing_box.dart';
 import 'package:capstone_front/controller/userController/user_controller.dart';
 import 'package:capstone_front/model/UserModel.dart';
+<<<<<<< HEAD
 import 'package:capstone_front/model/data.dart';
+=======
+>>>>>>> 896976be7360d68254617b082fdb27152952e764
 import 'package:capstone_front/screen/user/widget/AuthWidgets/input_Field.dart';
 import 'package:capstone_front/screen/user/widget/AuthWidgets/submit_button.dart';
 import 'package:capstone_front/utils/auth_utils.dart';
@@ -13,6 +16,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+<<<<<<< HEAD
+=======
+import '../../../model/data.dart';
+
+>>>>>>> 896976be7360d68254617b082fdb27152952e764
 class ChangePwPage extends StatefulWidget {
   const ChangePwPage({super.key});
 

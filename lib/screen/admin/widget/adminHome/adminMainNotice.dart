@@ -44,6 +44,7 @@ class _AdminMainNoticesState extends State<AdminMainNotices> {
   Widget build(BuildContext context) {
     ScreenSize screen = ScreenSize(context);
 
+<<<<<<< HEAD
     return Container(
       width: screen.width,
       height: screen.height * 0.2109,
@@ -89,3 +90,57 @@ class _AdminMainNoticesState extends State<AdminMainNotices> {
     );
   }
 }
+=======
+    return Obx(() {
+      if (notices.isEmpty) {
+        return const LoadingProgressIndecatorWidget();
+      }
+
+      return Container(
+          width: screen.width,
+          height: screen.height * 0.2109,
+          decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              color: Colors.white),
+          child: Container(
+            width: screen.width,
+            height: screen.height,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                HeaderWidget(
+                  title: '공지사항',
+                  onPressed: () {},
+                ),
+                Expanded(
+                  child: ListView(
+                    children: List<int>.generate(2, (index) => index)
+                        .map((index) => Stack(
+                              children: [
+                                Positioned(
+                                    left: 0,
+                                    top: 11,
+                                    child: Container(
+                                        width: 5,
+                                        height: 5,
+                                        decoration: BoxDecoration(
+                                            color: black,
+                                            borderRadius:
+                                                BorderRadius.circular(5)))),
+                                '${notices[index].content}'
+                                    .text
+                                    .xl2
+                                    .make()
+                                    .pOnly(left: 15),
+                              ],
+                            ))
+                        .toList(),
+                  ),
+                )
+              ],
+            ).pSymmetric(h: 20, v: 20),
+          ));
+    });
+  }
+}
+>>>>>>> 896976be7360d68254617b082fdb27152952e764

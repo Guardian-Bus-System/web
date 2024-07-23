@@ -5,6 +5,10 @@ import 'package:capstone_front/screen/user/pages/rule_screen.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
 import 'package:capstone_front/CustomSide/font_size.dart';
 import 'package:capstone_front/CustomSide/spaceing_box.dart';
+<<<<<<< HEAD
+=======
+import 'package:capstone_front/screen/user/auth/change_pw_page.dart';
+>>>>>>> 896976be7360d68254617b082fdb27152952e764
 import 'package:capstone_front/screen/user/auth/login_page.dart';
 import 'package:capstone_front/utils/img.dart';
 import 'package:flutter/material.dart';

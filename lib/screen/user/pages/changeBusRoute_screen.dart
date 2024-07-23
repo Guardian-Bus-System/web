@@ -26,10 +26,20 @@ class ChangeBusRouteScreen extends StatefulWidget {
 }
 
 class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
+<<<<<<< HEAD
   final GlobalKey<BusDropDownButtonWidgetState> _dropDownKey = GlobalKey<BusDropDownButtonWidgetState>();
   UserBusInfoController userBusInfoController = Get.put(UserBusInfoController());
   UserBusListController userBusListController = Get.put(UserBusListController());
   BusCityController busCityController = Get.put(BusCityController());
+=======
+  final GlobalKey<BusDropDownButtonWidgetState> _dropDownKey =
+      GlobalKey<BusDropDownButtonWidgetState>();
+  UserBusInfoController userBusInfoController =
+      Get.put(UserBusInfoController());
+  UserBusListController userBusListController =
+      Get.put(UserBusListController());
+  ReservationController busCityController = Get.put(ReservationController());
+>>>>>>> 896976be7360d68254617b082fdb27152952e764
 
   late RxList<UserBus> userBusList = <UserBus>[].obs;
 
@@ -46,6 +56,7 @@ class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
 
   Future<void> _getBusCities() async {
     if (await checkTokens()) {
+<<<<<<< HEAD
       UserBusListResponse userBusResponse = await userBusListController.getUserBusListInfo();
       userBusList.value = userBusResponse.data;
       ReservationResponse reservationData = await userBusInfoController.getUserBusInfo();
@@ -57,13 +68,32 @@ class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
         _selectedButtonIndex.value = 0;
       }
     } 
+=======
+      UserBusListResponse userBusResponse =
+          await userBusListController.getUserBusListInfo();
+      userBusList.value = userBusResponse.data;
+      ReservationResponse reservationData =
+          await userBusInfoController.getUserBusInfo();
+      if (reservationData.data != null) {
+        busInfo.value = [reservationData.data!];
+      }
+      if (reservationData.data!.onCk) {
+        _selectedBusIndex.value = -1;
+        _selectedButtonIndex.value = 0;
+      }
+    }
+>>>>>>> 896976be7360d68254617b082fdb27152952e764
   }
 
   @override
   void dispose() {
     Get.delete<UserBusListController>();
     Get.delete<UserBusInfoController>();
+<<<<<<< HEAD
     Get.delete<BusCityController>();
+=======
+    Get.delete<ReservationController>();
+>>>>>>> 896976be7360d68254617b082fdb27152952e764
     super.dispose();
   }
 
@@ -83,6 +113,7 @@ class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
           children: [
             '버스 경로 변경'.text.bold.size(FontSiz18).make(),
             height5,
+<<<<<<< HEAD
             '금주 귀가주 (${getNextFridayDateFormatted()})버스 정보'.text.size(FontSiz13).color(baseColor).make(),
             height15,
             Obx(() {
@@ -90,10 +121,32 @@ class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
                 return '현재 탑승정보가 없습니다.'.text.size(FontSiz11).color(baseColor).make();
               } else {
                 return '기존 탑승정보 : ${busInfo[0].busInfo.busNumber}호차 ${busInfo[0].busInfo.busName} - ${busInfo[0].endCity}'.text.size(FontSiz11).color(baseColor).make();
+=======
+            '금주 귀가주 (${getNextFridayDateFormatted()})버스 정보'
+                .text
+                .size(FontSiz13)
+                .color(baseColor)
+                .make(),
+            height15,
+            Obx(() {
+              if (busInfo.isEmpty) {
+                return '현재 탑승정보가 없습니다.'
+                    .text
+                    .size(FontSiz11)
+                    .color(baseColor)
+                    .make();
+              } else {
+                return '기존 탑승정보 : ${busInfo[0].busInfo.busNumber}호차 ${busInfo[0].busInfo.busName} - ${busInfo[0].endCity}'
+                    .text
+                    .size(FontSiz11)
+                    .color(baseColor)
+                    .make();
+>>>>>>> 896976be7360d68254617b082fdb27152952e764
               }
             }),
             height15,
             BusRouteChangeContainer(
+<<<<<<< HEAD
               containerName: '버스 탑승 여부',
               shadowBool: true,
               child: Column(
@@ -189,6 +242,107 @@ class _ChangeBusRouteScreenState extends State<ChangeBusRouteScreen> {
               },
               title: '신청하기'
             ).pOnly(bottom: 25)
+=======
+                containerName: '버스 탑승 여부',
+                shadowBool: true,
+                child: Column(
+                  children: [
+                    height15,
+                    Obx(() => Row(
+                          children: [
+                            BusTakeButtonWidget(
+                                buttonText: '탑승',
+                                isSelected: _selectedButtonIndex == 0,
+                                onTap: () {
+                                  _selectedButtonIndex.value = 0;
+                                  _selectedBusIndex.value = -1; // 초기화
+                                }),
+                            width20,
+                            BusTakeButtonWidget(
+                                buttonText: '미탑승',
+                                isSelected: _selectedButtonIndex == 1,
+                                onTap: () {
+                                  _selectedButtonIndex.value = 1;
+                                  _selectedBusIndex.value = -1; // 초기화
+                                }),
+                          ],
+                        )),
+                  ],
+                )),
+            height10,
+            Obx(() => _selectedButtonIndex.value == 0
+                ? BusRouteChangeContainer(
+                    containerName: '도착 지역 선택',
+                    shadowBool: true,
+                    child: Column(
+                      children: [
+                        height15,
+                        // UserBusList 목록을 사용하여 버튼 생성
+                        Row(
+                          children: [
+                            Obx(
+                              () => Column(
+                                children:
+                                    userBusList.asMap().entries.map((entry) {
+                                  int index = entry.key;
+                                  UserBus busCity = entry.value;
+                                  return BusLoadCheckButtonWidget(
+                                    busCity: busCity,
+                                    dropDownKey: _dropDownKey,
+                                    isSelected: _selectedBusIndex.value ==
+                                        index, // 버튼이 선택되었는지 여부
+                                    onTap: () {
+                                      if (index >= 0 &&
+                                          index < userBusList.length) {
+                                        _selectedBusIndex.value =
+                                            index; // 유효한 인덱스인지 확인
+                                        _dropDownKey.currentState
+                                            ?.updateDropdownItems(
+                                                busCity); // 드롭다운 항목 업데이트
+                                      }
+                                    },
+                                  ).pOnly(bottom: 10);
+                                }).toList(),
+                              ),
+                            ),
+                          ],
+                        ),
+                        height15,
+                        BusRouteChangeContainer(
+                          containerName: '하차 지역 선택',
+                          shadowBool: false,
+                          child: Column(
+                            children: [
+                              height15,
+                              BusDropDownButtonWidget(key: _dropDownKey)
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : const SizedBox.shrink()),
+            height30,
+            SubmitButton(
+                    onPressed: () async {
+                      bool isTakingBus = _selectedButtonIndex.value == 0;
+                      if (isTakingBus && _selectedBusIndex.value >= 0) {
+                        // 탑승을 선택하고 유효한 버스가 선택된 경우
+                        int busNumber =
+                            userBusList[_selectedBusIndex.value].busNumber;
+                        String? selectedVillage =
+                            _dropDownKey.currentState?.selectedVillage;
+                        await busCityController.sendUserReservation(
+                          busNumber: busNumber,
+                          selectedVillage: selectedVillage,
+                        );
+                      }
+                      await busCityController.sendUserTakeBusCheck(
+                          isTake: isTakingBus);
+                    },
+                    title: '신청하기')
+                .pOnly(bottom: 25)
+>>>>>>> 896976be7360d68254617b082fdb27152952e764
           ],
         ).pSymmetric(h: 25),
       ),
