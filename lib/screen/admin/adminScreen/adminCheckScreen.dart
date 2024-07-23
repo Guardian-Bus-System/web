@@ -14,7 +14,7 @@ class _AdminCheckLoadingScreenState extends State<AdminCheckLoadingScreen> {
     return const Center(
       child: Column(
         children: [
-
+          
         ],
       ),
     );
