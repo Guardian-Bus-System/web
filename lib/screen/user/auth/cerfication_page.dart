@@ -1,11 +1,6 @@
 import 'package:capstone_front/controller/userController/cerfication_controller.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
 import 'package:capstone_front/CustomSide/spaceing_box.dart';
-<<<<<<< HEAD
-=======
-import 'package:capstone_front/screen/user/auth/change_pw_page.dart';
-import 'package:capstone_front/screen/user/auth/login_page.dart';
->>>>>>> 896976be7360d68254617b082fdb27152952e764
 import 'package:capstone_front/screen/user/widget/AuthWidgets/input_Field.dart';
 import 'package:capstone_front/screen/user/widget/AuthWidgets/submit_button.dart';
 import 'package:capstone_front/utils/img.dart';

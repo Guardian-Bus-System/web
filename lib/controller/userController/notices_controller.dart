@@ -40,7 +40,6 @@ class NoticeController extends GetxController {
     }
   }
 
-<<<<<<< HEAD
   Future<NoticeResponse> getAdminNotices() async {
     final SharedPreferences prefs = await _prefs;
     final String? token = prefs.getString('token');
@@ -71,8 +70,6 @@ class NoticeController extends GetxController {
     }
   }
 
-=======
->>>>>>> 896976be7360d68254617b082fdb27152952e764
   Future<void> checkNoticeDetails(int id) async {
     final SharedPreferences prefs = await _prefs;
     final String? token = prefs.getString('token');
