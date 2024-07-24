@@ -11,7 +11,6 @@ import 'package:capstone_front/screen/user/widget/AuthWidgets/scrolling_text.dar
 import 'package:capstone_front/screen/user/widget/customHomeAppbarWidget.dart';
 import 'package:capstone_front/screen/user/widget/drawer_widget.dart';
 import 'package:capstone_front/screen/user/widget/loadingAction.dart';
-import 'package:capstone_front/screen/user/widget/notification/notification.dart';
 import 'package:capstone_front/utils/auth_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -40,8 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _init() async {
-    FlutterLocalNotification.init();
-    await FlutterLocalNotification.requestNotificationPermission();
     await _getData();
   }
 
@@ -54,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
       notices.value = noticeResponse.data.content;
     }
   }
-  
+
   @override
   void dispose() {
     Get.delete<UserController>();
@@ -87,12 +84,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         InkWell(
                           onTap: () {
                             Get.toNamed('/notification');
-                            FlutterLocalNotification.showNotification();
                           },
                           child: Obx(() {
                             String noticeText = '새로운 공지가 있습니다';
                             if (notices.isNotEmpty) {
-                              noticeText = '새로운 공지가 있습니다 - ${notices[0].content}';
+                              noticeText =
+                                  '새로운 공지가 있습니다 - ${notices[0].content}';
                             }
                             return ScrollingTextWidget(moveText: noticeText);
                           }),
