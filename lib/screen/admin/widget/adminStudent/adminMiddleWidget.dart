@@ -25,7 +25,7 @@ class _AdminMiddleWidgetState extends State<AdminMiddleWidget> {
 
     return SizedBox(
       width: screen.width,
-      height: screen.height * 0.1,
+      height: screen.height * 0.07,
       child: Column(
         children: [
           Row(

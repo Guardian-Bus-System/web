@@ -24,7 +24,7 @@ class _AdminMainStudentState extends State<AdminMainStudent> {
   @override
   void initState() {
     super.initState();
-    fetchBuses();
+    // fetchBuses();
   }
 
   Future<void> fetchBuses() async {
