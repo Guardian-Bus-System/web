@@ -43,6 +43,9 @@ class _Adminstudentlistpage extends State<Adminstudentlistpage> {
     ScreenSize screen = ScreenSize(context);
     double sideMenuWidth = screen.width * 0.2;
 
+    //체크박스 확인
+    bool? isChecked = true;
+
     return Scaffold(
       body: Container(
         color: adminMainBackgroundColor,
@@ -184,13 +187,27 @@ class _Adminstudentlistpage extends State<Adminstudentlistpage> {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            //checkbox
                             Container(
                               width: 20,
                               height: 20,
                               decoration: BoxDecoration(
-                                  border:
-                                      Border.all(width: 1, color: Colors.black),
-                                  borderRadius: BorderRadius.circular(3)),
+                                  border: Border.all(
+                                      width: 1, color: Colors.black)),
+                              child: Checkbox(
+                                checkColor: Colors.black,
+                                overlayColor: const WidgetStatePropertyAll(
+                                    Color.fromARGB(0, 255, 255, 255)),
+                                fillColor: const WidgetStatePropertyAll(
+                                    Color.fromARGB(0, 255, 255, 255)),
+                                isError: true,
+                                value: isChecked,
+                                onChanged: (value) {
+                                  setState(() {
+                                    isChecked = value!;
+                                  });
+                                },
+                              ),
                             ),
                             'id'.text.xl.bold.make().pOnly(left: 40),
                             '아이디'.text.xl.bold.make().pOnly(left: 40),

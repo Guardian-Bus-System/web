@@ -1,6 +1,7 @@
 import 'package:capstone_front/routes/mainView.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminMainPage.dart';
+import 'package:capstone_front/screen/admin/adminScreen/adminStudentListPage.dart';
 import 'package:capstone_front/screen/user/auth/cerfication_page.dart';
 import 'package:capstone_front/screen/user/auth/login_page.dart';
 import 'package:capstone_front/screen/user/pages/changeBusRoute_screen.dart';
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
       title: 'GBSW-GOBUS',
       home: screen.width < 600 //가로넓이가 600이하라면 앱을 보여주고, 그 외에는 관리자 페이징 처리
           ? MainView() //ChangeBusRouteScreen(data: userdata)
-          : AdminMainPage(),
+          : Adminstudentlistpage(),
       initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => MainView()),

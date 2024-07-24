@@ -28,7 +28,8 @@ class _AdminMainStudentState extends State<AdminMainStudent> {
   }
 
   Future<void> fetchBuses() async {
-    final response = await http.get(Uri.parse(ApiEndPoints.adminBaseUrl + ApiEndPoints.authEndPoints.userBusApi));
+    final response = await http.get(Uri.parse(
+        ApiEndPoints.adminBaseUrl + ApiEndPoints.authEndPoints.userBusApi));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -61,23 +62,23 @@ class _AdminMainStudentState extends State<AdminMainStudent> {
             children: [
               HeaderWidget(title: '학생 목록', onPressed: () {}),
               SizedBox(
-                width: screen.width * 0.63,
-                height: screen.height * 0.6705,
-                child: Obx(() {
-                  if(buses.isEmpty){
-                    return const Center(child: LoadingProgressIndecatorWidget());
-                  }
-                  return ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: buses
-                      .map((bus) => StudentBusItemWidget(
-                            busNumber: bus['busNumber'],
-                            id: bus['id'],
-                          ))
-                      .toList(),
-                  );
-                }) 
-              ),
+                  width: screen.width * 0.63,
+                  height: screen.height * 0.6705,
+                  child: Obx(() {
+                    if (buses.isEmpty) {
+                      return const Center(
+                          child: LoadingProgressIndecatorWidget());
+                    }
+                    return ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: buses
+                          .map((bus) => StudentBusItemWidget(
+                                busNumber: bus['busNumber'],
+                                id: bus['id'],
+                              ))
+                          .toList(),
+                    );
+                  })),
             ],
           ).pOnly(top: 20, left: 20, right: 20),
         ),
