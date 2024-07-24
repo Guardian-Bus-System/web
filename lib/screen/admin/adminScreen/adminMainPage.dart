@@ -144,7 +144,6 @@ class AdminMainPage extends StatelessWidget {
                             menuItems: const [
                               {'text': '학생 관리', 'route': '/students/item1'},
                               {'text': '학생 탑승 내역', 'route': '/students/item2'},
-                              {'text': '학생 관리자 관리', 'route': '/students/item3'},
                             ],
                             screenWidth: screen.width,
                             onMenuItemTap: _onMenuItemTap,
