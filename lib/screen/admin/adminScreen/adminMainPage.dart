@@ -208,6 +208,7 @@ class AdminMainPage extends StatelessWidget {
                   color: adminMainBackgroundColor,
                 ),
                 child: Obx(() => _buildContent()),
+                // 누른 메뉴에 따른 화면 위젯을 보여줌 그래서 왼쪽에 있는 메뉴들은 다시 안 만들어도 됨
               ).pOnly(top: 71, bottom: 0, left: 50, right: 50),
             ),
           ],
