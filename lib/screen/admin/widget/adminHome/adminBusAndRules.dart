@@ -28,7 +28,7 @@ class _AdminBusAndRulesState extends State<AdminBusAndRules> {
   @override
   void initState() {
     super.initState();
-    //_getData();
+    _getData();
   }
 
   Future<void> _getData() async {
