@@ -1,11 +1,4 @@
-// admin_main_page.dart
-import 'package:capstone_front/screen/admin/widget/adminStudent/adminStudentSearchWidget.dart';
-import 'package:capstone_front/screen/admin/widget/adminStudent/adminAliginButtonWidget.dart';
 import 'package:capstone_front/screen/admin/widget/adminStudent/adminMiddleWidget.dart';
-import 'package:capstone_front/screen/admin/widget/adminStudent/adminDropdownWidget.dart';
-import 'package:capstone_front/screen/admin/widget/adminHome/adminBusAndRules.dart';
-import 'package:capstone_front/screen/admin/widget/adminHome/adminMainNotice.dart';
-import 'package:capstone_front/screen/admin/widget/adminHome/adminMainStudent.dart';
 import 'package:capstone_front/screen/admin/widget/adminMenuButtonWidget.dart';
 import 'package:capstone_front/screen/admin/widget/adminTitleWidget.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +41,9 @@ class _Adminstudentlistpage extends State<Adminstudentlistpage> {
   Widget build(BuildContext context) {
     ScreenSize screen = ScreenSize(context);
     double sideMenuWidth = screen.width * 0.2;
+
+    // checkbox 체크 확인 (전체 선택)
+    bool? allChecked = false;
 
     return Scaffold(
       body: Container(
@@ -190,13 +186,15 @@ class _Adminstudentlistpage extends State<Adminstudentlistpage> {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Container(
-                              width: 20,
-                              height: 20,
-                              decoration: BoxDecoration(
-                                  border:
-                                      Border.all(width: 1, color: Colors.black),
-                                  borderRadius: BorderRadius.circular(3)),
+                            //checkbox
+                            Checkbox(
+                              tristate: true,
+                              value: allChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  allChecked = value;
+                                });
+                              },
                             ),
                             'id'.text.xl.bold.make().pOnly(left: 40),
                             '아이디'.text.xl.bold.make().pOnly(left: 40),

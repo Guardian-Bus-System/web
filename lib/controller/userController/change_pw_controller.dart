@@ -16,31 +16,33 @@ class ChangePasswordController extends GetxController {
   UserController userController = UserController();
 
   Future<void> changeWithPassword() async {
-    if(Validate.validatePasswordConfirm(changePasswordController.text, checkChangePasswordController.text) != null){ // 패스워드 확인  
+    if (Validate.validatePasswordConfirm(changePasswordController.text,
+            checkChangePasswordController.text) !=
+        null) {
+      // 패스워드 확인
       Get.snackbar('패스워드 오류', '패스워드가 일치하기 않습니다.');
-      
-    } else {// 서버 전송
+    } else {
+      // 서버 전송
       final SharedPreferences prefs = await _prefs;
-      final String? token = prefs.getString('token'); 
-      
+      final String? token = prefs.getString('token');
+
       var headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token'
       };
-      
-      var url = Uri.parse(
-        ApiEndPoints.baseUrl + 
-        ApiEndPoints.authEndPoints.userInformation + 
-        ApiEndPoints.authEndPoints.userMe + 
-        ApiEndPoints.authEndPoints.pwUpdate
-      );
+
+      var url = Uri.parse(ApiEndPoints.baseUrl +
+          ApiEndPoints.authEndPoints.userInformation +
+          ApiEndPoints.authEndPoints.userMe +
+          ApiEndPoints.authEndPoints.pwUpdate);
       Map body = {
         "newPassword": changePasswordController.text,
       };
 
-      http.Response response = await http.put(url, body: jsonEncode(body), headers: headers);
+      http.Response response =
+          await http.put(url, body: jsonEncode(body), headers: headers);
 
-      if(response.statusCode == 200){
+      if (response.statusCode == 200) {
         var data = jsonDecode(utf8.decode(response.bodyBytes));
         Get.snackbar('변경완료', '${data['data']}\n 로그인 화면으로 이동합니다.');
         prefs?.clear();
@@ -49,8 +51,7 @@ class ChangePasswordController extends GetxController {
         checkChangePasswordController.clear();
         Get.delete<UserController>();
         Get.to(const LoginPage());
-      }
-      else{
+      } else {
         print("200 아님");
         throw jsonDecode(response.body)['Message'] ?? "Unknown Error Occured";
       }
