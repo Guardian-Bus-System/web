@@ -1,11 +1,5 @@
 // admin_main_page.dart
-import 'package:capstone_front/screen/admin/widget/adminStudent/adminStudentSearchWidget.dart';
-import 'package:capstone_front/screen/admin/widget/adminStudent/adminAliginButtonWidget.dart';
 import 'package:capstone_front/screen/admin/widget/adminStudent/adminMiddleWidget.dart';
-import 'package:capstone_front/screen/admin/widget/adminStudent/adminDropdownWidget.dart';
-import 'package:capstone_front/screen/admin/widget/adminHome/adminBusAndRules.dart';
-import 'package:capstone_front/screen/admin/widget/adminHome/adminMainNotice.dart';
-import 'package:capstone_front/screen/admin/widget/adminHome/adminMainStudent.dart';
 import 'package:capstone_front/screen/admin/widget/adminMenuButtonWidget.dart';
 import 'package:capstone_front/screen/admin/widget/adminTitleWidget.dart';
 import 'package:flutter/material.dart';

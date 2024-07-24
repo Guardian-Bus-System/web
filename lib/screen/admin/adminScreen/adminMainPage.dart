@@ -1,6 +1,5 @@
 import 'package:capstone_front/screen/admin/adminScreen/adminHomeScreen.dart';
 import 'package:capstone_front/screen/admin/widget/adminHome/adminBusAndRules.dart';
-import 'package:capstone_front/screen/admin/widget/adminHome/adminMainNotice.dart';
 import 'package:capstone_front/screen/admin/widget/adminHome/adminMainStudent.dart';
 import 'package:capstone_front/screen/admin/widget/adminMenuButtonWidget.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +22,8 @@ class AdminMainPage extends StatelessWidget {
   final AdminController controller = Get.put(AdminController());
 
   void _toggleMenu(int index) {
-    controller.selectedIndex.value = controller.selectedIndex.value == index ? -1 : index;
+    controller.selectedIndex.value =
+        controller.selectedIndex.value == index ? -1 : index;
     controller.selectedSubMenu.value = null;
   }
 
@@ -75,31 +75,31 @@ class AdminMainPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Obx(() => CustomButton(
-                    index: 1,
-                    buttonName: '홈',
-                    icon: Icons.home_outlined,
-                    route: '/admin/home',
-                    isSingleAction: false,
-                    screenWidth: sideMenuWidth,
-                    isSelected: controller.selectedIndex.value == 1,
-                    onTap: () {
-                      _toggleMenu(1);
-                      _onButtonTap(1, '/admin/home');
-                    },
-                  )),
+                        index: 1,
+                        buttonName: '홈',
+                        icon: Icons.home_outlined,
+                        route: '/admin/home',
+                        isSingleAction: false,
+                        screenWidth: sideMenuWidth,
+                        isSelected: controller.selectedIndex.value == 1,
+                        onTap: () {
+                          _toggleMenu(1);
+                          _onButtonTap(1, '/admin/home');
+                        },
+                      )),
                   height10.pOnly(top: 1),
                   Obx(() => CustomButton(
-                    index: 2,
-                    buttonName: '공지사항',
-                    icon: Icons.notification_add_outlined,
-                    route: '',
-                    isSingleAction: true,
-                    screenWidth: sideMenuWidth,
-                    isSelected: controller.selectedIndex.value == 2,
-                    onTap: () {
-                      _onButtonTap(2, '');
-                    },
-                  )),
+                        index: 2,
+                        buttonName: '공지사항',
+                        icon: Icons.notification_add_outlined,
+                        route: '',
+                        isSingleAction: true,
+                        screenWidth: sideMenuWidth,
+                        isSelected: controller.selectedIndex.value == 2,
+                        onTap: () {
+                          _onButtonTap(2, '');
+                        },
+                      )),
                   Obx(() {
                     if (controller.selectedIndex.value == 2) {
                       return Column(
@@ -121,17 +121,17 @@ class AdminMainPage extends StatelessWidget {
                   }),
                   height10.pOnly(top: 1),
                   Obx(() => CustomButton(
-                    index: 3,
-                    buttonName: '학생목록',
-                    icon: Icons.people_alt_outlined,
-                    route: '',
-                    isSingleAction: true,
-                    screenWidth: sideMenuWidth,
-                    isSelected: controller.selectedIndex.value == 3,
-                    onTap: () {
-                      _onButtonTap(3, '');
-                    },
-                  )),
+                        index: 3,
+                        buttonName: '학생목록',
+                        icon: Icons.people_alt_outlined,
+                        route: '',
+                        isSingleAction: true,
+                        screenWidth: sideMenuWidth,
+                        isSelected: controller.selectedIndex.value == 3,
+                        onTap: () {
+                          _onButtonTap(3, '');
+                        },
+                      )),
                   Obx(() {
                     if (controller.selectedIndex.value == 3) {
                       return Column(
@@ -154,18 +154,18 @@ class AdminMainPage extends StatelessWidget {
                   }),
                   height10.pOnly(top: 1),
                   Obx(() => CustomButton(
-                    index: 4,
-                    buttonName: '버스목록',
-                    icon: Icons.bus_alert_outlined,
-                    route: '/bus',
-                    isSingleAction: false,
-                    screenWidth: sideMenuWidth,
-                    isSelected: controller.selectedIndex.value == 4,
-                    onTap: () {
-                      _toggleMenu(4);
-                      _onButtonTap(4, '/bus');
-                    },
-                  )),
+                        index: 4,
+                        buttonName: '버스목록',
+                        icon: Icons.bus_alert_outlined,
+                        route: '/bus',
+                        isSingleAction: false,
+                        screenWidth: sideMenuWidth,
+                        isSelected: controller.selectedIndex.value == 4,
+                        onTap: () {
+                          _toggleMenu(4);
+                          _onButtonTap(4, '/bus');
+                        },
+                      )),
                   Obx(() {
                     if (controller.selectedIndex.value == 4) {
                       return Column(
@@ -187,18 +187,18 @@ class AdminMainPage extends StatelessWidget {
                   }),
                   height10.pOnly(top: 1),
                   Obx(() => CustomButton(
-                    index: 5,
-                    buttonName: '규칙목록',
-                    icon: Icons.rule,
-                    route: '/rules',
-                    isSingleAction: false,
-                    screenWidth: sideMenuWidth,
-                    isSelected: controller.selectedIndex.value == 5,
-                    onTap: () {
-                      _toggleMenu(5);
-                      _onButtonTap(5, '/rules');
-                    },
-                  )),
+                        index: 5,
+                        buttonName: '규칙목록',
+                        icon: Icons.rule,
+                        route: '/rules',
+                        isSingleAction: false,
+                        screenWidth: sideMenuWidth,
+                        isSelected: controller.selectedIndex.value == 5,
+                        onTap: () {
+                          _toggleMenu(5);
+                          _onButtonTap(5, '/rules');
+                        },
+                      )),
                 ],
               ).pOnly(top: 70, left: 30, right: 30),
             ),
