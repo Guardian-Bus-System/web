@@ -1,3 +1,4 @@
+//전체 학생 목록 screen
 import 'package:capstone_front/screen/admin/widget/adminStudent/adminMiddleWidget.dart';
 import 'package:capstone_front/screen/admin/widget/adminTitleWidget.dart';
 import 'package:flutter/material.dart';
