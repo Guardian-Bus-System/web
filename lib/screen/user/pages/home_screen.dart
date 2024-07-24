@@ -11,7 +11,6 @@ import 'package:capstone_front/screen/user/widget/AuthWidgets/scrolling_text.dar
 import 'package:capstone_front/screen/user/widget/customHomeAppbarWidget.dart';
 import 'package:capstone_front/screen/user/widget/drawer_widget.dart';
 import 'package:capstone_front/screen/user/widget/loadingAction.dart';
-import 'package:capstone_front/screen/user/widget/notification/notification.dart';
 import 'package:capstone_front/utils/auth_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
