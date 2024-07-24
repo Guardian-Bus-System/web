@@ -1,4 +1,3 @@
-import 'package:capstone_front/CustomSide/color_theme.dart';
 import 'package:capstone_front/controller/userController/notices_controller.dart';
 import 'package:capstone_front/model/NoticesModel.dart';
 import 'package:capstone_front/screen/user/widget/loadingAction.dart';
@@ -11,7 +10,8 @@ class NotificationListContainer extends StatefulWidget {
   const NotificationListContainer({Key? key}) : super(key: key);
 
   @override
-  _NotificationListContainerState createState() => _NotificationListContainerState();
+  _NotificationListContainerState createState() =>
+      _NotificationListContainerState();
 }
 
 class _NotificationListContainerState extends State<NotificationListContainer> {
@@ -48,7 +48,10 @@ class _NotificationListContainerState extends State<NotificationListContainer> {
       return ListView.builder(
         itemCount: notices.length,
         itemBuilder: (context, index) {
-          return NotificationListItem(notice: notices[index], id: notices[index].id,);
+          return NotificationListItem(
+            notice: notices[index],
+            id: notices[index].id,
+          );
         },
       );
     });
