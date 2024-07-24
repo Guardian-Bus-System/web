@@ -65,7 +65,7 @@ class _AdminMainStudentState extends State<AdminMainStudent> {
                 height: screen.height * 0.6705,
                 child: Obx(() {
                   if(buses.isEmpty){
-                    return Center(child: LoadingProgressIndecatorWidget());
+                    return const Center(child: LoadingProgressIndecatorWidget());
                   }
                   return ListView(
                     scrollDirection: Axis.horizontal,
