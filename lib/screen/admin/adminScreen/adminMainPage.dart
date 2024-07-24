@@ -1,4 +1,5 @@
 import 'package:capstone_front/screen/admin/adminScreen/adminHomeScreen.dart';
+import 'package:capstone_front/screen/admin/adminScreen/adminStudentListPage.dart';
 import 'package:capstone_front/screen/admin/widget/adminHome/adminBusAndRules.dart';
 import 'package:capstone_front/screen/admin/widget/adminHome/adminMainStudent.dart';
 import 'package:capstone_front/screen/admin/widget/adminMenuButtonWidget.dart';
@@ -36,24 +37,26 @@ class AdminMainPage extends StatelessWidget {
     controller.currentRoute.value = route;
   }
 
-  Widget _buildContent() {
+  Widget _buildContent() { //누르는 메뉴에 따른 화면 변환
     switch (controller.currentRoute.value) {
       case '/admin/home':
-        return AdminHomeScreen();
+        return AdminHomeScreen(); // 홈 화면
       case '/notice/item1':
-        return Container(); // Replace with the actual widget
+        return Container(); //공지 화면
       case '/notice/item2':
-        return Container(); // Replace with the actual widget
+        return Container(); //공지
       case '/students/item1':
-        return AdminMainStudent(); // Replace with the actual widget
+        return AdminMainStudent(); //학생관리
+      case '/students':
+        return AdminStudentListScreen();
       case '/students/item2':
-        return AdminMainStudent(); // Replace with the actual widget
+        return AdminMainStudent(); // 학생
       case '/bus':
-        return AdminBusAndRules(); // Replace with the actual widget
+        return AdminBusAndRules(); //버스
       case '/rules':
-        return AdminBusAndRules(); // Replace with the actual widget
+        return AdminBusAndRules(); //버스
       default:
-        return AdminHomeScreen();
+        return AdminHomeScreen(); //기본 화면
     }
   }
 
@@ -128,7 +131,7 @@ class AdminMainPage extends StatelessWidget {
                         screenWidth: sideMenuWidth,
                         isSelected: controller.selectedIndex.value == 3,
                         onTap: () {
-                          _onButtonTap(3, '');
+                          _onButtonTap(3, '/students');
                         },
                       )),
                   Obx(() {
@@ -209,7 +212,8 @@ class AdminMainPage extends StatelessWidget {
                 ),
                 child: Obx(() => _buildContent()),
                 // 누른 메뉴에 따른 화면 위젯을 보여줌 그래서 왼쪽에 있는 메뉴들은 다시 안 만들어도 됨
-              ).pOnly(top: 71, bottom: 0, left: 50, right: 50),
+                //예시로 AdminMainScreen() 위젯형테 처럼 Colunm 형태로 시작해서 이 파일 위에 보면 라우터 에 따른 위젯을 정해둔 곳이 있음
+              ).pOnly(top: 40, left: 40, right: 40),
             ),
           ],
         ),
