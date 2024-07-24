@@ -1,6 +1,5 @@
 import 'package:capstone_front/screen/admin/adminScreen/adminHomeScreen.dart';
 import 'package:capstone_front/screen/admin/widget/adminHome/adminBusAndRules.dart';
-import 'package:capstone_front/screen/admin/widget/adminHome/adminMainNotice.dart';
 import 'package:capstone_front/screen/admin/widget/adminHome/adminMainStudent.dart';
 import 'package:capstone_front/screen/admin/widget/adminMenuButtonWidget.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,6 @@ import 'package:capstone_front/CustomSide/responsive_screen_size.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
 import 'package:capstone_front/CustomSide/spaceing_box.dart';
 
-// Controller for managing the state
 class AdminController extends GetxController {
   var selectedIndex = 1.obs;
   var selectedSubMenu = Rxn<String>();
