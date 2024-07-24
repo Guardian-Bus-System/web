@@ -24,7 +24,7 @@ class _AdminMainNoticesState extends State<AdminMainNotices> {
   @override
   void initState() {
     super.initState();
-    _getNotices();
+    //_getNotices();
   }
 
   Future<void> _getNotices() async {

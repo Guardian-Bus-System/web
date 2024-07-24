@@ -2,6 +2,7 @@ import 'package:capstone_front/screen/admin/adminScreen/adminHomeScreen.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminStudentListPage.dart';
 import 'package:capstone_front/screen/admin/widget/adminHome/adminBusAndRules.dart';
 import 'package:capstone_front/screen/admin/widget/adminHome/adminMainStudent.dart';
+import 'package:capstone_front/screen/admin/widget/adminHome/adminRulesScreen.dart';
 import 'package:capstone_front/screen/admin/widget/adminMenuButtonWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -54,7 +55,7 @@ class AdminMainPage extends StatelessWidget {
       case '/bus':
         return AdminBusAndRules(); //버스
       case '/rules':
-        return AdminBusAndRules(); //버스
+        return AdminRulesScreen(); //규칙
       default:
         return AdminHomeScreen(); //기본 화면
     }

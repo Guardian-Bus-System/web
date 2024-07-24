@@ -23,7 +23,7 @@ class _StudentBusItemWidgetState extends State<StudentBusItemWidget> {
   @override
   void initState() {
     super.initState();
-    getStudents();
+    //getStudents();
   }
 
   Future<void> getStudents() async {

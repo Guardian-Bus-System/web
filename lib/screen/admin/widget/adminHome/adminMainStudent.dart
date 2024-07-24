@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'package:capstone_front/CustomSide/responsive_screen_size.dart';
 import 'package:capstone_front/screen/admin/widget/adminHome/header_widget.dart';
-import 'package:capstone_front/screen/admin/widget/student_busItem_widget.dart';
+import 'package:capstone_front/screen/admin/widget/adminHome/student_busItem_widget.dart';
 import 'package:capstone_front/screen/user/widget/loadingAction.dart';
 import 'package:capstone_front/utils/api_endpoint.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,12 +18,11 @@ class AdminMainStudent extends StatefulWidget {
 
 class _AdminMainStudentState extends State<AdminMainStudent> {
   RxList<Map<String, dynamic>> buses = <Map<String, dynamic>>[].obs;
-  bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    fetchBuses();
+    //fetchBuses();
   }
 
   Future<void> fetchBuses() async {
@@ -51,11 +49,11 @@ class _AdminMainStudentState extends State<AdminMainStudent> {
       child: Theme(
         data: ThemeData(
           scrollbarTheme: ScrollbarThemeData(
-            thumbColor: MaterialStateProperty.all<Color>(Colors.white),
+            thumbColor: WidgetStateProperty.all<Color>(Colors.white),
           ),
         ),
         child: SingleChildScrollView(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

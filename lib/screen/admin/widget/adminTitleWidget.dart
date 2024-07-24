@@ -22,6 +22,6 @@ class _TitleWidgetState extends State<TitleWidget> {
                 .make()
                 .pOnly(left: 20, top: 15, bottom: 15)
           ],
-        ));
+        )).pOnly(bottom: 35);
   }
 }

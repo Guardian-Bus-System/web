@@ -22,7 +22,7 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
     return Column(
       children: [
         // 제목 컨테이너
-        TitleWidget(title: '학생 관리').pOnly(bottom: 35),
+        const TitleWidget(title: '학생 관리'),
 
         // 정렬 및 검색 버튼
         AdminMiddleWidget(),
