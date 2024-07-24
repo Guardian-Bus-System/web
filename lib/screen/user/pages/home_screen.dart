@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
       notices.value = noticeResponse.data.content;
     }
   }
-  
+
   @override
   void dispose() {
     Get.delete<UserController>();
@@ -88,7 +88,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Obx(() {
                             String noticeText = '새로운 공지가 있습니다';
                             if (notices.isNotEmpty) {
-                              noticeText = '새로운 공지가 있습니다 - ${notices[0].content}';
+                              noticeText =
+                                  '새로운 공지가 있습니다 - ${notices[0].content}';
                             }
                             return ScrollingTextWidget(moveText: noticeText);
                           }),
