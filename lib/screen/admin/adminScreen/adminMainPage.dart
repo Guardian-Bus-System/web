@@ -1,5 +1,5 @@
 import 'package:capstone_front/screen/admin/adminScreen/adminHomeScreen.dart';
-import 'package:capstone_front/screen/admin/adminScreen/adminStudentListPage.dart';
+import 'package:capstone_front/screen/admin/adminScreen/adminStudentListScreen.dart';
 import 'package:capstone_front/screen/admin/widget/adminHome/adminBusAndRules.dart';
 import 'package:capstone_front/screen/admin/widget/adminHome/adminMainStudent.dart';
 import 'package:capstone_front/screen/admin/widget/adminHome/adminRulesScreen.dart';
@@ -38,7 +38,8 @@ class AdminMainPage extends StatelessWidget {
     controller.currentRoute.value = route;
   }
 
-  Widget _buildContent() { //누르는 메뉴에 따른 화면 변환
+  Widget _buildContent() {
+    //누르는 메뉴에 따른 화면 변환
     switch (controller.currentRoute.value) {
       case '/admin/home':
         return AdminHomeScreen(); // 홈 화면
@@ -144,7 +145,6 @@ class AdminMainPage extends StatelessWidget {
                             menuItems: const [
                               {'text': '학생 관리', 'route': '/students/item1'},
                               {'text': '학생 탑승 내역', 'route': '/students/item2'},
-                              {'text': '학생 관리자 관리', 'route': '/students/item3'},
                             ],
                             screenWidth: screen.width,
                             onMenuItemTap: _onMenuItemTap,

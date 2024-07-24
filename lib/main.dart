@@ -1,6 +1,8 @@
 import 'package:capstone_front/routes/mainView.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminMainPage.dart';
+import 'package:capstone_front/screen/admin/adminScreen/adminMain_screen.dart';
+import 'package:capstone_front/screen/admin/adminScreen/adminStudentListScreen.dart';
 import 'package:capstone_front/screen/user/auth/cerfication_page.dart';
 import 'package:capstone_front/screen/user/auth/login_page.dart';
 import 'package:capstone_front/screen/user/pages/changeBusRoute_screen.dart';

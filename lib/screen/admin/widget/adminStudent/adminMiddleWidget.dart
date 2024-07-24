@@ -61,7 +61,7 @@ class _AdminMiddleWidgetState extends State<AdminMiddleWidget> {
               borderRadius: BorderRadius.circular(10),
             ),
             // You may want to add child or other properties here if needed
-          ).pOnly(left: 20),
+          ).pOnly(left: 20, right: 20),
         ],
       ),
     );
