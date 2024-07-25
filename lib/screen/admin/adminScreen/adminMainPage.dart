@@ -1,5 +1,6 @@
 import 'package:capstone_front/screen/admin/adminScreen/adminHomeScreen.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminStudentListScreen.dart';
+import 'package:capstone_front/screen/admin/adminScreen/adminboardListScreen.dart';
 import 'package:capstone_front/screen/admin/widget/adminHome/adminBusAndRules.dart';
 import 'package:capstone_front/screen/admin/widget/adminHome/adminMainStudent.dart';
 import 'package:capstone_front/screen/admin/widget/adminHome/adminRulesScreen.dart';
@@ -47,12 +48,12 @@ class AdminMainPage extends StatelessWidget {
         return Container(); //공지 화면
       case '/notice/item2':
         return Container(); //공지
-      case '/students/item1':
-        return AdminMainStudent(); //학생관리
       case '/students':
         return AdminStudentListScreen();
+      case '/students/item1':
+        return AdminStudentListScreen(); //학생관리
       case '/students/item2':
-        return AdminMainStudent(); // 학생
+        return AdminBoardListScreen(); // 학생 탑승 내역
       case '/bus':
         return AdminBusAndRules(); //버스
       case '/rules':

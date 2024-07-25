@@ -34,12 +34,12 @@ class _AdminBoardListScreenState extends State<AdminBoardListScreen> {
           child: Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   // 이 부분 패딩으로 일일이 지정해줬어용!! 나중에 보고 수정 :D
                   // 화이팅!!!!!!
-                  '학번'.text.xl.bold.make().pOnly(left: 90),
-                  '이름'.text.xl.bold.make().pOnly(left: 90),
+                  '학번'.text.xl.bold.make().pOnly(left: 38),
+                  '이름'.text.xl.bold.make().pOnly(left: 79),
                   '탑승 호차'.text.xl.bold.make().pOnly(left: 90),
                   '도착지'.text.xl.bold.make().pOnly(left: 80)
                 ],
