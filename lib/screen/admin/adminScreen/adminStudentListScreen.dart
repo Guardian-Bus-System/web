@@ -1,9 +1,15 @@
-//전체 학생 목록 screen
+import 'dart:convert';
+import 'package:capstone_front/model/admin/Student.dart';
+import 'package:capstone_front/screen/admin/widget/AdminLine.dart';
 import 'package:capstone_front/screen/admin/widget/adminStudent/adminMiddleWidget.dart';
+import 'package:capstone_front/screen/admin/widget/adminStudent/adminStudentRowControllWidget.dart';
 import 'package:capstone_front/screen/admin/widget/adminTitleWidget.dart';
+import 'package:capstone_front/screen/user/widget/loadingAction.dart';
+import 'package:capstone_front/utils/api_endpoint.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:capstone_front/CustomSide/responsive_screen_size.dart';
+import 'package:http/http.dart' as http;
 
 class AdminStudentListScreen extends StatefulWidget {
   const AdminStudentListScreen({Key? key}) : super(key: key);
@@ -13,24 +19,64 @@ class AdminStudentListScreen extends StatefulWidget {
 }
 
 class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
-  // 체크박스 상태 관리 변수
-  bool isCheckedAll = false; // 전체 체크박스 상태
-  List<bool> isCheckedList =
-      List<bool>.generate(8, (index) => false); // 개별 체크박스 상태
+  bool isCheckedAll = false;
+  List<bool> isCheckedList = [];
+  String _selectedSortOrder = '오름차순';
+  String? _selectedClass;
+  String? _selectedBusNumber;
+  List<Student> students = [];
+
+  @override
+  void initState() {
+    super.initState();
+    //fetchStudents();
+  }
+
+  Future<void> fetchStudents() async {
+    final response = await http.get(Uri.parse(ApiEndPoints.adminBaseUrl + '/reservations'));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(utf8.decode(response.bodyBytes))['data'];
+      print(data); // JSON 데이터 확인용 출력
+
+      setState(() {
+        students = data.map<Student>((json) => Student.fromJson(json['user'])).toList();
+        isCheckedList = List<bool>.filled(students.length, false);
+      });
+    } else {
+      throw Exception('Failed to load students');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     ScreenSize screen = ScreenSize(context);
 
+    List<Student> sortedStudents = List.from(students);
+
+    // 정렬 처리
+    if (_selectedSortOrder == '내림차순') {
+      sortedStudents.sort((a, b) => b.id.compareTo(a.id));
+    } else {
+      sortedStudents.sort((a, b) => a.id.compareTo(b.id));
+    }
+
+    // 필터링 처리
+    if (_selectedClass != null) {
+      sortedStudents = sortedStudents.where((student) => student.classNumber.toString() == _selectedClass).toList();
+    }
+
     return Column(
       children: [
-        // 제목 컨테이너
         const TitleWidget(title: '학생 관리'),
-
-        // 정렬 및 검색 버튼
-        AdminMiddleWidget(),
-
-        //학생 목록
+        AdminMiddleWidget(
+          selectedBusNumber: _selectedBusNumber,
+          onBusNumberChanged: (value) {
+            setState(() {
+              _selectedBusNumber = value;
+            });
+          },
+        ),
         Container(
           width: screen.width,
           height: screen.height * 0.7,
@@ -48,7 +94,6 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                         height: 20,
                         decoration: BoxDecoration(
                             border: Border.all(width: 1, color: Colors.black)),
-                        // 전체 체크박스
                         child: Checkbox(
                           checkColor: Colors.black,
                           fillColor: MaterialStateProperty.all(Colors.white),
@@ -56,15 +101,12 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                           onChanged: (value) {
                             setState(() {
                               isCheckedAll = value ?? false;
-                              // 모든 개별 체크박스 상태를 업데이트
                               isCheckedList = List<bool>.filled(
                                   isCheckedList.length, isCheckedAll);
                             });
                           },
                         ),
                       ),
-                      // 이 부분 패딩으로 일일이 지정해줬어용!! 나중에 보고 수정 :D
-                      // 화이팅!!!!!!
                       'id'.text.xl.bold.make().pOnly(left: 40),
                       '아이디'.text.xl.bold.make().pOnly(left: 40),
                       '비밀번호'.text.xl.bold.make().pOnly(left: 105),
@@ -76,7 +118,9 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                     ],
                   ),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        // Handle delete action here
+                      },
                       child: Container(
                         width: 75,
                         height: 30,
@@ -87,142 +131,45 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                       ))
                 ],
               ),
-              Container(
-                width: screen.width,
-                height: 1,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        width: 1, color: Color.fromARGB(255, 163, 163, 163))),
-              ).pOnly(top: 10, bottom: 10),
+              AdminLine(),
 
               // 학생 목록
               SizedBox(
-                  width: screen.width,
-                  height: screen.height * 0.535,
-                  child: ListView(
-                    children: List<int>.generate(8, (index) => index)
-                        .map((index) => Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        // 개별 체크박스
-                                        Container(
-                                          width: 20,
-                                          height: 20,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: 1,
-                                                  color: Colors.black)),
-                                          child: Checkbox(
-                                            checkColor: Colors.black,
-                                            fillColor:
-                                                MaterialStateProperty.all(
-                                                    Colors.white),
-                                            value: isCheckedList[index],
-                                            onChanged: (value) {
-                                              setState(() {
-                                                isCheckedList[index] =
-                                                    value ?? false;
-                                                // 모든 체크박스가 체크되었는지 확인하여 전체 체크박스 상태 업데이트
-                                                isCheckedAll =
-                                                    isCheckedList.every(
-                                                        (element) => element);
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                        // 여기두!!!!! 패딩으로 일일이 지정해줬어용!! 나중에 보고 수정 :D
-                                        // 화이팅!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                                        '${index + 1}'
-                                            .text
-                                            .xl
-                                            .make()
-                                            .pOnly(left: 40),
-                                        '0101234567${index}'
-                                            .text
-                                            .xl
-                                            .make()
-                                            .pOnly(left: 45),
-                                        '****'.text.xl.make().pOnly(left: 60),
-                                        '1'.text.xl.make().pOnly(left: 165),
-                                        '1'.text.xl.make().pOnly(left: 60),
-                                        '${index}'
-                                            .text
-                                            .xl
-                                            .make()
-                                            .pOnly(left: 70),
-                                        '홍길동'.text.xl.make().pOnly(left: 75),
-                                        '0101234567${index}'
-                                            .text
-                                            .xl
-                                            .make()
-                                            .pOnly(left: 95)
-                                      ],
-                                    ),
-                                    TextButton(
-                                        onPressed: () {},
-                                        child: Container(
-                                          width: 75,
-                                          height: 30,
-                                          decoration: BoxDecoration(
-                                              color: Color.fromARGB(
-                                                  255, 73, 216, 70),
-                                              borderRadius:
-                                                  BorderRadius.circular(5)),
-                                          child: '저장'
-                                              .text
-                                              .white
-                                              .center
-                                              .xl
-                                              .make()
-                                              .pOnly(top: 3),
-                                        ))
-                                  ],
-                                ).pOnly(bottom: 35),
-                              ],
-                            ))
-                        .toList(),
-                  )).pOnly(top: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(
-                      //style 폼 건들지 말것!!!!!!!!!!!!
-                      //녱(sex)
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        minimumSize: Size(40, 30),
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                width: screen.width,
+                height: screen.height * 0.535,
+                child: students.isEmpty
+                    ? const Center(child: LoadingProgressIndecatorWidget())
+                    : ListView.builder(
+                        itemCount: sortedStudents.length,
+                        itemBuilder: (context, index) {
+                          Student student = sortedStudents[index];
+                          return StudentRowControllWidget(
+                            id: int.tryParse(student.id) ?? 0, // ID를 정수로 변환, 실패 시 0 사용
+                            username: student.loginId,
+                            password: '', // Set empty password if not used
+                            grade: student.grade,
+                            classNumber: student.classNumber,
+                            number: student.number,
+                            name: student.name,
+                            phone: student.phoneNumber,
+                            isChecked: isCheckedList[index],
+                            onCheckboxChanged: (value) {
+                              setState(() {
+                                isCheckedList[index] = value ?? false;
+                                isCheckedAll = isCheckedList.every((element) => element);
+                              });
+                            },
+                            onSavePressed: () {
+                              // Edit button pressed
+                            },
+                          );
+                        },
                       ),
-                      onPressed: () {},
-                      child: Row(children: [
-                        Icon(
-                          Icons.add,
-                          color: Colors.black,
-                        ),
-                        '추가하기'.text.black.xl.make(),
-                      ])),
-                  TextButton(
-                      onPressed: () {},
-                      child: Container(
-                        width: 110,
-                        height: 35,
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 67, 140, 251),
-                            borderRadius: BorderRadius.circular(5)),
-                        child:
-                            '엑셀 반환'.text.white.center.xl.make().pOnly(top: 5),
-                      ))
-                ],
               )
             ],
-          ).p(20),
+          ).pOnly(left: 20, right: 20, top: 20, bottom: 20),
         )
       ],
-    );
+    ).pOnly(left: 50, right: 50, top: 25);
   }
 }

@@ -23,7 +23,7 @@ class _AdminBoardListScreenState extends State<AdminBoardListScreen> {
         TitleWidget(title: '학생 탑승 내역').pOnly(bottom: 35),
 
         //정렬 및 검색 버튼
-        AdminMiddleWidget(),
+        //AdminMiddleWidget(),
 
         //학생 목록
         Container(

@@ -6,6 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class AdminMiddleWidget extends StatefulWidget {
+  final void Function(String?) onBusNumberChanged;
+  final String? selectedBusNumber;
+
+  AdminMiddleWidget({
+    required this.onBusNumberChanged,
+    required this.selectedBusNumber,
+    super.key,
+  });
+
   @override
   State<AdminMiddleWidget> createState() => _AdminMiddleWidgetState();
 }
@@ -48,7 +57,10 @@ class _AdminMiddleWidgetState extends State<AdminMiddleWidget> {
               Row(
                 children: [
                   Container(
-                    child: AlertDropdownButton().pOnly(right: 20),
+                    child: AlertDropdownButton(
+                      onChanged: widget.onBusNumberChanged,
+                      currentValue: widget.selectedBusNumber,
+                    ).pOnly(right: 20),
                   ),
                   SearchWidget(),
                 ],

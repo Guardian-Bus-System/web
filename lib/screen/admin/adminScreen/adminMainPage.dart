@@ -178,7 +178,7 @@ class AdminMainPage extends StatelessWidget {
                           height20,
                           MenuWidget(
                             menuItems: const [
-                              {'text': '버스 목록 관리', 'route': '/bus/item1'},
+                              {'text': '버스 목록 관리', 'route': '/buss'},
                               {'text': '행선지 관리', 'route': '/bus/item2'},
                             ],
                             screenWidth: screen.width,
