@@ -1,18 +1,17 @@
-//전체 학생 목록 screen
-import 'package:capstone_front/screen/admin/widget/adminStudent/adminMiddleWidget.dart';
+//전체 버스 목록 screen
 import 'package:capstone_front/screen/admin/widget/adminTitleWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:capstone_front/CustomSide/responsive_screen_size.dart';
 
-class AdminStudentListScreen extends StatefulWidget {
-  const AdminStudentListScreen({Key? key}) : super(key: key);
+class AdminBusListScreen extends StatefulWidget {
+  const AdminBusListScreen({Key? key}) : super(key: key);
 
   @override
-  State<AdminStudentListScreen> createState() => _AdminStudentListScreenState();
+  State<AdminBusListScreen> createState() => _AdminBusListScreenState();
 }
 
-class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
+class _AdminBusListScreenState extends State<AdminBusListScreen> {
   // 체크박스 상태 관리 변수
   bool isCheckedAll = false; // 전체 체크박스 상태
   List<bool> isCheckedList =
@@ -25,12 +24,9 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
     return Column(
       children: [
         // 제목 컨테이너
-        const TitleWidget(title: '학생 관리'),
+        const TitleWidget(title: '버스 목록 관리'),
 
-        // 정렬 및 검색 버튼
-        AdminMiddleWidget(),
-
-        //학생 목록
+        //버스 목록
         Container(
           width: screen.width,
           height: screen.height * 0.7,
@@ -66,13 +62,13 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                       // 이 부분 패딩으로 일일이 지정해줬어용!! 나중에 보고 수정 :D
                       // 화이팅!!!!!!
                       'id'.text.xl.bold.make().pOnly(left: 40),
-                      '아이디'.text.xl.bold.make().pOnly(left: 40),
-                      '비밀번호'.text.xl.bold.make().pOnly(left: 105),
-                      '학년'.text.xl.bold.make().pOnly(left: 125),
-                      '반'.text.xl.bold.make().pOnly(left: 40),
-                      '번호'.text.xl.bold.make().pOnly(left: 55),
-                      '이름'.text.xl.bold.make().pOnly(left: 55),
-                      '전화번호'.text.xl.bold.make().pOnly(left: 110)
+                      '호차 번호'.text.xl.bold.make().pOnly(left: 40),
+                      '호차 이름'.text.xl.bold.make().pOnly(left: 40),
+                      '중간 지점'.text.xl.bold.make().pOnly(left: 40),
+                      '버스 종착지'.text.xl.bold.make().pOnly(left: 190),
+                      '좌석수'.text.xl.bold.make().pOnly(left: 170),
+                      '생성 날짜'.text.xl.bold.make().pOnly(left: 40),
+                      '수정 날짜'.text.xl.bold.make().pOnly(left: 60),
                     ],
                   ),
                   TextButton(
@@ -95,12 +91,12 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                         width: 1, color: Color.fromARGB(255, 163, 163, 163))),
               ).pOnly(top: 10, bottom: 10),
 
-              // 학생 목록
+              // 버스 목록
               SizedBox(
                   width: screen.width,
                   height: screen.height * 0.535,
                   child: ListView(
-                    children: List<int>.generate(8, (index) => index)
+                    children: List<int>.generate(5, (index) => index)
                         .map((index) => Column(
                               children: [
                                 Row(
@@ -142,25 +138,33 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                                             .xl
                                             .make()
                                             .pOnly(left: 40),
-                                        '0101234567${index}'
+                                        '${index + 1}호차'
                                             .text
                                             .xl
                                             .make()
                                             .pOnly(left: 45),
-                                        '****'.text.xl.make().pOnly(left: 60),
-                                        '1'.text.xl.make().pOnly(left: 165),
-                                        '1'.text.xl.make().pOnly(left: 60),
-                                        '${index}'
+                                        '대구방면'.text.xl.make().pOnly(left: 75),
+
+                                        //중간지점 다중 선택을 어떻게 처리해야 할까..?
+                                        '중간지점 선택....'
+                                            .text
+                                            .xl
+                                            .make()
+                                            .pOnly(left: 40),
+
+                                        '동대구역'.text.xl.make().pOnly(left: 140),
+
+                                        '45'.text.xl.make().pOnly(left: 200),
+                                        '2024-05-09'
                                             .text
                                             .xl
                                             .make()
                                             .pOnly(left: 70),
-                                        '홍길동'.text.xl.make().pOnly(left: 75),
-                                        '0101234567${index}'
+                                        '2024-05-09'
                                             .text
                                             .xl
                                             .make()
-                                            .pOnly(left: 95)
+                                            .pOnly(left: 45),
                                       ],
                                     ),
                                     TextButton(
@@ -182,7 +186,7 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                                               .pOnly(top: 3),
                                         ))
                                   ],
-                                ).pOnly(bottom: 35),
+                                ).pOnly(bottom: 30),
                               ],
                             ))
                         .toList(),
@@ -206,17 +210,6 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                         ),
                         '추가하기'.text.black.xl.make(),
                       ])),
-                  TextButton(
-                      onPressed: () {},
-                      child: Container(
-                        width: 110,
-                        height: 35,
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 67, 140, 251),
-                            borderRadius: BorderRadius.circular(5)),
-                        child:
-                            '엑셀 반환'.text.white.center.xl.make().pOnly(top: 5),
-                      ))
                 ],
               )
             ],

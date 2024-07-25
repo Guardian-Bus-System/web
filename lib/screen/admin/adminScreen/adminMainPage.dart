@@ -1,3 +1,4 @@
+import 'package:capstone_front/screen/admin/adminScreen/adminBusListScreen.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminHomeScreen.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminStudentListScreen.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminboardListScreen.dart';
@@ -55,7 +56,7 @@ class AdminMainPage extends StatelessWidget {
       case '/students/item2':
         return AdminBoardListScreen(); // 학생 탑승 내역
       case '/bus':
-        return AdminBusAndRules(); //버스
+        return AdminBusListScreen(); //버스
       case '/rules':
         return AdminRulesScreen(); //규칙
       default:
