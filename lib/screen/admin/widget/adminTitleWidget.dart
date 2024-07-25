@@ -14,14 +14,14 @@ class _TitleWidgetState extends State<TitleWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(5)),
-        child: Row(
-          children: [
-            widget.title.text.bold.xl2.black
-                .make()
-                .pOnly(left: 20, top: 15, bottom: 15)
-          ],
-        )).pOnly(bottom: 35);
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(5)),
+      child: Row(
+        children: [
+          widget.title.text.bold.xl2.black
+              .make()
+              .pOnly(left: 20, top: 15, bottom: 15)
+        ],
+      )
+    ).pOnly(bottom: 35);
   }
 }

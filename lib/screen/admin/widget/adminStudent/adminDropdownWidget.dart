@@ -58,12 +58,3 @@ class _DropdownMenuExampleState extends State<DropdownMenuExample> {
     );
   }
 }
-
-void main() {
-  runApp(MaterialApp(
-    home: Scaffold(
-      appBar: AppBar(title: Text('DropdownButton Sample')),
-      body: AlertDropdownButton(),
-    ),
-  ));
-}
