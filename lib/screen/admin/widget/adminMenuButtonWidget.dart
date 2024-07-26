@@ -93,13 +93,16 @@ class MenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Initialize the first item as selected by default
+    final initialSelectedItem = selectedSubMenu ?? menuItems.first['text'];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: menuItems.map((item) => MenuItem(
         item: item,
         screenWidth: screenWidth,
         onMenuItemTap: onMenuItemTap,
-        isSelected: selectedSubMenu == item['text'],
+        isSelected: (selectedSubMenu == item['text']) || (selectedSubMenu == null && item['text'] == initialSelectedItem),
       )).toList(),
     );
   }
