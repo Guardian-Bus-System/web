@@ -21,8 +21,7 @@ class AdminStudentListScreen extends StatefulWidget {
 class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
   bool isCheckedAll = false;
   List<bool> isCheckedList = [];
-  String _selectedSortOrder = '오름차순';
-  String? _selectedClass;
+  final String _selectedSortOrder = '오름차순';
   String? _selectedBusNumber = 'all';
   List<Student> students = [];
   List<dynamic> busList = [];

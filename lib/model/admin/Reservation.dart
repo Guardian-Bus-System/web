@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:velocity_x/velocity_x.dart';
+// Reservation.darts
 
-// 데이터 모델 정의
 class AdminReservation {
   final String id;
   final AdminUser user;
@@ -31,6 +29,24 @@ class AdminReservation {
       createAt: DateTime.parse(json['createAt']),
       updateAt: json['updateAt'] != null ? DateTime.parse(json['updateAt']) : null,
     );
+  }
+}
+
+String extractNumbers(String input) {
+  final regex = RegExp(r'\d+'); // 숫자만 찾는 정규 표현식
+  final matches = regex.allMatches(input).toList(); // 모든 숫자 매치 찾기
+
+  if (matches.length >= 2) {
+    // 두 개 이상의 숫자가 있는 경우
+    final firstNumber = matches[0].group(0)!;
+    final secondNumber = matches[1].group(0)!;
+    return '$firstNumber$secondNumber'; // 첫 번째와 두 번째 숫자를 합쳐 반환
+  } else if (matches.isNotEmpty) {
+    // 하나의 숫자만 있는 경우
+    return matches[0].group(0)!;
+  } else {
+    // 숫자가 없는 경우
+    return '';
   }
 }
 
