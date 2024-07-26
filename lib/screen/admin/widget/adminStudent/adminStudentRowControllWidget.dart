@@ -4,6 +4,7 @@ import 'package:capstone_front/screen/admin/widget/AdminLine.dart';
 
 class StudentRowControllWidget extends StatefulWidget {
   final int id;
+  final String uuid;
   final String username;
   final String password;
   final int grade;
@@ -18,6 +19,7 @@ class StudentRowControllWidget extends StatefulWidget {
   const StudentRowControllWidget({
     Key? key,
     required this.id,
+    required this.uuid,
     required this.username,
     required this.password,
     required this.grade,
@@ -101,6 +103,32 @@ class _StudentRowControllWidgetState extends State<StudentRowControllWidget> {
   }
 
   @override
+  void didUpdateWidget(StudentRowControllWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.username != oldWidget.username) {
+      _usernameController.text = widget.username;
+    }
+    if (widget.password != oldWidget.password) {
+      _passwordController.text = widget.password;
+    }
+    if (widget.grade != oldWidget.grade) {
+      _gradeController.text = '${widget.grade}';
+    }
+    if (widget.classNumber != oldWidget.classNumber) {
+      _classNumberController.text = '${widget.classNumber}';
+    }
+    if (widget.number != oldWidget.number) {
+      _numberController.text = '${widget.number}';
+    }
+    if (widget.name != oldWidget.name) {
+      _nameController.text = widget.name;
+    }
+    if (widget.phone != oldWidget.phone) {
+      _phoneController.text = widget.phone;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -160,10 +188,9 @@ class _StudentRowControllWidgetState extends State<StudentRowControllWidget> {
           focusNode: focusNode,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            labelStyle: TextStyle(),
           ),
           textAlign: TextAlign.center,
-          keyboardType: label.length < 5 ? TextInputType.number : TextInputType.none,
+          keyboardType: label.length < 5 ? TextInputType.number : TextInputType.text,
           onChanged: (value) {
             setState(() {
               _isEditing = true;

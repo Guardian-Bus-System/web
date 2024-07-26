@@ -1,18 +1,17 @@
-import 'dart:convert';
-
-import 'package:capstone_front/model/admin/Reservation.dart';
-import 'package:capstone_front/utils/api_endpoint.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:velocity_x/velocity_x.dart';
-
-const List<String> busNumbers = <String>['1호차', '2호차', '3호차', '4호차'];
 
 class AlertDropdownButton extends StatelessWidget {
   final void Function(String?) onChanged;
   final String? currentValue;
+  final List<dynamic> busList;
 
-  const AlertDropdownButton({required this.onChanged, required this.currentValue, super.key});
+  const AlertDropdownButton({
+    required this.onChanged,
+    required this.currentValue,
+    required this.busList,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +24,7 @@ class AlertDropdownButton extends StatelessWidget {
       child: DropdownMenuExample(
         onChanged: onChanged,
         currentValue: currentValue,
+        busList: busList,
       ),
     );
   }
@@ -33,8 +33,14 @@ class AlertDropdownButton extends StatelessWidget {
 class DropdownMenuExample extends StatefulWidget {
   final void Function(String?) onChanged;
   final String? currentValue;
+  final List<dynamic> busList;
 
-  const DropdownMenuExample({required this.onChanged, required this.currentValue, super.key});
+  const DropdownMenuExample({
+    required this.onChanged,
+    required this.currentValue,
+    required this.busList,
+    super.key,
+  });
 
   @override
   State<DropdownMenuExample> createState() => _DropdownMenuExampleState();
@@ -51,10 +57,10 @@ class _DropdownMenuExampleState extends State<DropdownMenuExample> {
         style: const TextStyle(color: Colors.black),
         underline: Container(height: 0),
         onChanged: widget.onChanged,
-        items: busNumbers.map<DropdownMenuItem<String>>((String value) {
+        items: widget.busList.map<DropdownMenuItem<String>>((dynamic bus) {
           return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
+            value: bus['id'].toString(),
+            child: Text(bus['busNumber'] == '전체 목록' ? '전체 목록' : '${bus['busNumber']}호차',)
           );
         }).toList(),
       ),

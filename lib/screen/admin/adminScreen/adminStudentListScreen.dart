@@ -23,28 +23,59 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
   List<bool> isCheckedList = [];
   String _selectedSortOrder = '오름차순';
   String? _selectedClass;
-  String? _selectedBusNumber;
+  String? _selectedBusNumber = 'all';
   List<Student> students = [];
+  List<dynamic> busList = [];
 
   @override
   void initState() {
     super.initState();
-    //fetchStudents();
+    //fetchBuses();
+    //fetchAllReservations();
   }
 
-  Future<void> fetchStudents() async {
-    final response = await http.get(Uri.parse(ApiEndPoints.adminBaseUrl + '/reservations'));
-
+  Future<void> fetchBuses() async {
+    final response = await http.get(Uri.parse(ApiEndPoints.adminBaseUrl + '/buses'));
     if (response.statusCode == 200) {
-      final data = json.decode(utf8.decode(response.bodyBytes))['data'];
-      print(data); // JSON 데이터 확인용 출력
-
       setState(() {
-        students = data.map<Student>((json) => Student.fromJson(json['user'])).toList();
+        busList = json.decode(utf8.decode(response.bodyBytes))['data'];
+        busList.insert(0, {'id': 'all', 'busNumber': '전체 목록'});
+      });
+    } else {
+      throw Exception('Failed to load buses');
+    }
+  }
+
+  Future<void> fetchReservations(String? busId) async {
+    if (busId == 'all' || busId == null) {
+      fetchAllReservations();
+      return;
+    }
+
+    final response = await http.get(Uri.parse('${ApiEndPoints.adminBaseUrl}/reservations/reservation/$busId'));
+    if (response.statusCode == 200) {
+      setState(() {
+        students = (json.decode(utf8.decode(response.bodyBytes))['data'] as List)
+            .map((data) => Student.fromJson(data['user']))
+            .toList();
         isCheckedList = List<bool>.filled(students.length, false);
       });
     } else {
-      throw Exception('Failed to load students');
+      throw Exception('Failed to load reservations');
+    }
+  }
+
+  Future<void> fetchAllReservations() async {
+    final response = await http.get(Uri.parse('${ApiEndPoints.adminBaseUrl}/reservations'));
+    if (response.statusCode == 200) {
+      setState(() {
+        students = (json.decode(utf8.decode(response.bodyBytes))['data'] as List)
+            .map((data) => Student.fromJson(data['user']))
+            .toList();
+        isCheckedList = List<bool>.filled(students.length, false);
+      });
+    } else {
+      throw Exception('Failed to load all reservations');
     }
   }
 
@@ -61,11 +92,6 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
       sortedStudents.sort((a, b) => a.id.compareTo(b.id));
     }
 
-    // 필터링 처리
-    if (_selectedClass != null) {
-      sortedStudents = sortedStudents.where((student) => student.classNumber.toString() == _selectedClass).toList();
-    }
-
     return Column(
       children: [
         const TitleWidget(title: '학생 관리'),
@@ -74,8 +100,10 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
           onBusNumberChanged: (value) {
             setState(() {
               _selectedBusNumber = value;
+              fetchReservations(value);
             });
           },
+          busList: busList,
         ),
         Container(
           width: screen.width,
@@ -145,8 +173,9 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                           Student student = sortedStudents[index];
                           return StudentRowControllWidget(
                             id: int.tryParse(student.id) ?? 0, // ID를 정수로 변환, 실패 시 0 사용
+                            uuid: student.id,
                             username: student.loginId,
-                            password: '', // Set empty password if not used
+                            password: '****', // Set empty password if not used
                             grade: student.grade,
                             classNumber: student.classNumber,
                             number: student.number,

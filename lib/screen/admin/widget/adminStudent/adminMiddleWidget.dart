@@ -8,10 +8,12 @@ import 'package:velocity_x/velocity_x.dart';
 class AdminMiddleWidget extends StatefulWidget {
   final void Function(String?) onBusNumberChanged;
   final String? selectedBusNumber;
+  final List<dynamic> busList;
 
   AdminMiddleWidget({
     required this.onBusNumberChanged,
     required this.selectedBusNumber,
+    required this.busList,
     super.key,
   });
 
@@ -60,6 +62,7 @@ class _AdminMiddleWidgetState extends State<AdminMiddleWidget> {
                     child: AlertDropdownButton(
                       onChanged: widget.onBusNumberChanged,
                       currentValue: widget.selectedBusNumber,
+                      busList: widget.busList,
                     ).pOnly(right: 20),
                   ),
                   SearchWidget(),
@@ -72,7 +75,6 @@ class _AdminMiddleWidgetState extends State<AdminMiddleWidget> {
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),
             ),
-            // You may want to add child or other properties here if needed
           ).pOnly(left: 20, right: 20),
         ],
       ),
