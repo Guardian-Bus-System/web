@@ -13,6 +13,13 @@ class SearchWidget extends StatefulWidget {
 class _SearchWidgetState extends State<SearchWidget> {
   TextEditingController _controller = TextEditingController();
 
+  void _performSearch() {
+    // Call the search callback with the current text
+    widget.onSearch(_controller.text);
+    // Optionally clear the text field after search
+    _controller.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,15 +37,14 @@ class _SearchWidgetState extends State<SearchWidget> {
         cursorColor: Colors.black,
         decoration: InputDecoration(
           suffixIcon: IconButton(
-            onPressed: () {
-              widget.onSearch(_controller.text);
-            },
+            onPressed: _performSearch,
             icon: Icon(Icons.search),
           ),
           border: InputBorder.none,
         ),
         onSubmitted: (value) {
-          widget.onSearch(value);
+          // Trigger search when Enter is pressed
+          _performSearch();
         },
       ).pOnly(right: 5, left: 5),
     );
