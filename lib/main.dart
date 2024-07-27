@@ -50,21 +50,17 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/', page: () => MainView()),
         GetPage(
-          name: '/notification',
-          page: () => const NotificationScreen(),
-          transition: Transition.downToUp
-        ),
+            name: '/notification',
+            page: () => const NotificationScreen(),
+            transition: Transition.downToUp),
         GetPage(
-          name: '/changePushRoute', 
-          page: () => const ChangeBusRouteScreen()
-        ),
+            name: '/changePushRoute', page: () => const ChangeBusRouteScreen()),
         GetPage(
-          name: '/notification/detail',
-          page: () => const NotificationDetailWidget(
-              noticeText: '임시공지입니다.',
-              dateTime: 'yyyy-mm--dd',
-            )
-        ),
+            name: '/notification/detail',
+            page: () => const NotificationDetailWidget(
+                  noticeText: '임시공지입니다.',
+                  dateTime: 'yyyy-mm--dd',
+                )),
         GetPage(name: '/login', page: () => const LoginPage()),
         GetPage(name: '/cerfication', page: () => const CerficationPage()),
       ],

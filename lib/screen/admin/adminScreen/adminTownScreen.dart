@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:capstone_front/CustomSide/responsive_screen_size.dart';
 
-class Adminplacenamesrceen extends StatefulWidget {
-  const Adminplacenamesrceen({Key? key}) : super(key: key);
+class AdminTownsrceen extends StatefulWidget {
+  const AdminTownsrceen({Key? key}) : super(key: key);
 
   @override
-  State<Adminplacenamesrceen> createState() => _AdminplacenamesrceenState();
+  State<AdminTownsrceen> createState() => _AdminTownsrceenState();
 }
 
-class _AdminplacenamesrceenState extends State<Adminplacenamesrceen> {
+class _AdminTownsrceenState extends State<AdminTownsrceen> {
   @override
   Widget build(BuildContext context) {
     ScreenSize screen = ScreenSize(context);
@@ -42,10 +42,10 @@ class _AdminplacenamesrceenState extends State<Adminplacenamesrceen> {
                     spacing: 20,
                     runSpacing: 15,
                     alignment: WrapAlignment.start,
-                    children: List.generate(3, (index) {
+                    children: List.generate(10, (index) {
                       return Container(
                         // 기본적으로 부여되는 button의 padding 요소로 인해, container width가 기본 100px + 10px 꼴이 되어버림!
-                        // 혹시 해결 방법을 알고 계신다면 해결 부탁드려요... ㅠㅠㅠㅜㅠ
+                        // 혹시 해결 방법을 알고 계신다면 해결 부탁드려요...
                         width: 110,
                         height: 40,
                         decoration: BoxDecoration(

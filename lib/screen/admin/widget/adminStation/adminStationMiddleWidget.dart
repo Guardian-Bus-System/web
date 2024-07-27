@@ -24,7 +24,7 @@ class _AdminStationMiddleWidgetState extends State<AdminStationMiddleWidget> {
 
     return SizedBox(
       width: screen.width,
-      height: screen.height * 0.07,
+      height: 35,
       child: Column(
         children: [
           Row(
@@ -34,9 +34,9 @@ class _AdminStationMiddleWidgetState extends State<AdminStationMiddleWidget> {
                 children: [
                   AliginWidget(
                     menuItems: const [
-                      {'text': '지명', 'route': ''},
-                      {'text': '마을', 'route': ''},
-                      {'text': '상세정보', 'route': ''},
+                      {'text': '지명', 'route': '/bus/item2'},
+                      {'text': '마을', 'route': '/bus/item3'},
+                      {'text': '상세정보', 'route': '/bus/item4'},
                     ],
                     screenWidth: screen.width,
                     onMenuItemTap: _onMenuItemTap,
@@ -44,7 +44,8 @@ class _AdminStationMiddleWidgetState extends State<AdminStationMiddleWidget> {
                   ),
                 ],
               ),
-              TextButton(onPressed: () {}, child: '저장'.text.xl.make())
+              TextButton(
+                  onPressed: () {}, child: '저장'.text.xl.black.bold.make())
             ],
           ),
         ],
