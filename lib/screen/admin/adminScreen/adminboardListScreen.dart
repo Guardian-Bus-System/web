@@ -1,13 +1,13 @@
-import 'dart:convert';
+import 'package:capstone_front/controller/adminController/adminStudent_controller.dart';
+import 'package:capstone_front/screen/user/widget/loadingAction.dart';
+import 'package:flutter/material.dart';
 import 'package:capstone_front/CustomSide/responsive_screen_size.dart';
 import 'package:capstone_front/model/admin/Reservation.dart';
 import 'package:capstone_front/screen/admin/widget/AdminLine.dart';
 import 'package:capstone_front/screen/admin/widget/adminStudent/adminBoardListItemWidget.dart';
 import 'package:capstone_front/screen/admin/widget/adminStudent/adminMiddleWidget.dart';
-import 'package:capstone_front/screen/admin/widget/adminTitleWidget.dart';
-import 'package:capstone_front/utils/api_endpoint.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:capstone_front/screen/admin/widget/adminTitleWidget.dart';// Import the controller
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class AdminBoardListScreen extends StatefulWidget {
@@ -24,56 +24,32 @@ class _AdminBoardListScreenState extends State<AdminBoardListScreen> {
   List<AdminReservation> reservations = [];
   String _searchQuery = '';
   List<dynamic> busList = [];
+  final AdminBoardListController _controller = AdminBoardListController();
 
   @override
   void initState() {
     super.initState();
-    fetchBuses();
-    fetchAllReservations();
+    //_loadInitialData();
   }
 
-  Future<void> fetchBuses() async {
-    final response = await http.get(Uri.parse(ApiEndPoints.adminBaseUrl + '/buses'));
-    if (response.statusCode == 200) {
-      setState(() {
-        busList = json.decode(utf8.decode(response.bodyBytes))['data'];
-        busList.insert(0, {'id': 'all', 'busNumber': '전체 목록'});
-      });
-    } else {
-      throw Exception('Failed to load buses');
+  Future<void> _loadInitialData() async {
+    try {
+      busList = await _controller.fetchBuses();
+      await _updateReservations();
+    } catch (e) {
+      // Handle errors as needed
+      print(e);
     }
   }
 
-  Future<void> fetchReservations(String? busId) async {
-    if (busId == 'all' || busId == null) {
-      fetchAllReservations();
-      return;
-    }
-
-    final response = await http.get(Uri.parse('${ApiEndPoints.adminBaseUrl}/reservations/reservation/$busId'));
-    if (response.statusCode == 200) {
-      setState(() {
-        reservations = (json.decode(utf8.decode(response.bodyBytes))['data'] as List)
-            .map((data) => AdminReservation.fromJson(data))
-            .toList();
-        isCheckedList = List<bool>.filled(reservations.length, false);
-      });
-    } else {
-      throw Exception('Failed to load reservations');
-    }
-  }
-
-  Future<void> fetchAllReservations() async {
-    final response = await http.get(Uri.parse('${ApiEndPoints.adminBaseUrl}/reservations'));
-    if (response.statusCode == 200) {
-      setState(() {
-        reservations = (json.decode(utf8.decode(response.bodyBytes))['data'] as List)
-            .map((data) => AdminReservation.fromJson(data))
-            .toList();
-        isCheckedList = List<bool>.filled(reservations.length, false);
-      });
-    } else {
-      throw Exception('Failed to load all reservations');
+  Future<void> _updateReservations() async {
+    try {
+      reservations = await _controller.fetchReservations(_selectedBusNumber);
+      isCheckedList = List<bool>.filled(reservations.length, false);
+      setState(() {});
+    } catch (e) {
+      // Handle errors as needed
+      print(e);
     }
   }
 
@@ -104,7 +80,7 @@ class _AdminBoardListScreenState extends State<AdminBoardListScreen> {
           onBusNumberChanged: (value) {
             setState(() {
               _selectedBusNumber = value;
-              fetchReservations(value);
+              _updateReservations();
             });
           },
           onSearch: _onSearch,
@@ -129,24 +105,26 @@ class _AdminBoardListScreenState extends State<AdminBoardListScreen> {
                 ],
               ),
               const AdminLine(),
-
               // 학생 목록
               SizedBox(
                 width: screen.width,
                 height: screen.height * 0.535,
-                child: ListView.builder(
-                  itemCount: filteredReservations.length,
-                  itemBuilder: (context, index) {
-                    final reservation = filteredReservations[index];
-                    final user = reservation.user;
-                    final busInfo = reservation.busInfo;
-                    return AdminBoardListItemWidget(
-                      reservation: reservation,
-                      user: user,
-                      busInfo: busInfo,
-                    );
-                  },
-                ),
+                child: reservations.isEmpty 
+                  ? const Center(child: LoadingProgressIndecatorWidget())
+                  : ListView.builder(
+                      itemCount: filteredReservations.length,
+                      itemBuilder: (context, index) {
+                        final reservation = filteredReservations[index];
+                        final user = reservation.user;
+                        final busInfo = reservation.busInfo;
+                        return AdminBoardListItemWidget(
+                          reservation: reservation,
+                          user: user,
+                          busInfo: busInfo,
+                        );
+                      },
+                    )
+                
               ).pOnly(top: 20),
             ],
           ).p(20),

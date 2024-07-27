@@ -6,7 +6,9 @@ import 'package:capstone_front/screen/admin/widget/adminStudent/adminStudentRowC
 import 'package:capstone_front/screen/admin/widget/adminTitleWidget.dart';
 import 'package:capstone_front/screen/user/widget/loadingAction.dart';
 import 'package:capstone_front/utils/api_endpoint.dart';
+import 'package:capstone_front/utils/auth_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:capstone_front/CustomSide/responsive_screen_size.dart';
 import 'package:http/http.dart' as http;
@@ -26,12 +28,13 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
   String _searchQuery = '';
   List<Student> students = [];
   List<dynamic> busList = [];
+  List<String> selectedStudentIds = []; // 추가된 코드
 
   @override
   void initState() {
     super.initState();
-    fetchBuses();
-    fetchAllReservations();
+    //fetchBuses();
+    //fetchAllReservations();
   }
 
   Future<void> fetchBuses() async {
@@ -79,10 +82,47 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
     }
   }
 
+  Future<void> deleteSelectedStudents() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? accessToken = prefs.getString('token');
+    
+    
+    if(await checkTokens()){
+      if (selectedStudentIds.isEmpty) return;
+
+      for (String id in selectedStudentIds) {
+        var url = Uri.parse(ApiEndPoints.adminBaseUrl + '/users/$id');
+        var headers = {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $accessToken'
+        };
+
+        final response = await http.delete(url, headers: headers);
+        print(response.statusCode);
+        if (response.statusCode == 200) {
+          print('Deleted student with ID: $id');
+        } else {
+          print('Failed to delete student with ID: $id');
+        }
+      }
+    }
+    // 학생 목록을 새로 고침하여 삭제된 학생들이 화면에 반영되도록 합니다.
+    fetchAllReservations();
+  }
+
   void _onSearch(String query) {
     setState(() {
       _searchQuery = query;
     });
+  }
+
+  void _updateSelectedIds() {
+    selectedStudentIds = [];
+    for (int i = 0; i < isCheckedList.length; i++) {
+      if (isCheckedList[i]) {
+        selectedStudentIds.add(students[i].id);
+      }
+    }
   }
 
   @override
@@ -142,6 +182,7 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                               isCheckedAll = value ?? false;
                               isCheckedList = List<bool>.filled(
                                   isCheckedList.length, isCheckedAll);
+                              _updateSelectedIds();
                             });
                           },
                         ),
@@ -156,11 +197,13 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                       '전화번호'.text.xl.bold.make().pOnly(left: 110)
                     ],
                   ),
-                  TextButton(
-                      onPressed: () {
-                        // Handle delete action here
+                  if (selectedStudentIds.isNotEmpty) // 삭제 버튼의 가시성 조정
+                    TextButton(
+                      onPressed: () async {
+                        // 선택된 학생들을 삭제합니다.
+                        await deleteSelectedStudents();
                       },
-                      child: Container(
+                      child: Container( 
                         width: 75,
                         height: 30,
                         decoration: BoxDecoration(
@@ -195,6 +238,7 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                             onCheckboxChanged: (value) {
                               setState(() {
                                 isCheckedList[index] = value ?? false;
+                                _updateSelectedIds();
                                 isCheckedAll = isCheckedList.every((element) => element);
                               });
                             },
