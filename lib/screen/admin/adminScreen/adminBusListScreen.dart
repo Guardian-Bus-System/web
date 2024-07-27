@@ -1,4 +1,6 @@
 //전체 버스 목록 screen
+import 'package:capstone_front/screen/admin/widget/adminBus/adminSelectMultiStationWidget.dart';
+import 'package:capstone_front/screen/admin/widget/adminBus/adminTerminusDropdownWidget.dart';
 import 'package:capstone_front/screen/admin/widget/adminTitleWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -63,10 +65,10 @@ class _AdminBusListScreenState extends State<AdminBusListScreen> {
                       // 화이팅!!!!!!
                       'id'.text.xl.bold.make().pOnly(left: 40),
                       '호차 번호'.text.xl.bold.make().pOnly(left: 40),
-                      '호차 이름'.text.xl.bold.make().pOnly(left: 40),
+                      '지역'.text.xl.bold.make().pOnly(left: 40),
                       '중간 지점'.text.xl.bold.make().pOnly(left: 40),
-                      '버스 종착지'.text.xl.bold.make().pOnly(left: 190),
-                      '좌석수'.text.xl.bold.make().pOnly(left: 170),
+                      '버스 종착지'.text.xl.bold.make().pOnly(left: 165),
+                      '좌석수'.text.xl.bold.make().pOnly(left: 190),
                       '생성 날짜'.text.xl.bold.make().pOnly(left: 40),
                       '수정 날짜'.text.xl.bold.make().pOnly(left: 60),
                     ],
@@ -143,18 +145,15 @@ class _AdminBusListScreenState extends State<AdminBusListScreen> {
                                             .xl
                                             .make()
                                             .pOnly(left: 45),
-                                        '대구방면'.text.xl.make().pOnly(left: 75),
+                                        '대구'.text.xl.make().pOnly(left: 75),
 
-                                        //중간지점 다중 선택을 어떻게 처리해야 할까..?
-                                        '중간지점 선택....'
-                                            .text
-                                            .xl
-                                            .make()
+                                        //중간지점 다중 선택 처리 완료!
+                                        SelectStationsWidget().pOnly(left: 40),
+
+                                        TerminusDropdownWidget()
                                             .pOnly(left: 40),
 
-                                        '동대구역'.text.xl.make().pOnly(left: 140),
-
-                                        '45'.text.xl.make().pOnly(left: 200),
+                                        '45'.text.xl.make().pOnly(left: 40),
                                         '2024-05-09'
                                             .text
                                             .xl
