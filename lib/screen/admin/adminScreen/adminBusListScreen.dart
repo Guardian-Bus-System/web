@@ -1,4 +1,5 @@
 //전체 버스 목록 screen
+import 'package:capstone_front/screen/admin/widget/AdminLine.dart';
 import 'package:capstone_front/screen/admin/widget/adminBus/adminSelectMultiStationWidget.dart';
 import 'package:capstone_front/screen/admin/widget/adminBus/adminTerminusDropdownWidget.dart';
 import 'package:capstone_front/screen/admin/widget/adminTitleWidget.dart';
@@ -67,7 +68,7 @@ class _AdminBusListScreenState extends State<AdminBusListScreen> {
                       '호차 번호'.text.xl.bold.make().pOnly(left: 40),
                       '지역'.text.xl.bold.make().pOnly(left: 40),
                       '중간 지점'.text.xl.bold.make().pOnly(left: 40),
-                      '버스 종착지'.text.xl.bold.make().pOnly(left: 165),
+                      '버스 종착지'.text.xl.bold.make().pOnly(left: 170),
                       '좌석수'.text.xl.bold.make().pOnly(left: 190),
                       '생성 날짜'.text.xl.bold.make().pOnly(left: 40),
                       '수정 날짜'.text.xl.bold.make().pOnly(left: 60),
@@ -85,13 +86,7 @@ class _AdminBusListScreenState extends State<AdminBusListScreen> {
                       ))
                 ],
               ),
-              Container(
-                width: screen.width,
-                height: 1,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        width: 1, color: Color.fromARGB(255, 163, 163, 163))),
-              ).pOnly(top: 10, bottom: 10),
+              AdminLine(),
 
               // 버스 목록
               SizedBox(

@@ -1,17 +1,19 @@
 import 'package:capstone_front/CustomSide/responsive_screen_size.dart';
-import 'package:capstone_front/screen/admin/widget/adminStudent/adminStudentSearchWidget.dart';
 import 'package:capstone_front/screen/admin/widget/adminStudent/adminAliginButtonWidget.dart';
 import 'package:capstone_front/screen/admin/widget/adminStudent/adminDropdownWidget.dart';
+import 'package:capstone_front/screen/admin/widget/adminStudent/adminStudentSearchWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class AdminMiddleWidget extends StatefulWidget {
   final void Function(String?) onBusNumberChanged;
+  final void Function(String) onSearch;
   final String? selectedBusNumber;
   final List<dynamic> busList;
 
   AdminMiddleWidget({
     required this.onBusNumberChanged,
+    required this.onSearch,
     required this.selectedBusNumber,
     required this.busList,
     super.key,
@@ -65,7 +67,7 @@ class _AdminMiddleWidgetState extends State<AdminMiddleWidget> {
                       busList: widget.busList,
                     ).pOnly(right: 20),
                   ),
-                  SearchWidget(),
+                  SearchWidget(onSearch: widget.onSearch),
                 ],
               ),
             ],

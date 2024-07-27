@@ -23,14 +23,15 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
   List<bool> isCheckedList = [];
   final String _selectedSortOrder = '오름차순';
   String? _selectedBusNumber = 'all';
+  String _searchQuery = '';
   List<Student> students = [];
   List<dynamic> busList = [];
 
   @override
   void initState() {
     super.initState();
-    //fetchBuses();
-    //fetchAllReservations();
+    fetchBuses();
+    fetchAllReservations();
   }
 
   Future<void> fetchBuses() async {
@@ -78,11 +79,21 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
     }
   }
 
+  void _onSearch(String query) {
+    setState(() {
+      _searchQuery = query;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenSize screen = ScreenSize(context);
 
-    List<Student> sortedStudents = List.from(students);
+    List<Student> filteredStudents = students.where((student) {
+      return student.name.contains(_searchQuery);
+    }).toList();
+
+    List<Student> sortedStudents = List.from(filteredStudents);
 
     // 정렬 처리
     if (_selectedSortOrder == '내림차순') {
@@ -102,6 +113,7 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
               fetchReservations(value);
             });
           },
+          onSearch: _onSearch,
           busList: busList,
         ),
         Container(
@@ -159,7 +171,6 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                 ],
               ),
               AdminLine(),
-
               // 학생 목록
               SizedBox(
                 width: screen.width,
@@ -195,9 +206,9 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                       ),
               )
             ],
-          ).pOnly(left: 20, right: 20, top: 20, bottom: 20),
+          ).p(20),
         )
       ],
-    ).pOnly(left: 50, right: 50, top: 25);
+    );
   }
 }
