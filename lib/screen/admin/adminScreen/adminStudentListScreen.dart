@@ -123,7 +123,7 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                             border: Border.all(width: 1, color: Colors.black)),
                         child: Checkbox(
                           checkColor: Colors.black,
-                          fillColor: MaterialStateProperty.all(Colors.white),
+                          fillColor: WidgetStateProperty.all(Colors.white),
                           value: isCheckedAll,
                           onChanged: (value) {
                             setState(() {
