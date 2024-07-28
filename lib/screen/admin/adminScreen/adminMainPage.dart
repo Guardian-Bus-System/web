@@ -50,7 +50,7 @@ class AdminMainPage extends StatelessWidget {
       case '/notice/item2':
         return Container(); //공지
       case '/students':
-        return AdminStudentListScreen();
+        return AdminStudentListScreen();  
       case '/students/item1':
         return AdminStudentListScreen(); //학생관리
       case '/students/item2':
