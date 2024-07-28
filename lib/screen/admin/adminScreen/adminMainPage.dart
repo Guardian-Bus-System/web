@@ -1,6 +1,8 @@
 import 'package:capstone_front/screen/admin/adminScreen/adminBusListScreen.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminHomeScreen.dart';
+import 'package:capstone_front/screen/admin/adminScreen/adminPlaceNameSrceen.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminStudentListScreen.dart';
+import 'package:capstone_front/screen/admin/adminScreen/adminTownScreen.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminboardListScreen.dart';
 import 'package:capstone_front/screen/admin/widget/adminHome/adminBusAndRules.dart';
 import 'package:capstone_front/screen/admin/widget/adminHome/adminMainStudent.dart';
@@ -57,6 +59,10 @@ class AdminMainPage extends StatelessWidget {
         return AdminBoardListScreen(); // 학생 탑승 내역
       case '/bus':
         return AdminBusListScreen(); //버스
+      case '/bus/item2':
+        return Adminplacenamesrceen();
+      case '/bus/item3':
+        return AdminTownsrceen();
       case '/rules':
         return AdminRulesScreen(); //규칙
       default:
@@ -178,7 +184,7 @@ class AdminMainPage extends StatelessWidget {
                           height20,
                           MenuWidget(
                             menuItems: const [
-                              {'text': '버스 목록 관리', 'route': '/buss'},
+                              {'text': '버스 목록 관리', 'route': '/bus'},
                               {'text': '행선지 관리', 'route': '/bus/item2'},
                             ],
                             screenWidth: screen.width,
