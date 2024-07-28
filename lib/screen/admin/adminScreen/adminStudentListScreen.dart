@@ -1,4 +1,7 @@
+// screen/admin/AdminStudentListScreen.dart
+
 import 'dart:convert';
+import 'package:capstone_front/controller/userController/user_controller.dart';
 import 'package:capstone_front/model/admin/Student.dart';
 import 'package:capstone_front/screen/admin/widget/AdminLine.dart';
 import 'package:capstone_front/screen/admin/widget/adminRowAddButtonWidget.dart';
@@ -9,6 +12,7 @@ import 'package:capstone_front/screen/user/widget/loadingAction.dart';
 import 'package:capstone_front/utils/api_endpoint.dart';
 import 'package:capstone_front/utils/auth_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:capstone_front/CustomSide/responsive_screen_size.dart';
@@ -22,80 +26,59 @@ class AdminStudentListScreen extends StatefulWidget {
 }
 
 class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
+  UserController userController = Get.put(UserController());
   bool isCheckedAll = false;
   List<bool> isCheckedList = [];
   final String _selectedSortOrder = '오름차순';
-  String? _selectedBusNumber = 'all';
   String _searchQuery = '';
-  List<Student> students = [];
-  List<dynamic> busList = [];
-  List<String> selectedStudentIds = []; // 추가된 코드
+  List<StudentUser> students = [];
+  List<String> selectedStudentIds = [];
 
   @override
   void initState() {
     super.initState();
-    //fetchBuses();
-    //fetchAllReservations();
+    //_getData();
   }
 
-  Future<void> fetchBuses() async {
-    final response = await http.get(Uri.parse(ApiEndPoints.adminBaseUrl + '/buses'));
-    if (response.statusCode == 200) {
-      setState(() {
-        busList = json.decode(utf8.decode(response.bodyBytes))['data'];
-        busList.insert(0, {'id': 'all', 'busNumber': '전체 목록'});
-      });
-    } else {
-      throw Exception('Failed to load buses');
-    }
-  }
+  Future<void> _getData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? accessToken = prefs.getString('token');
 
-  Future<void> fetchReservations(String? busId) async {
-    if (busId == 'all' || busId == null) {
-      fetchAllReservations();
-      return;
-    }
+    if (await checkTokens()) {
+      var url = Uri.parse(ApiEndPoints.adminBaseUrl + '/users');
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken',
+      };
 
-    final response = await http.get(Uri.parse('${ApiEndPoints.adminBaseUrl}/reservations/reservation/$busId'));
-    if (response.statusCode == 200) {
-      setState(() {
-        students = (json.decode(utf8.decode(response.bodyBytes))['data'] as List)
-            .map((data) => Student.fromJson(data['user']))
-            .toList();
-        isCheckedList = List<bool>.filled(students.length, false);
-      });
-    } else {
-      throw Exception('Failed to load reservations');
-    }
-  }
+      final response = await http.get(url, headers: headers);
+      if (response.statusCode == 200) {
+        final responseData = json.decode(utf8.decode(response.bodyBytes));
+        final List<dynamic> data = responseData['data'];
 
-  Future<void> fetchAllReservations() async {
-    final response = await http.get(Uri.parse('${ApiEndPoints.adminBaseUrl}/reservations'));
-    if (response.statusCode == 200) {
-      setState(() {
-        students = (json.decode(utf8.decode(response.bodyBytes))['data'] as List)
-            .map((data) => Student.fromJson(data['user']))
-            .toList();
-        isCheckedList = List<bool>.filled(students.length, false);
-      });
-    } else {
-      throw Exception('Failed to load all reservations');
+        setState(() {
+          students = data.map((json) => StudentUser.fromJson(json)).toList();
+          isCheckedList = List<bool>.filled(students.length, false);
+        });
+      } else {
+        // Handle error
+        print('Failed to fetch students');
+      }
     }
   }
 
   Future<void> deleteSelectedStudents() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? accessToken = prefs.getString('token');
-    
-    
-    if(await checkTokens()){
+
+    if (await checkTokens()) {
       if (selectedStudentIds.isEmpty) return;
 
       for (String id in selectedStudentIds) {
         var url = Uri.parse(ApiEndPoints.adminBaseUrl + '/users/$id');
         var headers = {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer $accessToken'
+          'Authorization': 'Bearer $accessToken',
         };
 
         final response = await http.delete(url, headers: headers);
@@ -107,8 +90,7 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
         }
       }
     }
-    // 학생 목록을 새로 고침하여 삭제된 학생들이 화면에 반영되도록 합니다.
-    fetchAllReservations();
+    _getData();
   }
 
   void _onSearch(String query) {
@@ -130,11 +112,11 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
   Widget build(BuildContext context) {
     ScreenSize screen = ScreenSize(context);
 
-    List<Student> filteredStudents = students.where((student) {
+    List<StudentUser> filteredStudents = students.where((student) {
       return student.name.contains(_searchQuery);
     }).toList();
 
-    List<Student> sortedStudents = List.from(filteredStudents);
+    List<StudentUser> sortedStudents = List.from(filteredStudents);
 
     // 정렬 처리
     if (_selectedSortOrder == '내림차순') {
@@ -147,15 +129,7 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
       children: [
         const TitleWidget(title: '학생 관리'),
         AdminMiddleWidget(
-          selectedBusNumber: _selectedBusNumber,
-          onBusNumberChanged: (value) {
-            setState(() {
-              _selectedBusNumber = value;
-              fetchReservations(value);
-            });
-          },
           onSearch: _onSearch,
-          busList: busList,
         ),
         Container(
           width: screen.width,
@@ -176,7 +150,7 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                             border: Border.all(width: 1, color: Colors.black)),
                         child: Checkbox(
                           checkColor: Colors.black,
-                          fillColor: WidgetStateProperty.all(Colors.white),
+                          fillColor: MaterialStateProperty.all(Colors.white),
                           value: isCheckedAll,
                           onChanged: (value) {
                             setState(() {
@@ -204,7 +178,7 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                         // 선택된 학생들을 삭제합니다.
                         await deleteSelectedStudents();
                       },
-                      child: Container( 
+                      child: Container(
                         width: 75,
                         height: 30,
                         decoration: BoxDecoration(
@@ -224,14 +198,14 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                     : ListView.builder(
                         itemCount: sortedStudents.length,
                         itemBuilder: (context, index) {
-                          Student student = sortedStudents[index];
+                          StudentUser student = sortedStudents[index];
                           return StudentRowControllWidget(
                             id: int.tryParse(student.id) ?? 0, // ID를 정수로 변환, 실패 시 0 사용
                             uuid: student.id,
                             username: student.loginId,
                             password: '****', // Set empty password if not used
                             grade: student.grade,
-                            classNumber: student.classNumber,
+                            classNumber: student.classNumber, // Extract class number from gradeClass if necessary
                             number: student.number,
                             name: student.name,
                             phone: student.phoneNumber,
@@ -242,10 +216,7 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                                 _updateSelectedIds();
                                 isCheckedAll = isCheckedList.every((element) => element);
                               });
-                            },
-                            onSavePressed: () {
-                              // Edit button pressed
-                            },
+                            }
                           );
                         },
                       ),

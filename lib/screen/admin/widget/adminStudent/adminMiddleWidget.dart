@@ -6,16 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class AdminMiddleWidget extends StatefulWidget {
-  final void Function(String?) onBusNumberChanged;
   final void Function(String) onSearch;
-  final String? selectedBusNumber;
-  final List<dynamic> busList;
+  final void Function(String?)? onBusNumberChanged; // 선택적 파라미터
+  final String? selectedBusNumber; // 선택적 파라미터
+  final List<dynamic>? busList; // 선택적 파라미터
 
   AdminMiddleWidget({
-    required this.onBusNumberChanged,
     required this.onSearch,
-    required this.selectedBusNumber,
-    required this.busList,
+    this.onBusNumberChanged, // 선택적 파라미터
+    this.selectedBusNumber, // 선택적 파라미터
+    this.busList, // 선택적 파라미터
     super.key,
   });
 
@@ -60,13 +60,14 @@ class _AdminMiddleWidgetState extends State<AdminMiddleWidget> {
               ),
               Row(
                 children: [
-                  Container(
-                    child: AlertDropdownButton(
-                      onChanged: widget.onBusNumberChanged,
-                      currentValue: widget.selectedBusNumber,
-                      busList: widget.busList,
-                    ).pOnly(right: 20),
-                  ),
+                  if (widget.busList != null && widget.onBusNumberChanged != null && widget.selectedBusNumber != null) // 조건부 렌더링
+                    Container(
+                      child: AlertDropdownButton(
+                        onChanged: widget.onBusNumberChanged ?? (String? value) {}, // Provide a default function
+                        currentValue: widget.selectedBusNumber,
+                        busList: widget.busList!,
+                      ).pOnly(right: 20),
+                    ),
                   SearchWidget(onSearch: widget.onSearch),
                 ],
               ),

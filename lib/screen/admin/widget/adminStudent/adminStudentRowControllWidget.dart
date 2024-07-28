@@ -1,3 +1,5 @@
+import 'package:capstone_front/controller/adminController/adminStudent_controller.dart';
+import 'package:capstone_front/screen/admin/widget/adminStudent/adminStudentTextField.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:capstone_front/screen/admin/widget/AdminLine.dart';
@@ -14,7 +16,6 @@ class StudentRowControllWidget extends StatefulWidget {
   final String phone;
   final bool isChecked;
   final ValueChanged<bool?> onCheckboxChanged;
-  final VoidCallback onSavePressed;
 
   const StudentRowControllWidget({
     Key? key,
@@ -29,7 +30,6 @@ class StudentRowControllWidget extends StatefulWidget {
     required this.phone,
     required this.isChecked,
     required this.onCheckboxChanged,
-    required this.onSavePressed,
   }) : super(key: key);
 
   @override
@@ -68,18 +68,18 @@ class _StudentRowControllWidgetState extends State<StudentRowControllWidget> {
     _phoneController = TextEditingController(text: widget.phone);
 
     // Add focus listeners to detect when any text field is focused
-    _usernameFocusNode.addListener(() => _updateEditingState(_usernameFocusNode));
-    _passwordFocusNode.addListener(() => _updateEditingState(_passwordFocusNode));
-    _gradeFocusNode.addListener(() => _updateEditingState(_gradeFocusNode));
-    _classNumberFocusNode.addListener(() => _updateEditingState(_classNumberFocusNode));
-    _numberFocusNode.addListener(() => _updateEditingState(_numberFocusNode));
-    _nameFocusNode.addListener(() => _updateEditingState(_nameFocusNode));
-    _phoneFocusNode.addListener(() => _updateEditingState(_phoneFocusNode));
+    _usernameFocusNode.addListener(() => _updateEditingState(true));
+    _passwordFocusNode.addListener(() => _updateEditingState(true));
+    _gradeFocusNode.addListener(() => _updateEditingState(true));
+    _classNumberFocusNode.addListener(() => _updateEditingState(true));
+    _numberFocusNode.addListener(() => _updateEditingState(true));
+    _nameFocusNode.addListener(() => _updateEditingState(true));
+    _phoneFocusNode.addListener(() => _updateEditingState(true));
   }
 
-  void _updateEditingState(FocusNode focusNode) {
+  void _updateEditingState(bool isEditing) {
     setState(() {
-      _isEditing = focusNode.hasFocus;
+      _isEditing = isEditing;
     });
   }
 
@@ -128,8 +128,28 @@ class _StudentRowControllWidgetState extends State<StudentRowControllWidget> {
     }
   }
 
+  Future<void> _saveData() async {
+    print('_saveData called'); // Log to indicate the function is called
+    await saveData(
+      widget.uuid,
+      _usernameController.text,
+      _passwordController.text,
+      _nameController.text,
+      _phoneController.text,
+      '${_gradeController.text}학년 ${_classNumberController.text}반',
+      int.parse(_numberController.text),
+      widget.isChecked,
+      () {
+        setState(() {
+          _isEditing = false;
+        });
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    print('Building widget, _isEditing: $_isEditing'); // Log to indicate build status
     return Column(
       children: [
         Row(
@@ -150,27 +170,35 @@ class _StudentRowControllWidgetState extends State<StudentRowControllWidget> {
                   ),
                 ),
                 '${widget.id}'.text.xl.make().pOnly(left: 40),
-                widget.username.text.xl.make().pOnly(left: 45),
+                _buildUsername(widget.username).text.xl.make().pOnly(left: 45),
                 widget.password.text.xl.make().pOnly(left: 55),
-                _buildTextField(_gradeController, '0', 165, _gradeFocusNode),
-                _buildTextField(_classNumberController, '0', 30, _classNumberFocusNode),
-                _buildTextField(_numberController, '00', 40, _numberFocusNode),
-                _buildTextField(_nameController, 'name', 40, _nameFocusNode),
-                _buildTextField(_phoneController, '000-0000-0000', 75, _phoneFocusNode),
+                buildTextField(_gradeController, '0', 165, _gradeFocusNode, _setEditingState),
+                buildTextField(_classNumberController, '0', 30, _classNumberFocusNode, _setEditingState),
+                buildTextField(_numberController, '00', 40, _numberFocusNode, _setEditingState),
+                buildTextField(_nameController, 'name', 40, _nameFocusNode, _setEditingState),
+                buildTextField(_phoneController, '000-0000-0000', 75, _phoneFocusNode, _setEditingState),
               ],
             ),
-            if (_isEditing)
-              TextButton(
-                onPressed: widget.onSavePressed,
-                child: Container(
-                  width: 75,
-                  height: 30,
-                  decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 236, 82, 82),
-                      borderRadius: BorderRadius.circular(5)),
-                  child: '저장'.text.white.center.xl.make().pOnly(top: 3),
+            TextButton(
+              onPressed: _isEditing
+                  ? () async {
+                      print('Save button pressed'); // Log to indicate button press
+                      await _saveData();
+                      print('Save operation complete'); // Log to indicate completion
+                    }
+                  : null, // 비활성화된 상태에서 버튼을 클릭할 수 없도록 설정
+              child: Container(
+                width: 75,
+                height: 30,
+                decoration: BoxDecoration(
+                  color: _isEditing
+                      ? Color.fromARGB(255, 236, 82, 82)
+                      : Colors.white, // 비활성화된 상태일 때 버튼 색상 변경
+                  borderRadius: BorderRadius.circular(5),
                 ),
+                child: '저장'.text.white.center.xl.make().pOnly(top: 3),
               ),
+            ),
           ],
         ),
         const AdminLine(),
@@ -178,33 +206,13 @@ class _StudentRowControllWidgetState extends State<StudentRowControllWidget> {
     );
   }
 
-  Widget _buildTextField(TextEditingController controller, String label, double leftPadding, FocusNode focusNode) {
-    return Padding(
-      padding: EdgeInsets.only(left: leftPadding),
-      child: SizedBox(
-        width: _getTextFieldWidth(label),
-        child: TextField(
-          controller: controller,
-          focusNode: focusNode,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-          ),
-          textAlign: TextAlign.center,
-          keyboardType: label.length < 5 ? TextInputType.number : TextInputType.text,
-          onChanged: (value) {
-            setState(() {
-              _isEditing = true;
-            });
-          },
-        ),
-      ),
-    );
+  String _buildUsername(String username) {
+    return username.padRight(11, ' ');
   }
 
-  double _getTextFieldWidth(String label) {
-    if (label.length > 5) return 150;
-    if (label.length < 2) return 40;
-    if (label.length > 2) return 74;
-    return 48;
+  void _setEditingState(bool isEditing) {
+    setState(() {
+      _isEditing = isEditing;
+    });
   }
 }

@@ -1,15 +1,71 @@
 import 'dart:convert';
+import 'dart:ui';
 import 'package:capstone_front/model/admin/Reservation.dart';
-import 'package:capstone_front/model/admin/Student.dart';
-import 'package:get/get.dart';
+import 'package:capstone_front/utils/api_endpoint.dart';
 import 'package:http/http.dart' as http;
-import '../../utils/api_endpoint.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:capstone_front/utils/auth_utils.dart';
 
-class AdminStudentController extends GetxController {
-  
+Future<void> saveData(
+  String uuid,
+  String username,
+  String password,
+  String name,
+  String phoneNumber,
+  String gradeClass,
+  int number,
+  bool isChecked,
+  VoidCallback onSuccess,
+) async {
+  print('_saveData called'); // Log to indicate the function is called
+  if (await checkTokens()) {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? accessToken = prefs.getString('token');
+    print('Token: $accessToken');
+
+    final url = Uri.parse('${ApiEndPoints.adminBaseUrl}/users/user');
+    final body = jsonEncode({
+      'id': uuid,
+      'loginId': username,
+      'pw': password,
+      'name': name,
+      'phoneNumber': phoneNumber,
+      'gradeClass': gradeClass,
+      'number': number,
+      'usingCk': isChecked,
+      'boardingCk': null,
+    });
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken',
+    };
+    print('Sending PUT request to: $url');
+    print('Body: $body');
+    try {
+      final response = await http.put(
+        url,
+        headers: headers,
+        body: body,
+      );
+
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+
+      if (response.statusCode == 200) {
+        // Handle success
+        print('Data saved successfully : ${response.statusCode}');
+        onSuccess();
+      } else {
+        // Handle error
+        print('Failed to save data: ${response.body}');
+      }
+    } catch (e) {
+      // Handle exception
+      print('Error occurred while saving data: $e');
+    }
+  }
 }
-
-
 
 //학생 탑승 내역
 class AdminBoardListController {
