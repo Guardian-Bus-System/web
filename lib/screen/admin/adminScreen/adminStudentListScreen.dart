@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:capstone_front/model/admin/Student.dart';
 import 'package:capstone_front/screen/admin/widget/AdminLine.dart';
+import 'package:capstone_front/screen/admin/widget/adminRowAddButtonWidget.dart';
 import 'package:capstone_front/screen/admin/widget/adminStudent/adminMiddleWidget.dart';
 import 'package:capstone_front/screen/admin/widget/adminStudent/adminStudentRowControllWidget.dart';
 import 'package:capstone_front/screen/admin/widget/adminTitleWidget.dart';
@@ -248,7 +249,9 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                           );
                         },
                       ),
-              )
+              ).pOnly(top: 20),
+              //추가 버튼 위젯
+              AdminRowAddButtonWidget(onPressed: () {},)
             ],
           ).p(20),
         )

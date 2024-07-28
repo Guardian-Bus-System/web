@@ -2,6 +2,7 @@
 import 'package:capstone_front/screen/admin/widget/AdminLine.dart';
 import 'package:capstone_front/screen/admin/widget/adminBus/adminSelectMultiStationWidget.dart';
 import 'package:capstone_front/screen/admin/widget/adminBus/adminTerminusDropdownWidget.dart';
+import 'package:capstone_front/screen/admin/widget/adminRowAddButtonWidget.dart';
 import 'package:capstone_front/screen/admin/widget/adminTitleWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -185,27 +186,9 @@ class _AdminBusListScreenState extends State<AdminBusListScreen> {
                             ))
                         .toList(),
                   )).pOnly(top: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(
-                      //style 폼 건들지 말것!!!!!!!!!!!!
-                      //녱(sex)
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        minimumSize: Size(40, 30),
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
-                      onPressed: () {},
-                      child: Row(children: [
-                        Icon(
-                          Icons.add,
-                          color: Colors.black,
-                        ),
-                        '추가하기'.text.black.xl.make(),
-                      ])),
-                ],
-              )
+              
+              //추가 버튼 위젯
+              AdminRowAddButtonWidget(onPressed: () {},)
             ],
           ).p(20),
         )

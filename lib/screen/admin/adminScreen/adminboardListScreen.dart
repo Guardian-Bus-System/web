@@ -1,4 +1,5 @@
 import 'package:capstone_front/controller/adminController/adminStudent_controller.dart';
+import 'package:capstone_front/screen/admin/widget/adminRowAddButtonWidget.dart';
 import 'package:capstone_front/screen/user/widget/loadingAction.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_front/CustomSide/responsive_screen_size.dart';
@@ -6,8 +7,7 @@ import 'package:capstone_front/model/admin/Reservation.dart';
 import 'package:capstone_front/screen/admin/widget/AdminLine.dart';
 import 'package:capstone_front/screen/admin/widget/adminStudent/adminBoardListItemWidget.dart';
 import 'package:capstone_front/screen/admin/widget/adminStudent/adminMiddleWidget.dart';
-import 'package:capstone_front/screen/admin/widget/adminTitleWidget.dart';// Import the controller
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:capstone_front/screen/admin/widget/adminTitleWidget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class AdminBoardListScreen extends StatefulWidget {
@@ -126,6 +126,8 @@ class _AdminBoardListScreenState extends State<AdminBoardListScreen> {
                     )
                 
               ).pOnly(top: 20),
+              //추가 버튼 위젯
+              AdminRowAddButtonWidget(onPressed: () {},)
             ],
           ).p(20),
         )
