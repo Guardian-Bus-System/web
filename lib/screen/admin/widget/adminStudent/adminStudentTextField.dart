@@ -1,3 +1,4 @@
+import 'package:capstone_front/CustomSide/responsive_screen_size.dart';
 import 'package:flutter/material.dart';
 
 Widget buildTextField(
@@ -21,6 +22,33 @@ Widget buildTextField(
         keyboardType: label.length < 5 ? TextInputType.number : TextInputType.text,
         onChanged: (value) {
           print('Text field changed: $value'); // Log to indicate text change
+          setEditingState(true);
+        },
+      ),
+    ),
+  );
+}
+Widget buildTextRuleField(
+  TextEditingController controller,
+  BuildContext context,
+  double leftPadding,
+  FocusNode focusNode,
+  Function(bool) setEditingState,
+) {
+  ScreenSize screen = ScreenSize(context);
+  return Padding(
+    padding: EdgeInsets.only(left: leftPadding),
+    child: SizedBox(
+      width: screen.width * 0.7,
+      child: TextField(
+        controller: controller,
+        focusNode: focusNode,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+        ),
+        textAlign: TextAlign.center,
+        keyboardType: TextInputType.text,
+        onChanged: (value) {
           setEditingState(true);
         },
       ),

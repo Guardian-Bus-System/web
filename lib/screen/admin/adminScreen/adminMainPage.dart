@@ -6,7 +6,7 @@ import 'package:capstone_front/screen/admin/adminScreen/adminTownScreen.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminboardListScreen.dart';
 import 'package:capstone_front/screen/admin/widget/adminHome/adminBusAndRules.dart';
 import 'package:capstone_front/screen/admin/widget/adminHome/adminMainStudent.dart';
-import 'package:capstone_front/screen/admin/widget/adminHome/adminRulesScreen.dart';
+import 'package:capstone_front/screen/admin/adminScreen/adminRulesScreen.dart';
 import 'package:capstone_front/screen/admin/widget/adminMenuButtonWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

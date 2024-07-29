@@ -164,7 +164,7 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                       ),
                       'id'.text.xl.bold.make().pOnly(left: 40),
                       '아이디'.text.xl.bold.make().pOnly(left: 40),
-                      '비밀번호'.text.xl.bold.make().pOnly(left: 105),
+                      '비밀번호'.text.xl.bold.make().pOnly(left: 155),
                       '학년'.text.xl.bold.make().pOnly(left: 125),
                       '반'.text.xl.bold.make().pOnly(left: 40),
                       '번호'.text.xl.bold.make().pOnly(left: 55),
@@ -221,6 +221,7 @@ class _AdminStudentListScreenState extends State<AdminStudentListScreen> {
                         },
                       ),
               ).pOnly(top: 20),
+              
               //추가 버튼 위젯
               AdminRowAddButtonWidget(onPressed: () {},)
             ],

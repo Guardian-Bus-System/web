@@ -170,13 +170,13 @@ class _StudentRowControllWidgetState extends State<StudentRowControllWidget> {
                   ),
                 ),
                 '${widget.id}'.text.xl.make().pOnly(left: 40),
-                _buildUsername(widget.username).text.xl.make().pOnly(left: 45),
-                widget.password.text.xl.make().pOnly(left: 55),
-                buildTextField(_gradeController, '0', 165, _gradeFocusNode, _setEditingState),
-                buildTextField(_classNumberController, '0', 30, _classNumberFocusNode, _setEditingState),
-                buildTextField(_numberController, '00', 40, _numberFocusNode, _setEditingState),
-                buildTextField(_nameController, 'name', 40, _nameFocusNode, _setEditingState),
-                buildTextField(_phoneController, '000-0000-0000', 75, _phoneFocusNode, _setEditingState),
+                buildTextField(_usernameController, widget.username, 45, _usernameFocusNode, _setEditingState),
+                buildTextField(_passwordController, widget.password, 55, _passwordFocusNode, _setEditingState),
+                buildTextField(_gradeController, '${widget.grade}', 115, _gradeFocusNode, _setEditingState),
+                buildTextField(_classNumberController, '${widget.classNumber}', 28, _classNumberFocusNode, _setEditingState),
+                buildTextField(_numberController, '00', 35, _numberFocusNode, _setEditingState),
+                buildTextField(_nameController, widget.name, 40, _nameFocusNode, _setEditingState),
+                buildTextField(_phoneController, widget.phone, 75, _phoneFocusNode, _setEditingState),
               ],
             ),
             TextButton(
@@ -205,11 +205,7 @@ class _StudentRowControllWidgetState extends State<StudentRowControllWidget> {
       ],
     );
   }
-
-  String _buildUsername(String username) {
-    return username.padRight(11, ' ');
-  }
-
+  
   void _setEditingState(bool isEditing) {
     setState(() {
       _isEditing = isEditing;
