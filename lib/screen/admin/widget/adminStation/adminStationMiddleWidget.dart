@@ -3,19 +3,16 @@ import 'package:capstone_front/screen/admin/widget/adminStudent/adminAliginButto
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class AdminStationMiddleWidget extends StatefulWidget {
-  @override
-  State<AdminStationMiddleWidget> createState() =>
-      _AdminStationMiddleWidgetState();
-}
+class AdminStationMiddleWidget extends StatelessWidget {
+  final Function(String) onMenuItemTap;
 
-class _AdminStationMiddleWidgetState extends State<AdminStationMiddleWidget> {
+  AdminStationMiddleWidget({required this.onMenuItemTap});
+
   String? _selectedSubMenu;
 
-  void _onMenuItemTap(Map<String, String> item) {
-    setState(() {
-      _selectedSubMenu = item['text'];
-    });
+  void _handleMenuItemTap(Map<String, String> item) {
+    _selectedSubMenu = item['text'];
+    onMenuItemTap(item['route']!); // 메뉴 항목 클릭 시 콜백 함수 호출
   }
 
   @override
@@ -39,7 +36,7 @@ class _AdminStationMiddleWidgetState extends State<AdminStationMiddleWidget> {
                       {'text': '상세정보', 'route': '/bus/item4'},
                     ],
                     screenWidth: screen.width,
-                    onMenuItemTap: _onMenuItemTap,
+                    onMenuItemTap: _handleMenuItemTap,
                     selectedSubMenu: _selectedSubMenu,
                   ),
                 ],

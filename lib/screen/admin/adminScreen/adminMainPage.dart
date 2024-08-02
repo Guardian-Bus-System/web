@@ -2,12 +2,12 @@ import 'package:capstone_front/screen/admin/adminScreen/adminBusListScreen.dart'
 import 'package:capstone_front/screen/admin/adminScreen/adminHomeScreen.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminPlaceNameSrceen.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminStudentListScreen.dart';
-import 'package:capstone_front/screen/admin/adminScreen/adminTownScreen.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminboardListScreen.dart';
 import 'package:capstone_front/screen/admin/widget/adminHome/adminBusAndRules.dart';
 import 'package:capstone_front/screen/admin/widget/adminHome/adminMainStudent.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminRulesScreen.dart';
 import 'package:capstone_front/screen/admin/widget/adminMenuButtonWidget.dart';
+import 'package:capstone_front/screen/admin/widget/adminStation/adminTownContent.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -60,9 +60,9 @@ class AdminMainPage extends StatelessWidget {
       case '/bus':
         return AdminBusListScreen(); //버스
       case '/bus/item2':
-        return Adminplacenamesrceen();
+        return AdminPlaceNameSrceen();
       case '/bus/item3':
-        return AdminTownsrceen();
+        return AdminTownContent();
       case '/rules':
         return AdminRulesScreen(); //규칙
       default:

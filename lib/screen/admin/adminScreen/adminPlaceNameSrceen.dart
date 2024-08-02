@@ -1,17 +1,38 @@
+import 'package:capstone_front/screen/admin/widget/adminStation/adminPlaceNameContent.dart';
 import 'package:capstone_front/screen/admin/widget/adminStation/adminStationMiddleWidget.dart';
 import 'package:capstone_front/screen/admin/widget/adminTitleWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:capstone_front/CustomSide/responsive_screen_size.dart';
 
-class Adminplacenamesrceen extends StatefulWidget {
-  const Adminplacenamesrceen({Key? key}) : super(key: key);
+class AdminPlaceNameSrceen extends StatefulWidget {
+  const AdminPlaceNameSrceen({Key? key}) : super(key: key);
 
   @override
-  State<Adminplacenamesrceen> createState() => _AdminplacenamesrceenState();
+  State<AdminPlaceNameSrceen> createState() => _AdminPlaceNameSrceenState();
 }
 
-class _AdminplacenamesrceenState extends State<Adminplacenamesrceen> {
+class _AdminPlaceNameSrceenState extends State<AdminPlaceNameSrceen> {
+  String _currentRoute = '/bus/item2'; // 초기 경로 설정
+
+  void _updateRoute(String route) {
+    setState(() {
+      _currentRoute = route;
+    });
+  }
+
+  Widget _buildContent() {
+    // 경로에 따라 다른 화면 반환
+    switch (_currentRoute) {
+      case '/bus/item2':
+        return AdminPlaceNameContent();// 지역
+      case '/bus/item3':
+        return AdminPlaceNameContent();// 마을
+      default:
+        return AdminPlaceNameContent();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenSize screen = ScreenSize(context);
@@ -26,7 +47,7 @@ class _AdminplacenamesrceenState extends State<Adminplacenamesrceen> {
               color: Colors.white, borderRadius: BorderRadius.circular(10)),
           child: Column(
             children: [
-              AdminStationMiddleWidget(),
+              AdminStationMiddleWidget(onMenuItemTap: _updateRoute),
               Container(
                 width: screen.width,
                 height: 1,
@@ -34,45 +55,9 @@ class _AdminplacenamesrceenState extends State<Adminplacenamesrceen> {
                   color: Colors.black,
                 ),
               ),
-              Container(
-                width: screen.width,
-                height: screen.height * 0.5,
-                child: Wrap(
-                    direction: Axis.horizontal,
-                    spacing: 20,
-                    runSpacing: 15,
-                    alignment: WrapAlignment.start,
-                    children: List.generate(3, (index) {
-                      return Container(
-                        // 기본적으로 부여되는 button의 padding 요소로 인해, container width가 기본 100px + 10px 꼴이 되어버림!
-                        // 혹시 해결 방법을 알고 계신다면 해결 부탁드려요... ㅠㅠㅠㅜㅠ
-                        width: 110,
-                        height: 40,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 1,
-                                color: Color.fromARGB(255, 45, 45, 45)),
-                            borderRadius: BorderRadius.circular(30)),
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.zero, // 패딩 없애기
-                          ),
-                          onPressed: () {},
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              '대구'.text.black.xl.make().pOnly(right: 5),
-                              IconButton(
-                                icon: const Icon(Icons.close),
-                                color: const Color.fromARGB(255, 45, 45, 45),
-                                onPressed: () {},
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    })).pOnly(top: 20),
-              )
+              Expanded(
+                child: _buildContent(),
+              ),
             ],
           ).p(20),
         )
@@ -80,3 +65,4 @@ class _AdminplacenamesrceenState extends State<Adminplacenamesrceen> {
     );
   }
 }
+
