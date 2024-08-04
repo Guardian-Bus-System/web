@@ -2,16 +2,21 @@ import 'package:capstone_front/CustomSide/responsive_screen_size.dart';
 import 'package:capstone_front/screen/admin/widget/adminStudent/adminAliginButtonWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:get/get.dart'; // GetX 패키지 임포트
+
+class AdminStationRouteController extends GetxController {
+  var currentRoute = '/bus/item2'.obs;
+}
 
 class AdminStationMiddleWidget extends StatelessWidget {
   final Function(String) onMenuItemTap;
 
   AdminStationMiddleWidget({required this.onMenuItemTap});
 
-  String? _selectedSubMenu;
+  final AdminStationRouteController controller = Get.put(AdminStationRouteController()); // 의존성 주입
 
   void _handleMenuItemTap(Map<String, String> item) {
-    _selectedSubMenu = item['text'];
+    controller.currentRoute.value = item['route']!;
     onMenuItemTap(item['route']!); // 메뉴 항목 클릭 시 콜백 함수 호출
   }
 
@@ -37,12 +42,14 @@ class AdminStationMiddleWidget extends StatelessWidget {
                     ],
                     screenWidth: screen.width,
                     onMenuItemTap: _handleMenuItemTap,
-                    selectedSubMenu: _selectedSubMenu,
+                    selectedSubMenu: controller.currentRoute.value,
                   ),
                 ],
               ),
               TextButton(
-                  onPressed: () {}, child: '저장'.text.xl.black.bold.make())
+                onPressed: () {}, 
+                child: '저장'.text.xl.black.bold.make(),
+              )
             ],
           ),
         ],

@@ -1,5 +1,6 @@
 import 'package:capstone_front/screen/admin/widget/adminStation/adminPlaceNameContent.dart';
 import 'package:capstone_front/screen/admin/widget/adminStation/adminStationMiddleWidget.dart';
+import 'package:capstone_front/screen/admin/widget/adminStation/adminTownContent.dart';
 import 'package:capstone_front/screen/admin/widget/adminTitleWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -27,7 +28,7 @@ class _AdminPlaceNameSrceenState extends State<AdminPlaceNameSrceen> {
       case '/bus/item2':
         return AdminPlaceNameContent();// 지역
       case '/bus/item3':
-        return AdminPlaceNameContent();// 마을
+        return AdminTownContent();// 마을
       default:
         return AdminPlaceNameContent();
     }
