@@ -1,12 +1,12 @@
 import 'package:capstone_front/screen/admin/adminScreen/adminBusListScreen.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminHomeScreen.dart';
+import 'package:capstone_front/screen/admin/adminScreen/adminNoticeScreen.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminPlaceNameSrceen.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminStudentListScreen.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminboardListScreen.dart';
-import 'package:capstone_front/screen/admin/widget/adminHome/adminBusAndRules.dart';
-import 'package:capstone_front/screen/admin/widget/adminHome/adminMainStudent.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminRulesScreen.dart';
 import 'package:capstone_front/screen/admin/widget/adminMenuButtonWidget.dart';
+import 'package:capstone_front/screen/admin/widget/adminNotice/adminNoticeAddContent.dart';
 import 'package:capstone_front/screen/admin/widget/adminStation/adminTownContent.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -48,9 +48,16 @@ class AdminMainPage extends StatelessWidget {
       case '/admin/home':
         return AdminHomeScreen(); // 홈 화면
       case '/notice/item1':
-        return Container(); //공지 화면
+        return AdminNoticesScreen(); //공지 화면
       case '/notice/item2':
-        return Container(); //공지
+        return AdminNoticeAddContent(
+          screenTitle: '공지 등록',
+          fButtonText: '게시', sButtonText: '삭제',
+          sOnPressed: () { //cancel logic
+             _toggleMenu(2);
+            _onButtonTap(2, '/notice/item1');
+          }, // 취소 로직
+        ); //공지
       case '/students':
         return AdminStudentListScreen();  
       case '/students/item1':
@@ -109,7 +116,8 @@ class AdminMainPage extends StatelessWidget {
                         screenWidth: sideMenuWidth,
                         isSelected: controller.selectedIndex.value == 2,
                         onTap: () {
-                          _onButtonTap(2, '');
+                          _toggleMenu(2);
+                          _onButtonTap(2, '/notice/item1');
                         },
                       )),
                   Obx(() {
@@ -141,6 +149,7 @@ class AdminMainPage extends StatelessWidget {
                         screenWidth: sideMenuWidth,
                         isSelected: controller.selectedIndex.value == 3,
                         onTap: () {
+                          _toggleMenu(3);
                           _onButtonTap(3, '/students');
                         },
                       )),
@@ -220,8 +229,6 @@ class AdminMainPage extends StatelessWidget {
                   color: adminMainBackgroundColor,
                 ),
                 child: Obx(() => _buildContent()),
-                // 누른 메뉴에 따른 화면 위젯을 보여줌 그래서 왼쪽에 있는 메뉴들은 다시 안 만들어도 됨
-                //예시로 AdminMainScreen() 위젯형테 처럼 Colunm 형태로 시작해서 이 파일 위에 보면 라우터 에 따른 위젯을 정해둔 곳이 있음
               ).pOnly(top: 40, left: 40, right: 40),
             ),
           ],
