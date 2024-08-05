@@ -1,20 +1,22 @@
 import 'package:get/get.dart';
 
-class AdminController extends GetxController {
-  RxInt selectedIndex = 1.obs;
-  RxString selectedSubMenu = ''.obs;
+class AdminMainController extends GetxController {
+  var selectedIndex = 1.obs;
+  var selectedSubMenu = Rxn<String>();
+  var currentRoute = ''.obs;
 
   void toggleMenu(int index) {
-    if (selectedIndex.value == index) {
-      selectedIndex.value = -1;
-      selectedSubMenu.value = '';
-    } else {
-      selectedIndex.value = index;
-      selectedSubMenu.value = '';
-    }
+    selectedIndex.value = selectedIndex.value == index ? -1 : index;
+    selectedSubMenu.value = null;
   }
 
-  void selectSubMenu(String text) {
-    selectedSubMenu.value = text;
+  void onMenuItemTap(Map<String, String> item) {
+    selectedSubMenu.value = item['text'];
+    currentRoute.value = item['route']!;
+  }
+
+  void onButtonTap(int index, String route) {
+    selectedIndex.value = index;
+    currentRoute.value = route;
   }
 }

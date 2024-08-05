@@ -1,3 +1,4 @@
+import 'package:capstone_front/controller/adminController/admin_state_controller.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminBusListScreen.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminHomeScreen.dart';
 import 'package:capstone_front/screen/admin/adminScreen/adminNoticeScreen.dart';
@@ -15,65 +16,45 @@ import 'package:capstone_front/CustomSide/responsive_screen_size.dart';
 import 'package:capstone_front/CustomSide/color_theme.dart';
 import 'package:capstone_front/CustomSide/spaceing_box.dart';
 
-class AdminController extends GetxController {
-  var selectedIndex = 1.obs;
-  var selectedSubMenu = Rxn<String>();
-  var currentRoute = ''.obs;
-}
 
 class AdminMainPage extends StatelessWidget {
   AdminMainPage({Key? key}) : super(key: key);
 
-  final AdminController controller = Get.put(AdminController());
-
-  void _toggleMenu(int index) {
-    controller.selectedIndex.value =
-        controller.selectedIndex.value == index ? -1 : index;
-    controller.selectedSubMenu.value = null;
-  }
-
-  void _onMenuItemTap(Map<String, String> item) {
-    controller.selectedSubMenu.value = item['text'];
-    controller.currentRoute.value = item['route']!;
-  }
-
-  void _onButtonTap(int index, String route) {
-    controller.selectedIndex.value = index;
-    controller.currentRoute.value = route;
-  }
+  final AdminMainController controller = Get.put(AdminMainController());
 
   Widget _buildContent() {
     //누르는 메뉴에 따른 화면 변환
     switch (controller.currentRoute.value) {
       case '/admin/home':
-        return AdminHomeScreen(); // 홈 화면
+        return const AdminHomeScreen(); // 홈 화면
       case '/notice/item1':
-        return AdminNoticesScreen(); //공지 화면
+        return const AdminNoticesScreen(); //공지 화면
       case '/notice/item2':
         return AdminNoticeAddContent(
           screenTitle: '공지 등록',
           fButtonText: '게시', sButtonText: '삭제',
-          sOnPressed: () { //cancel logic
-             _toggleMenu(2);
-            _onButtonTap(2, '/notice/item1');
-          }, // 취소 로직
+        );
+      case '/notice/update':
+        return AdminNoticeAddContent(
+          screenTitle: '공지 수정',
+          fButtonText: '수정', sButtonText: '취소',
         ); //공지
       case '/students':
-        return AdminStudentListScreen();  
+        return const AdminStudentListScreen();  
       case '/students/item1':
-        return AdminStudentListScreen(); //학생관리
+        return const AdminStudentListScreen(); //학생관리
       case '/students/item2':
-        return AdminBoardListScreen(); // 학생 탑승 내역
+        return const AdminBoardListScreen(); // 학생 탑승 내역
       case '/bus':
-        return AdminBusListScreen(); //버스
+        return const AdminBusListScreen(); //버스
       case '/bus/item2':
-        return AdminPlaceNameSrceen();
+        return const AdminPlaceNameSrceen();
       case '/bus/item3':
-        return AdminTownContent();
+        return const AdminTownContent();
       case '/rules':
-        return AdminRulesScreen(); //규칙
+        return const AdminRulesScreen(); //규칙
       default:
-        return AdminHomeScreen(); //기본 화면
+        return const AdminHomeScreen(); //기본 화면
     }
   }
 
@@ -102,8 +83,8 @@ class AdminMainPage extends StatelessWidget {
                         screenWidth: sideMenuWidth,
                         isSelected: controller.selectedIndex.value == 1,
                         onTap: () {
-                          _toggleMenu(1);
-                          _onButtonTap(1, '/admin/home');
+                          controller.toggleMenu(1);
+                          controller.onButtonTap(1, '/admin/home');
                         },
                       )),
                   height10.pOnly(top: 1),
@@ -116,8 +97,8 @@ class AdminMainPage extends StatelessWidget {
                         screenWidth: sideMenuWidth,
                         isSelected: controller.selectedIndex.value == 2,
                         onTap: () {
-                          _toggleMenu(2);
-                          _onButtonTap(2, '/notice/item1');
+                          controller.toggleMenu(2);
+                          controller.onButtonTap(2, '/notice/item1');
                         },
                       )),
                   Obx(() {
@@ -131,7 +112,7 @@ class AdminMainPage extends StatelessWidget {
                               {'text': '공지 등록', 'route': '/notice/item2'},
                             ],
                             screenWidth: screen.width,
-                            onMenuItemTap: _onMenuItemTap,
+                            onMenuItemTap: controller.onMenuItemTap,
                             selectedSubMenu: controller.selectedSubMenu.value,
                           ),
                         ],
@@ -149,8 +130,8 @@ class AdminMainPage extends StatelessWidget {
                         screenWidth: sideMenuWidth,
                         isSelected: controller.selectedIndex.value == 3,
                         onTap: () {
-                          _toggleMenu(3);
-                          _onButtonTap(3, '/students');
+                          controller.toggleMenu(3);
+                          controller.onButtonTap(3, '/students');
                         },
                       )),
                   Obx(() {
@@ -164,7 +145,7 @@ class AdminMainPage extends StatelessWidget {
                               {'text': '학생 탑승 내역', 'route': '/students/item2'},
                             ],
                             screenWidth: screen.width,
-                            onMenuItemTap: _onMenuItemTap,
+                            onMenuItemTap: controller.onMenuItemTap,
                             selectedSubMenu: controller.selectedSubMenu.value,
                           ),
                         ],
@@ -182,8 +163,8 @@ class AdminMainPage extends StatelessWidget {
                         screenWidth: sideMenuWidth,
                         isSelected: controller.selectedIndex.value == 4,
                         onTap: () {
-                          _toggleMenu(4);
-                          _onButtonTap(4, '/bus');
+                          controller.toggleMenu(4);
+                          controller.onButtonTap(4, '/bus');
                         },
                       )),
                   Obx(() {
@@ -197,7 +178,7 @@ class AdminMainPage extends StatelessWidget {
                               {'text': '행선지 관리', 'route': '/bus/item2'},
                             ],
                             screenWidth: screen.width,
-                            onMenuItemTap: _onMenuItemTap,
+                            onMenuItemTap: controller.onMenuItemTap,
                             selectedSubMenu: controller.selectedSubMenu.value,
                           ),
                         ],
@@ -215,8 +196,8 @@ class AdminMainPage extends StatelessWidget {
                         screenWidth: sideMenuWidth,
                         isSelected: controller.selectedIndex.value == 5,
                         onTap: () {
-                          _toggleMenu(5);
-                          _onButtonTap(5, '/rules');
+                          controller.toggleMenu(5);
+                          controller.onButtonTap(5, '/rules');
                         },
                       )),
                 ],

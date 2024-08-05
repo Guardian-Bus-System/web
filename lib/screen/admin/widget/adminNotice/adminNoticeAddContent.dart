@@ -1,4 +1,5 @@
 // screen/admin/AdminStudentListScreen.dart
+import 'package:capstone_front/controller/adminController/admin_state_controller.dart';
 import 'package:capstone_front/controller/userController/user_controller.dart';
 import 'package:capstone_front/model/admin/Student.dart';
 import 'package:capstone_front/screen/admin/widget/adminNotice/adminNoticeEditTitle.dart';
@@ -17,7 +18,6 @@ class AdminNoticeAddContent extends StatefulWidget {
   final String screenTitle;
   final String fButtonText;
   final String sButtonText;
-  final VoidCallback sOnPressed;
   var notice;
 
   AdminNoticeAddContent({
@@ -25,7 +25,6 @@ class AdminNoticeAddContent extends StatefulWidget {
     required this.screenTitle, 
     required this.fButtonText,
     required this.sButtonText, 
-    required this.sOnPressed,
     this.notice
   });
 
@@ -34,6 +33,7 @@ class AdminNoticeAddContent extends StatefulWidget {
 }
 
 class _AdminNoticeAddContentState extends State<AdminNoticeAddContent> {
+  final AdminMainController adminMainController = Get.find<AdminMainController>();
   UserController userController = Get.put(UserController());
   bool isCheckedAll = false;
   List<bool> isCheckedList = [];
@@ -71,6 +71,8 @@ class _AdminNoticeAddContentState extends State<AdminNoticeAddContent> {
     }
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     ScreenSize screen = ScreenSize(context);
@@ -84,7 +86,10 @@ class _AdminNoticeAddContentState extends State<AdminNoticeAddContent> {
           fonPressed: () async {
 
           },
-          cancel: widget.sOnPressed,
+          cancel: (){
+            adminMainController.toggleMenu(2);
+            adminMainController.onButtonTap(2, '/notice/item1');
+          },
         ),
         Container(
           width: screen.width,

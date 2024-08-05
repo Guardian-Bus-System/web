@@ -1,6 +1,7 @@
 // screen/admin/AdminStudentListScreen.dart
 
 import 'dart:convert';
+import 'package:capstone_front/controller/adminController/admin_state_controller.dart';
 import 'package:capstone_front/controller/userController/user_controller.dart';
 import 'package:capstone_front/model/admin/Student.dart';
 import 'package:capstone_front/screen/admin/widget/AdminLine.dart';
@@ -149,33 +150,44 @@ class _AdminNoticesScreenState extends State<AdminNoticesScreen> {
               SizedBox(
                 width: screen.width,
                 height: screen.height * 0.535,
-                child: students.isEmpty
-                    ? const Center(child: LoadingProgressIndecatorWidget())
-                    : ListView.builder(
-                        itemCount: sortedStudents.length,
-                        itemBuilder: (context, index) {
-                          StudentUser student = sortedStudents[index];
-                          return StudentRowControllWidget(
-                            id: int.tryParse(student.id) ?? 0, // ID를 정수로 변환, 실패 시 0 사용
-                            uuid: student.id,
-                            username: student.loginId,
-                            password: '****', // Set empty password if not used
-                            grade: student.grade,
-                            classNumber: student.classNumber, // Extract class number from gradeClass if necessary
-                            number: student.number,
-                            name: student.name,
-                            phone: student.phoneNumber,
-                            isChecked: isCheckedList[index],
-                            onCheckboxChanged: (value) {
-                              setState(() {
-                                isCheckedList[index] = value ?? false;
-                                _updateSelectedIds();
-                                isCheckedAll = isCheckedList.every((element) => element);
-                              });
-                            }
-                          );
-                        },
-                      ),
+                child: ListView.builder(
+                  itemCount: 10,
+                  itemBuilder: (context, index) {
+                    //StudentUser student = sortedStudents[index];
+                    return Row(
+                      children: [
+                        'linesssssssssssssssssssssssssssssssss'.text.make(),
+                        // StudentRowControllWidget(
+                        //   id: int.tryParse(student.id) ?? 0, // ID를 정수로 변환, 실패 시 0 사용
+                        //   uuid: student.id,
+                        //   username: student.loginId,
+                        //   password: '****', // Set empty password if not used
+                        //   grade: student.grade,
+                        //   classNumber: student.classNumber, // Extract class number from gradeClass if necessary
+                        //   number: student.number,
+                        //   name: student.name,
+                        //   phone: student.phoneNumber,
+                        //   isChecked: isCheckedList[index],
+                        //   onCheckboxChanged: (value) {
+                        //     setState(() {
+                        //       isCheckedList[index] = value ?? false;
+                        //       _updateSelectedIds();
+                        //       isCheckedAll = isCheckedList.every((element) => element);
+                        //     });
+                        //   }
+                        // ),
+                        TextButton(
+                          onPressed: () {
+                            final AdminMainController controller = Get.find<AdminMainController>();
+                            controller.toggleMenu(2);
+                            controller.onButtonTap(2, '/notice/update'); 
+                          }, 
+                          child: 'update'.text.make()
+                        )
+                      ],
+                    );
+                  },
+                ),
               ).pOnly(top: 20),
               
               //추가 버튼 위젯
