@@ -10,48 +10,105 @@ class AdminTownContent extends StatefulWidget {
 }
 
 class _AdminTownContentState extends State<AdminTownContent> {
+  // 예시 데이터 모델
+  final List<Map<String, dynamic>> data = [
+    {
+      'title': '대구',
+      'buttons': [
+        '버튼1',
+        '버튼2',
+        '버튼3',
+        '버튼4',
+        '버튼5',
+        '버튼6',
+        '버튼7',
+        '버튼8',
+        '버튼9',
+        '버튼1',
+        '버튼2',
+        '버튼3',
+        '버튼4',
+        '버튼5',
+        '버튼6',
+        '버튼7',
+        '버튼8',
+        '버튼9'
+      ]
+    },
+    {
+      'title': '서울',
+      'buttons': ['버튼1', '버튼2', '버튼3', '버튼4', '버튼5']
+    },
+    {
+      'title': '부산',
+      'buttons': ['버튼1', '버튼2', '버튼3']
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     ScreenSize screen = ScreenSize(context);
 
+    Widget buildRow(String title, List<String> buttons) {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          title.text.bold.xl.make().pOnly(right: 20),
+          Expanded(
+            child: Wrap(
+              spacing: 20,
+              runSpacing: 10,
+              children: buttons.map((buttonText) {
+                return Container(
+                  width: 110,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 1,
+                      color: Color.fromARGB(255, 45, 45, 45),
+                    ),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.zero, // 패딩 없애기
+                    ),
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        buttonText.text.black.xl.make().pOnly(right: 5),
+                        IconButton(
+                          padding: EdgeInsets.zero, // 패딩 없애기
+                          constraints: BoxConstraints(), // 제약 조건 제거
+                          icon: const Icon(Icons.close),
+                          color: const Color.fromARGB(255, 45, 45, 45),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+        ],
+      );
+    }
+
     return SizedBox(
       width: screen.width,
       height: screen.height * 0.5,
-      child: Wrap(
-          direction: Axis.horizontal,
-          spacing: 20,
-          runSpacing: 15,
-          alignment: WrapAlignment.start,
-          children: List.generate(10, (index) {
-            return Container(
-              // 기본적으로 부여되는 button의 padding 요소로 인해, container width가 기본 100px + 10px 꼴이 되어버림!
-              // 혹시 해결 방법을 알고 계신다면 해결 부탁드려요...
-              width: 110,
-              height: 40,
-              decoration: BoxDecoration(
-                  border: Border.all(
-                      width: 1,
-                      color: Color.fromARGB(255, 45, 45, 45)),
-                  borderRadius: BorderRadius.circular(30)),
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  padding: EdgeInsets.zero, // 패딩 없애기
-                ),
-                onPressed: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    '대구'.text.black.xl.make().pOnly(right: 5),
-                    IconButton(
-                      icon: const Icon(Icons.close),
-                      color: const Color.fromARGB(255, 45, 45, 45),
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
-              ),
+      child: SingleChildScrollView(
+        child: Column(
+          children: data.map((item) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 20.0),
+              child: buildRow(item['title'], item['buttons']),
             );
-          })).pOnly(top: 20),
+          }).toList(),
+        ).pOnly(top: 10),
+      ),
     );
   }
 }

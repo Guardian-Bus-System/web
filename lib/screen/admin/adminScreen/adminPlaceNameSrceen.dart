@@ -1,4 +1,5 @@
 import 'package:capstone_front/screen/admin/widget/adminStation/adminPlaceNameContent.dart';
+import 'package:capstone_front/screen/admin/widget/adminStation/adminStationInformContent.dart';
 import 'package:capstone_front/screen/admin/widget/adminStation/adminStationMiddleWidget.dart';
 import 'package:capstone_front/screen/admin/widget/adminStation/adminTownContent.dart';
 import 'package:capstone_front/screen/admin/widget/adminTitleWidget.dart';
@@ -26,9 +27,11 @@ class _AdminPlaceNameSrceenState extends State<AdminPlaceNameSrceen> {
     // 경로에 따라 다른 화면 반환
     switch (_currentRoute) {
       case '/bus/item2':
-        return AdminPlaceNameContent();// 지역
+        return AdminPlaceNameContent(); // 지역
       case '/bus/item3':
-        return AdminTownContent();// 마을
+        return AdminTownContent(); // 마을
+      case '/bus/item4':
+        return AdminStationInformContent(); // 상세정보
       default:
         return AdminPlaceNameContent();
     }
@@ -66,4 +69,3 @@ class _AdminPlaceNameSrceenState extends State<AdminPlaceNameSrceen> {
     );
   }
 }
-
