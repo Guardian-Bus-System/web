@@ -23,7 +23,7 @@ class _AdminRulesScreenState extends State<AdminRulesScreen> {
 
     return Column(
       children: [
-        TitleWidget(title: '규칙 관리'),
+        const TitleWidget(title: '규칙 관리'),
         height15,
         Container(
           width: screen.width,
@@ -47,7 +47,7 @@ class _AdminRulesScreenState extends State<AdminRulesScreen> {
                 child: ListView.builder(
                   itemCount: 10, // 실제 데이터 항목 수에 맞게 조정
                   itemBuilder: (context, index) {
-                    return StudentRowControllRuleWidget(
+                    return AdminRuleRowControllRuleWidget(
                       id: index,
                       content: '규칙이당$index',
                     );

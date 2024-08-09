@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:capstone_front/screen/admin/widget/AdminLine.dart';
 
-class StudentRowControllRuleWidget extends StatefulWidget {
+class AdminRuleRowControllRuleWidget extends StatefulWidget {
   final int id;
   final String content;
 
-  const StudentRowControllRuleWidget({
+  const AdminRuleRowControllRuleWidget({
     Key? key,
     required this.id,
     required this.content,
   }) : super(key: key);
 
   @override
-  _StudentRowControllRuleWidgetState createState() => _StudentRowControllRuleWidgetState();
+  _AdminRuleRowControllRuleWidgetState createState() => _AdminRuleRowControllRuleWidgetState();
 }
 
-class _StudentRowControllRuleWidgetState extends State<StudentRowControllRuleWidget> {
+class _AdminRuleRowControllRuleWidgetState extends State<AdminRuleRowControllRuleWidget> {
   late TextEditingController _contentController;
 
   // Focus nodes for each text field
@@ -48,7 +48,7 @@ class _StudentRowControllRuleWidgetState extends State<StudentRowControllRuleWid
   }
 
   @override
-  void didUpdateWidget(StudentRowControllRuleWidget oldWidget) {
+  void didUpdateWidget(AdminRuleRowControllRuleWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.content != oldWidget.content) {
       _contentController.text = widget.content;

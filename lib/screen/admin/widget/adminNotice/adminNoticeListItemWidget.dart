@@ -46,7 +46,6 @@ class _AdminNOticeListItemWidgetState extends State<AdminNOticeListItemWidget> {
   late TextEditingController _nameController;
   late TextEditingController _phoneController;
 
-
   bool _isEditing = false;
 
   @override
